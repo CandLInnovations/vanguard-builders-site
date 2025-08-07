@@ -1,103 +1,166 @@
-import Image from "next/image";
+// app/page.tsx
 
-export default function Home() {
+import React from 'react';
+import { ArrowRight, ChevronDown, Home, Wrench } from 'lucide-react';
+
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="page-content">
+      {/* Hero Section */}
+      <section className="hero">
+        {/* Background Image Placeholder */}
+        <div className="hero-background">
+          <div className="hero-overlay" />
+          {/* Placeholder for hero image */}
+          <div className="hero-image-placeholder">
+            HERO IMAGE PLACEHOLDER
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        
+        {/* Hero Content */}
+        <div className="hero-content">
+          <h1 className="hero-title">
+            Crafting 
+            <span className="hero-title-accent">
+              Architectural Excellence
+            </span>
+          </h1>
+          <p className="hero-subtitle">
+            Where visionary design meets uncompromising craftsmanship. 
+            Creating bespoke luxury homes that define generations.
+          </p>
+          <div className="hero-buttons">
+            <button className="hero-cta-primary">
+              Start Your Vision
+              <ArrowRight className="button-icon" />
+            </button>
+            <button className="hero-cta-secondary">
+              View Portfolio
+            </button>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="scroll-indicator">
+          <ChevronDown className="scroll-icon" />
+        </div>
+      </section>
+
+      {/* Custom New Home Construction Section */}
+      <section id="custom-homes" className="section section-white">
+        <div className="container">
+          <div className="section-grid">
+            <div className="section-content">
+              <div className="section-badge">
+                <Home className="badge-icon" />
+                <span className="badge-text">
+                  Custom New Homes
+                </span>
+              </div>
+              <h2 className="section-title">
+                Build Your 
+                <span className="title-accent"> Legacy</span>
+              </h2>
+              <p className="section-subtitle">
+                From initial concept to final walkthrough, we orchestrate every detail of your custom home construction. 
+                Our architectural partnerships and premium material sourcing ensure your vision becomes an extraordinary reality.
+              </p>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <div className="feature-content">
+                    <h3 className="feature-title">Architectural Collaboration</h3>
+                    <p className="feature-description">Partner with renowned architects to create your unique design</p>
+                  </div>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <div className="feature-content">
+                    <h3 className="feature-title">Premium Materials</h3>
+                    <p className="feature-description">Curated selection of the finest materials and finishes</p>
+                  </div>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <div className="feature-content">
+                    <h3 className="feature-title">Master Craftsmanship</h3>
+                    <p className="feature-description">Executed by Texas's most skilled artisans and tradespeople</p>
+                  </div>
+                </div>
+              </div>
+              <button className="section-button">
+                Explore Custom Homes
+                <ArrowRight className="button-icon" />
+              </button>
+            </div>
+            <div className="section-image">
+              {/* Image Placeholder */}
+              <div className="image-placeholder">
+                CUSTOM HOMES IMAGE
+              </div>
+              <div className="image-decoration image-decoration-right" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Luxury Home Remodeling Section */}
+      <section id="renovations" className="section section-dark">
+        <div className="container">
+          <div className="section-grid section-grid-reverse">
+            <div className="section-image">
+              {/* Image Placeholder */}
+              <div className="image-placeholder image-placeholder-dark">
+                REMODELING IMAGE
+              </div>
+              <div className="image-decoration image-decoration-left" />
+            </div>
+            <div className="section-content">
+              <div className="section-badge">
+                <Wrench className="badge-icon" />
+                <span className="badge-text">
+                  Luxury Remodeling
+                </span>
+              </div>
+              <h2 className="section-title section-title-light">
+                Transform Your 
+                <span className="title-accent"> Sanctuary</span>
+              </h2>
+              <p className="section-subtitle section-subtitle-light">
+                Breathe new life into your existing home with our comprehensive remodeling services. 
+                From kitchen and bath transformations to whole-home renovations, we elevate every space to luxury standards.
+              </p>
+              <div className="feature-list">
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <div className="feature-content">
+                    <h3 className="feature-title feature-title-light">Whole Home Renovations</h3>
+                    <p className="feature-description feature-description-light">Complete transformations that honor your home's character</p>
+                  </div>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <div className="feature-content">
+                    <h3 className="feature-title feature-title-light">Kitchen & Bath Mastery</h3>
+                    <p className="feature-description feature-description-light">Luxury spaces designed for both beauty and function</p>
+                  </div>
+                </div>
+                <div className="feature-item">
+                  <div className="feature-dot" />
+                  <div className="feature-content">
+                    <h3 className="feature-title feature-title-light">Historic Preservation</h3>
+                    <p className="feature-description feature-description-light">Respectful modernization of heritage properties</p>
+                  </div>
+                </div>
+              </div>
+              <button className="section-button section-button-accent">
+                Discover Remodeling
+                <ArrowRight className="button-icon" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
