@@ -1,7 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { Phone, ArrowRight } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,11 +51,14 @@ const Navbar = () => {
 
           {/* Center - Logo */}
           <div className="logo">
-            <img 
-              src="/logo.png" 
-              alt="Vanguard Builders" 
-              className="logo-image"
-            />
+            <Image 
+  src="/logo.png" 
+  alt="Vanguard Builders" 
+  className="logo-image"
+  width={200}
+  height={120}
+  priority
+/>
           </div>
 
           {/* Right - Secondary Navigation */}
