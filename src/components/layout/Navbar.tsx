@@ -17,7 +17,7 @@ const Navbar = () => {
   }, []);
 
   // Obfuscated phone number
-  const phoneNumber = "512-555-0123"; // Replace with actual number
+  const phoneNumber = "281-220-9087";
   const obfuscatedPhone = phoneNumber.split('').map((char, index) => 
     String.fromCharCode(char.charCodeAt(0) + (index % 2 === 0 ? 1 : -1))
   ).join('');
@@ -55,8 +55,8 @@ const Navbar = () => {
   src="/logo.png" 
   alt="Vanguard Builders" 
   className="logo-image"
-  width={200}
-  height={120}
+  width={312}
+  height={235}
   priority
 />
           </div>

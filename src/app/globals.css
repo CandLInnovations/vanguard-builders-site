@@ -109,7 +109,7 @@ body {
 .nav-left {
   display: none;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
   justify-self: start;
   margin-left: 0;
 }
@@ -128,7 +128,7 @@ body {
 }
 
 .logo-image {
-  height: 120px;
+  height: 150px;
   width: auto;
   max-width: 200px;
   object-fit: contain;
