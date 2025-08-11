@@ -1,6 +1,7 @@
 // app/page.tsx
 
 import React from 'react';
+import Image from 'next/image';
 import { ArrowRight, ChevronDown, Home, Wrench } from 'lucide-react';
 
 export default function HomePage() {
@@ -8,13 +9,17 @@ export default function HomePage() {
     <div className="page-content">
       {/* Hero Section */}
       <section className="hero">
-        {/* Background Image Placeholder */}
+        {/* Hero Background Image */}
         <div className="hero-background">
           <div className="hero-overlay" />
-          {/* Placeholder for hero image */}
-          <div className="hero-image-placeholder">
-            HERO IMAGE PLACEHOLDER
-          </div>
+          <Image
+            src="/hero-image.jpg"
+            alt="Luxury custom home exterior"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
         </div>
         
         {/* Hero Content */}
@@ -94,9 +99,14 @@ export default function HomePage() {
               </button>
             </div>
             <div className="section-image">
-              {/* Image Placeholder */}
-              <div className="image-placeholder">
-                CUSTOM HOMES IMAGE
+              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/custom-homes-image.jpg"
+                  alt="Custom luxury home construction"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
               <div className="image-decoration image-decoration-right" />
             </div>
@@ -109,9 +119,14 @@ export default function HomePage() {
         <div className="container">
           <div className="section-grid section-grid-reverse">
             <div className="section-image">
-              {/* Image Placeholder */}
-              <div className="image-placeholder image-placeholder-dark">
-                REMODELING IMAGE
+              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/remodeling-image.jpg"
+                  alt="Luxury home remodeling and renovation"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
               <div className="image-decoration image-decoration-left" />
             </div>

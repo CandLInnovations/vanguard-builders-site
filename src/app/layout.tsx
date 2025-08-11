@@ -1,10 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Raleway } from 'next/font/google';
+import { Bodoni_Moda_SC } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const raleway = Raleway({ 
+  subsets: ['latin'],
+  variable: '--font-raleway',
+});
+
+const bodoniModaSC = Bodoni_Moda_SC({ 
+  subsets: ['latin'],
+  variable: '--font-bodoni-moda-sc',
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
 
 export const metadata: Metadata = {
   title: 'Vanguard Homes - Luxury Custom Home Builder & Remodeler in Texas',
@@ -56,7 +66,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={inter.className}>
+      <body className={`${raleway.variable} ${bodoniModaSC.variable} font-sans`}>
         <Navbar />
         <main>
           {children}
