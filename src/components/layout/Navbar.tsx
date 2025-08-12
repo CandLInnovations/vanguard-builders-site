@@ -36,8 +36,20 @@ const Navbar = () => {
     <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-content">
-          {/* Left - Primary Navigation */}
-          <div className="nav-left">
+          {/* Left - Logo */}
+          <div className="logo">
+            <Image 
+  src="/vanguard-builders-text-logo.png" 
+  alt="Vanguard Builders" 
+  className="logo-image"
+  width={312}
+  height={235}
+  priority
+/>
+          </div>
+
+          {/* Right - All Navigation */}
+          <div className="nav-right">
             <a href="/custom-homes" className="nav-link">
               Custom Homes
             </a>
@@ -47,22 +59,6 @@ const Navbar = () => {
             <a href="/portfolio" className="nav-link">
               Portfolio
             </a>
-          </div>
-
-          {/* Center - Logo */}
-          <div className="logo">
-            <Image 
-  src="/logo.png" 
-  alt="Vanguard Builders" 
-  className="logo-image"
-  width={312}
-  height={235}
-  priority
-/>
-          </div>
-
-          {/* Right - Secondary Navigation */}
-          <div className="nav-right">
             {/* More Dropdown */}
             <div className="nav-dropdown">
               <button className="dropdown-trigger">

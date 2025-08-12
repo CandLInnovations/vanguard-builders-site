@@ -13,8 +13,8 @@ export default function HomePage() {
         <div className="hero-background">
           <div className="hero-overlay" />
           <Image
-            src="/hero-image.jpg"
-            alt="Luxury custom home exterior"
+            src="/custom-kitchen.jpg"
+            alt="Luxury custom home kitchen"
             fill
             className="object-cover"
             priority
@@ -24,6 +24,17 @@ export default function HomePage() {
         
         {/* Hero Content */}
         <div className="hero-content">
+          {/* Full Logo */}
+          <div className="hero-logo">
+            <Image
+              src="/vanguard-builders-logo-tp.png"
+              alt="Vanguard Builders Logo"
+              width={211}
+              height={197}
+              priority
+              className="hero-logo-image"
+            />
+          </div>
           <h1 className="hero-title">
             Crafting 
             <span className="hero-title-accent">
