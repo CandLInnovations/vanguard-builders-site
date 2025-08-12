@@ -122,10 +122,18 @@ h1, h2, h3, h4, h5, h6 {
 /* Left Logo */
 .logo {
   z-index: 40;
-  pointer-events: none;
   position: relative;
   overflow: visible;
   flex-shrink: 0;
+}
+
+.logo a {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.logo a:hover {
+  opacity: 0.8;
 }
 
 .logo-image {

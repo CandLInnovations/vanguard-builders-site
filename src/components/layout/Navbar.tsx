@@ -38,14 +38,16 @@ const Navbar = () => {
         <div className="navbar-content">
           {/* Left - Logo */}
           <div className="logo">
-            <Image 
-  src="/vanguard-builders-text-logo.png" 
-  alt="Vanguard Builders" 
-  className="logo-image"
-  width={312}
-  height={235}
-  priority
-/>
+            <a href="/">
+              <Image 
+    src="/vanguard-builders-text-logo.png" 
+    alt="Vanguard Builders" 
+    className="logo-image"
+    width={312}
+    height={235}
+    priority
+  />
+            </a>
           </div>
 
           {/* Right - All Navigation */}
