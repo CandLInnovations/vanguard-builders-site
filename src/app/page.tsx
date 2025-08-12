@@ -112,7 +112,7 @@ export default function HomePage() {
             <div className="section-image">
               <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/custom-homes-image.jpg"
+                  src="/vanguard-builders-bathroom1.jpg"
                   alt="Custom luxury home construction"
                   fill
                   className="object-cover"
