@@ -87,9 +87,9 @@ const Navbar = () => {
             </button>
 
             {/* CTA Button */}
-            <button className="cta-button">
+            <a href="/start-your-vision" className="cta-button">
               Start Your Vision
-            </button>
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -139,9 +139,9 @@ const Navbar = () => {
             <a href="/contact" className="mobile-nav-link-secondary">
               Contact
             </a>
-            <button className="mobile-cta-button">
+            <a href="/start-your-vision" className="mobile-cta-button">
               Start Your Vision
-            </button>
+            </a>
           </div>
         </div>
       )}

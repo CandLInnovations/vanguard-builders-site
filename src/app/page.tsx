@@ -46,13 +46,13 @@ export default function HomePage() {
             Creating bespoke luxury homes that define generations.
           </p>
           <div className="hero-buttons">
-            <button className="hero-cta-primary">
+            <a href="/custom-build-wizard" className="hero-cta-primary">
               Start Your Vision
               <ArrowRight className="button-icon" />
-            </button>
-            <button className="hero-cta-secondary">
-              View Portfolio
-            </button>
+            </a>
+            <a href="/remodeling-wizard" className="hero-cta-secondary">
+              Remodeling Wizard
+            </a>
           </div>
         </div>
 
@@ -104,10 +104,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <button className="section-button">
+              <a href="/custom-build-wizard" className="section-button">
                 Explore Custom Homes
                 <ArrowRight className="button-icon" />
-              </button>
+              </a>
             </div>
             <div className="section-image">
               <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
@@ -179,10 +179,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <button className="section-button section-button-accent">
+              <a href="/remodeling-wizard" className="section-button section-button-accent">
                 Discover Remodeling
                 <ArrowRight className="button-icon" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
