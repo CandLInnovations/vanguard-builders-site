@@ -31,6 +31,13 @@ export interface ContactFormData {
   referral_source?: string;
 }
 
+interface SubmissionCount {
+  hourly: number;
+  daily: number;
+  lastHour: number;
+  lastDay: number;
+}
+
 const isDev = process.env.NODE_ENV === 'development';
 const isLocalhost = typeof window !== 'undefined' && 
   (window.location.hostname === 'localhost' || 
@@ -73,7 +80,7 @@ export function useAntiSpam(config: SpamProtectionConfig, wizardType: 'remodelin
     const oneHour = 60 * 60 * 1000;
     const oneDay = 24 * oneHour;
     
-    setSubmissionCount(prev => {
+    setSubmissionCount((prev: SubmissionCount) => {
       const newCount = {
         hourly: now - prev.lastHour > oneHour ? 1 : prev.hourly + 1,
         daily: now - prev.lastDay > oneDay ? 1 : prev.daily + 1,

@@ -34,7 +34,7 @@ export function useBehaviorTracking() {
   const metricsRef = useRef(metrics);
   const lastMousePosRef = useRef({ x: 0, y: 0 });
   const lastScrollPosRef = useRef(0);
-  const scoreIntervalRef = useRef<NodeJS.Timeout>();
+  const scoreIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     metricsRef.current = metrics;

@@ -24,6 +24,7 @@ export default function SummaryStep({
   updateData, 
   onNext, 
   onBack, 
+  errors,
   wizardType,
   onRequestConsultation 
 }: SummaryStepProps) {
@@ -97,7 +98,7 @@ export default function SummaryStep({
             <div className="summary-section">
               <h3 className="summary-section-title">Project Types</h3>
               <div className="summary-list">
-                {getSelectedProjectTypes().map((type, index) => (
+                {getSelectedProjectTypes().map((type: string, index: number) => (
                   <div key={index} className="summary-list-item">{type}</div>
                 ))}
               </div>
@@ -106,7 +107,7 @@ export default function SummaryStep({
               {data.scopes && Object.keys(data.scopes).length > 0 && (
                 <div className="summary-subsection">
                   <h4 className="summary-subsection-title">Scope Selections</h4>
-                  {Object.entries(data.scopes).map(([projectType, scope]) => (
+                  {Object.entries(data.scopes).map(([projectType, scope]: [string, any]) => (
                     <div key={projectType} className="summary-detail">
                       <span className="summary-label">
                         {getOptionTitle(REMODELING_PROJECT_TYPES, projectType)}:
@@ -164,7 +165,7 @@ export default function SummaryStep({
                 <div className="summary-section">
                   <h3 className="summary-section-title">Selected Features</h3>
                   <div className="summary-list">
-                    {getSelectedFeatures().map((feature, index) => (
+                    {getSelectedFeatures().map((feature: string, index: number) => (
                       <div key={index} className="summary-list-item">{feature}</div>
                     ))}
                   </div>
@@ -188,7 +189,7 @@ export default function SummaryStep({
             <div className="summary-section">
               <h3 className="summary-section-title">Style Preferences</h3>
               <div className="summary-list">
-                {getSelectedStyles().map((style, index) => (
+                {getSelectedStyles().map((style: string, index: number) => (
                   <div key={index} className="summary-list-item">{style}</div>
                 ))}
               </div>
