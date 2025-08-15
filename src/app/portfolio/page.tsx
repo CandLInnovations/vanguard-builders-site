@@ -41,9 +41,9 @@ export default function PortfolioPage() {
       </section>
 
       {/* Toggle Section */}
-      <section className="section section-white pt-8 pb-4">
+      <section className="py-4">
         <div className="container">
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-2">
             <div className="portfolio-toggle">
               <button
                 onClick={() => setActiveSection('custom')}
@@ -66,9 +66,9 @@ export default function PortfolioPage() {
 
       {/* Custom Homes Portfolio Section */}
       {activeSection === 'custom' && (
-      <section className="section section-white pt-0">
+      <section className="section-white pt-0 pb-8">
         <div className="container">
-          <div className="text-center max-w-4xl mx-auto mb-16">
+          <div className="text-center max-w-4xl mx-auto mb-8">
             <div className="section-badge justify-center">
               <Home className="badge-icon" />
               <span className="badge-text">
@@ -149,9 +149,9 @@ export default function PortfolioPage() {
 
       {/* Renovations Portfolio Section */}
       {activeSection === 'renovations' && (
-      <section className="section section-dark pt-0">
+      <section className="section-dark pt-0 pb-8">
         <div className="container">
-          <div className="text-center max-w-4xl mx-auto mb-16">
+          <div className="text-center max-w-4xl mx-auto mb-8">
             <div className="section-badge justify-center">
               <Wrench className="badge-icon" />
               <span className="badge-text">

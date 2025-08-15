@@ -61,6 +61,9 @@ const Navbar = () => {
             <a href="/portfolio" className="nav-link">
               Portfolio
             </a>
+            <a href="/inventory" className="nav-link">
+              Inventory
+            </a>
             {/* More Dropdown */}
             <div className="nav-dropdown">
               <button className="dropdown-trigger">
@@ -118,6 +121,9 @@ const Navbar = () => {
             </a>
             <a href="/portfolio" className="mobile-nav-link">
               Portfolio
+            </a>
+            <a href="/inventory" className="mobile-nav-link">
+              Inventory
             </a>
             <button 
               onClick={handlePhoneClick}

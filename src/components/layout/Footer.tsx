@@ -50,6 +50,7 @@ const Footer = () => {
             {/* Left - Company Info */}
             <div className="footer-company">
               <h2 className="footer-company-name">Vanguard Builders, Inc.</h2>
+              <p className="footer-tagline">Crafting luxury homes with uncompromising attention to detail</p>
               <div className="footer-contact">
                 <div className="contact-item">
                   <button 

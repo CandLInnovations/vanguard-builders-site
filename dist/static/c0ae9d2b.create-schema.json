@@ -1,0 +1,572 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "A compelling title for this luxury home",
+        "name": "title",
+        "type": "string",
+        "title": "Home Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Auto-generated from title - used in the website URL",
+        "name": "slug",
+        "type": "slug",
+        "title": "URL Slug"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Available",
+              "value": "available"
+            },
+            {
+              "title": "Pending Sale",
+              "value": "pending"
+            },
+            {
+              "title": "Sold",
+              "value": "sold"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "available",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "available",
+                  "pending",
+                  "sold"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "status",
+        "type": "string",
+        "title": "Availability Status"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 100000
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Enter the price in USD (without commas or dollar sign)",
+        "name": "price",
+        "type": "number",
+        "title": "Listed Price"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 100
+              },
+              {
+                "flag": "max",
+                "constraint": 500
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Detailed description highlighting luxury features and unique selling points",
+        "name": "description",
+        "type": "text",
+        "title": "Property Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Primary image that will be featured prominently",
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Important for SEO and accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "mainImage",
+        "type": "image",
+        "title": "Main Hero Image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 20
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Additional high-quality images showcasing the property",
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              },
+              {
+                "description": "Optional caption describing what this image shows",
+                "name": "caption",
+                "type": "string",
+                "title": "Image Caption"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "gallery",
+        "type": "array",
+        "title": "Image Gallery"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 500
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Total square footage of the home",
+            "name": "squareFootage",
+            "type": "number"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 1
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 10
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "bedrooms",
+            "type": "number"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 1
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Use decimal for half baths (e.g., 3.5 for 3 full + 1 half)",
+            "name": "bathrooms",
+            "type": "number"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Lot size (e.g., \"0.5 acres\" or \"12,500 sq ft\")",
+            "name": "lotSize",
+            "type": "string"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 0
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 10
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "garageSpaces",
+            "type": "number"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 1900
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 2027
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "yearBuilt",
+            "type": "number"
+          }
+        ],
+        "name": "propertyDetails",
+        "type": "object"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Full street address or \"Address available upon request\" for privacy",
+            "name": "address",
+            "type": "string",
+            "title": "Street Address"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "city",
+            "type": "string"
+          },
+          {
+            "initialValue": "TX",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "state",
+            "type": "string"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "zipCode",
+            "type": "string",
+            "title": "ZIP Code"
+          },
+          {
+            "description": "e.g., \"River Oaks\", \"The Woodlands\"",
+            "name": "neighborhood",
+            "type": "string",
+            "title": "Neighborhood/Subdivision"
+          }
+        ],
+        "name": "location",
+        "type": "object",
+        "title": "Location Information"
+      },
+      {
+        "options": {
+          "layout": "tags"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 15
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Highlight the most impressive features of this luxury home",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "keyFeatures",
+        "type": "array",
+        "title": "Key Features & Amenities"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Modern Contemporary",
+              "value": "modern-contemporary"
+            },
+            {
+              "title": "Traditional Colonial",
+              "value": "traditional-colonial"
+            },
+            {
+              "title": "Mediterranean Villa",
+              "value": "mediterranean-villa"
+            },
+            {
+              "title": "Transitional",
+              "value": "transitional"
+            },
+            {
+              "title": "Craftsman",
+              "value": "craftsman"
+            },
+            {
+              "title": "Tudor",
+              "value": "tudor"
+            },
+            {
+              "title": "French Country",
+              "value": "french-country"
+            },
+            {
+              "title": "Custom Design",
+              "value": "custom"
+            }
+          ]
+        },
+        "name": "architecturalStyle",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optional link to 3D virtual tour or video walkthrough",
+        "name": "virtualTourUrl",
+        "type": "url",
+        "title": "Virtual Tour URL"
+      },
+      {
+        "description": "Multiple Listing Service number (if applicable)",
+        "name": "mlsNumber",
+        "type": "string",
+        "title": "MLS Number"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured to highlight on homepage",
+        "name": "featured",
+        "type": "boolean",
+        "title": "Featured Property"
+      },
+      {
+        "description": "When this listing should go live on the website",
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "Published Date"
+      }
+    ],
+    "name": "luxuryHome",
+    "type": "document",
+    "title": "Luxury Home Inventory"
+  }
+]

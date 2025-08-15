@@ -1,0 +1,116 @@
+{
+  "sampleLuxuryHome": {
+    "title": "Modern Elegance Estate",
+    "slug": {
+      "current": "modern-elegance-estate"
+    },
+    "status": "available",
+    "price": 2850000,
+    "description": "Discover unparalleled luxury in this stunning contemporary masterpiece, where every detail has been meticulously crafted to create an atmosphere of refined elegance. This extraordinary property seamlessly blends modern sophistication with timeless design elements, offering an exclusive lifestyle in one of the most prestigious neighborhoods.\n\nThe open-concept living spaces feature soaring ceilings, floor-to-ceiling windows, and premium finishes throughout. The gourmet kitchen boasts custom cabinetry, quartz countertops, and top-of-the-line appliances. The master suite offers a private retreat with a spa-like ensuite and walk-in closet.\n\nOutdoor living is equally impressive with a resort-style pool, outdoor kitchen, and beautifully landscaped grounds perfect for entertaining.",
+    "propertyDetails": {
+      "squareFootage": 4200,
+      "bedrooms": 5,
+      "bathrooms": 4.5,
+      "lotSize": "0.75 acres",
+      "garageSpaces": 3,
+      "yearBuilt": 2023
+    },
+    "location": {
+      "address": "1234 Prestige Lane",
+      "city": "Beverly Hills",
+      "state": "CA",
+      "zipCode": "90210",
+      "neighborhood": "Trousdale Estates"
+    },
+    "keyFeatures": [
+      "Gourmet kitchen with premium appliances",
+      "Master suite with spa-like ensuite",
+      "Resort-style pool and spa",
+      "Smart home automation system",
+      "Wine cellar with climate control",
+      "Home theater with premium sound",
+      "Outdoor kitchen and entertaining area",
+      "Three-car garage with electric charging",
+      "Security system with cameras",
+      "Custom millwork throughout",
+      "Hardwood floors and natural stone",
+      "Energy-efficient LED lighting",
+      "Landscaped gardens with irrigation",
+      "Private office with built-ins",
+      "Guest suite with separate entrance"
+    ],
+    "architecturalStyle": "Modern Contemporary",
+    "virtualTourUrl": "https://example.com/virtual-tour",
+    "mlsNumber": "ML12345678",
+    "featured": true,
+    "publishedAt": "2024-01-15T00:00:00.000Z"
+  },
+  "sampleLuxuryHome2": {
+    "title": "Classic Colonial Manor",
+    "slug": {
+      "current": "classic-colonial-manor"
+    },
+    "status": "available",
+    "price": 3450000,
+    "description": "Step into timeless elegance with this magnificent Colonial manor that perfectly balances traditional charm with modern luxury. Situated on beautifully manicured grounds, this stately home offers an impressive blend of classic architecture and contemporary amenities.\n\nThe grand foyer welcomes you with a sweeping staircase and crystal chandelier, setting the tone for the exceptional craftsmanship found throughout. Each room tells a story of refined living, from the formal dining room with coffered ceilings to the cozy library with built-in bookshelves.\n\nThe heart of the home features a chef's kitchen that opens to a family room with a stone fireplace, creating the perfect space for both intimate family gatherings and elegant entertaining.",
+    "propertyDetails": {
+      "squareFootage": 5800,
+      "bedrooms": 6,
+      "bathrooms": 5.5,
+      "lotSize": "1.2 acres",
+      "garageSpaces": 4,
+      "yearBuilt": 2022
+    },
+    "location": {
+      "address": "5678 Heritage Drive",
+      "city": "Greenwich",
+      "state": "CT",
+      "zipCode": "06830",
+      "neighborhood": "Round Hill"
+    },
+    "keyFeatures": [
+      "Grand foyer with sweeping staircase",
+      "Formal dining room with coffered ceilings",
+      "Library with built-in bookshelves",
+      "Chef's kitchen with butler's pantry",
+      "Master suite with sitting area",
+      "Guest quarters with kitchenette",
+      "Four-car heated garage",
+      "Tennis court with lighting",
+      "Pool house with changing rooms",
+      "Extensive millwork and moldings",
+      "Multiple fireplaces throughout",
+      "Wine cellar and tasting room",
+      "Home gym and sauna",
+      "Circular driveway entrance",
+      "Professional landscaping"
+    ],
+    "architecturalStyle": "Colonial",
+    "mlsNumber": "ML87654321",
+    "featured": true,
+    "publishedAt": "2024-01-10T00:00:00.000Z"
+  },
+  "contentInstructions": {
+    "howToUse": "This file contains sample content structure for luxury home listings. Use this as a reference when creating content in the Sanity CMS.",
+    "imageGuidelines": {
+      "mainImage": "High-quality exterior photo, preferably during golden hour",
+      "gallery": [
+        "Exterior front view",
+        "Exterior rear view with pool/patio",
+        "Kitchen with premium appliances",
+        "Master bedroom suite",
+        "Master bathroom",
+        "Living room/great room",
+        "Dining room",
+        "Home office/study",
+        "Additional bedrooms",
+        "Outdoor living spaces"
+      ]
+    },
+    "writingTips": {
+      "description": "Use luxury-focused language, highlight unique features, tell the story of the lifestyle the home offers",
+      "keyFeatures": "List specific, tangible amenities and features that set the property apart",
+      "pricing": "Always include price in USD, ensure accuracy"
+    }
+  }
+}
