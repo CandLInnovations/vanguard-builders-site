@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
 import { getHomeBySlug } from '@/lib/sanity-queries'
 import { getPreviewHomeBySlug } from '@/lib/sanity-preview'
-import { SanityImage, SanityImageGallery } from '@/components/ui/SanityImage'
+import { SanityImageGallery } from '@/components/ui/SanityImage'
 import { PreviewBanner } from '@/components/ui/PreviewBanner'
+import { urlFor } from '@/lib/sanity-image'
 
 interface HomeDetailPageProps {
   params: Promise<{
@@ -41,21 +42,24 @@ export default async function HomeDetailPage({
       {preview && <PreviewBanner />}
       
       <div className={`min-h-screen bg-white ${preview ? 'pt-14' : ''}`}>
-        {/* Hero Section */}
-        <div className="relative h-96 md:h-[600px]">
-          <SanityImage
-            image={home.mainImage}
-            alt={home.mainImage?.alt || home.title}
-            preset="hero"
-            fill
-            className="object-cover"
-            priority
-          />
+        {/* Hero Image Only - No Overlays */}
+        <div className="relative w-full h-64 md:h-96 bg-slate-200">
+          {home.mainImage ? (
+            <img 
+              src={urlFor(home.mainImage).width(1200).height(600).quality(90).url()}
+              alt={home.title}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+              <span className="text-slate-500 text-lg">Property Image Coming Soon</span>
+            </div>
+          )}
           
-          {/* Status Badge */}
+          {/* Only Badges on Image - NO TITLE */}
           {home.status !== 'available' && (
-            <div className="absolute top-8 left-8">
-              <span className={`px-4 py-2 rounded-full text-lg font-semibold ${
+            <div className="absolute top-6 left-6 z-30">
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold shadow-lg ${
                 home.status === 'pending' 
                   ? 'bg-yellow-500 text-white' 
                   : 'bg-red-500 text-white'
@@ -65,63 +69,55 @@ export default async function HomeDetailPage({
             </div>
           )}
 
-          {/* Featured Badge */}
-          {home.featured && (
-            <div className="absolute top-8 right-8">
-              <span className="bg-primary-burgundy text-white px-4 py-2 rounded-full text-lg font-semibold">
-                Featured Property
-              </span>
-            </div>
-          )}
+        </div>
 
-          {/* Title Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-8">
-            <div className="container mx-auto">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
-                {home.title}
-              </h1>
-              <p className="text-xl md:text-2xl text-white/90">
-                {home.location.address}, {home.location.city}, {home.location.state}
-              </p>
-            </div>
+        {/* Title Section - Completely Separate from Hero Image */}
+        <div className="bg-white border-b border-slate-200 py-6">
+          <div className="container mx-auto px-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2 leading-tight">
+              {home.title}
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600">
+              {home.location.address}, {home.location.city}, {home.location.state}
+            </p>
           </div>
         </div>
 
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-12">
+            <div className="lg:col-span-2 space-y-8">
               {/* Price and Key Details */}
               <div className="bg-slate-50 rounded-2xl p-8">
-                <div className="text-4xl font-bold text-primary-burgundy mb-6">
+                <div className="text-3xl font-bold text-primary-burgundy mb-4">
                   {formatPrice(home.price)}
                 </div>
                 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-slate-900">
+                    <div className="text-3xl font-bold text-slate-900 mb-2">
                       {home.propertyDetails.bedrooms}
                     </div>
-                    <div className="text-slate-600">Bedrooms</div>
+                    <div className="text-slate-600 font-medium">Bedrooms</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-slate-900">
+                    <div className="text-3xl font-bold text-slate-900 mb-2">
                       {home.propertyDetails.bathrooms}
                     </div>
-                    <div className="text-slate-600">Bathrooms</div>
+                    <div className="text-slate-600 font-medium">Bathrooms</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-slate-900">
+                    <div className="text-3xl font-bold text-slate-900 mb-2">
                       {home.propertyDetails.squareFootage?.toLocaleString()}
                     </div>
-                    <div className="text-slate-600">Sq Ft</div>
+                    <div className="text-slate-600 font-medium">Sq Ft</div>
                   </div>
                   {home.propertyDetails.garageSpaces && (
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-slate-900">
+                      <div className="text-3xl font-bold text-slate-900 mb-2">
                         {home.propertyDetails.garageSpaces}
                       </div>
-                      <div className="text-slate-600">Garage</div>
+                      <div className="text-slate-600 font-medium">Garage</div>
                     </div>
                   )}
                 </div>
@@ -193,27 +189,27 @@ export default async function HomeDetailPage({
                 <h3 className="text-xl font-bold text-slate-900 mb-4">
                   Property Details
                 </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Style</span>
-                    <span className="font-medium">{home.architecturalStyle}</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                    <span className="text-slate-600 font-medium">Style</span>
+                    <span className="font-semibold text-slate-900">{home.architecturalStyle?.charAt(0).toUpperCase() + home.architecturalStyle?.slice(1)}</span>
                   </div>
                   {home.propertyDetails.yearBuilt && (
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Year Built</span>
-                      <span className="font-medium">{home.propertyDetails.yearBuilt}</span>
+                    <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                      <span className="text-slate-600 font-medium">Year Built</span>
+                      <span className="font-semibold text-slate-900">{home.propertyDetails.yearBuilt}</span>
                     </div>
                   )}
                   {home.propertyDetails.lotSize && (
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Lot Size</span>
-                      <span className="font-medium">{home.propertyDetails.lotSize}</span>
+                    <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                      <span className="text-slate-600 font-medium">Lot Size</span>
+                      <span className="font-semibold text-slate-900">{home.propertyDetails.lotSize}</span>
                     </div>
                   )}
                   {home.mlsNumber && (
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">MLS #</span>
-                      <span className="font-medium">{home.mlsNumber}</span>
+                    <div className="flex justify-between items-center py-1">
+                      <span className="text-slate-600 font-medium">MLS #</span>
+                      <span className="font-semibold text-slate-900">{home.mlsNumber}</span>
                     </div>
                   )}
                 </div>
@@ -234,18 +230,19 @@ export default async function HomeDetailPage({
               </div>
 
               {/* Contact CTA */}
-              <div className="bg-primary-burgundy text-white rounded-2xl p-6 text-center">
-                <h3 className="text-xl font-bold mb-4">
+              <div className="bg-primary-burgundy rounded-2xl p-6 text-center" style={{ color: 'white' }}>
+                <h3 className="text-xl font-bold mb-4" style={{ color: 'white' }}>
                   Interested in This Property?
                 </h3>
-                <p className="mb-6">
+                <p className="mb-6" style={{ color: 'white' }}>
                   Contact us today to schedule a private showing.
                 </p>
                 <a
-                  href="/contact"
-                  className="bg-white text-primary-burgundy px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors inline-block"
+                  href={`/schedule-showing?property=${encodeURIComponent(home.title)}`}
+                  className="px-6 py-3 rounded-lg font-semibold hover:bg-slate-100 transition-colors inline-block mb-4"
+                  style={{ display: 'inline-block', backgroundColor: 'white', color: '#8B1538', padding: '12px 24px', textDecoration: 'none', borderRadius: '8px', marginBottom: '16px' }}
                 >
-                  Contact Us
+                  Schedule Showing
                 </a>
               </div>
 
@@ -259,6 +256,11 @@ export default async function HomeDetailPage({
               )}
             </div>
           </div>
+        </div>
+        
+        {/* Additional spacing before footer */}
+        <div className="py-8 bg-white">
+          <span className="text-white select-none">.</span>
         </div>
       </div>
     </>

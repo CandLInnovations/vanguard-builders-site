@@ -110,10 +110,28 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
+              <form 
+                onSubmit={handleSubmit} 
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '24px',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                  padding: '40px',
+                  border: '1px solid #f1f5f9'
+                }}
+              >
+                <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-slate-900 mb-2">
+                    <label 
+                      htmlFor="name" 
+                      style={{
+                        display: 'block',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: '#1e293b',
+                        marginBottom: '12px'
+                      }}
+                    >
                       Full Name *
                     </label>
                     <input
@@ -123,12 +141,41 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors"
+                      style={{
+                        width: '100%',
+                        padding: '16px 24px',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        backgroundColor: '#f8fafc',
+                        fontSize: '16px',
+                        color: '#1e293b',
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
                       placeholder="Your name"
+                      onFocus={(e) => {
+                        e.target.style.backgroundColor = 'white';
+                        e.target.style.borderColor = '#8B1538';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.backgroundColor = '#f8fafc';
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-slate-900 mb-2">
+                    <label 
+                      htmlFor="phone" 
+                      style={{
+                        display: 'block',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: '#1e293b',
+                        marginBottom: '12px'
+                      }}
+                    >
                       Phone Number *
                     </label>
                     <input
@@ -138,14 +185,43 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors"
+                      style={{
+                        width: '100%',
+                        padding: '16px 24px',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        backgroundColor: '#f8fafc',
+                        fontSize: '16px',
+                        color: '#1e293b',
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
                       placeholder="(555) 123-4567"
+                      onFocus={(e) => {
+                        e.target.style.backgroundColor = 'white';
+                        e.target.style.borderColor = '#8B1538';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.backgroundColor = '#f8fafc';
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
+                <div style={{ marginTop: '24px' }}>
+                  <label 
+                    htmlFor="email" 
+                    style={{
+                      display: 'block',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      color: '#1e293b',
+                      marginBottom: '12px'
+                    }}
+                  >
                     Email Address *
                   </label>
                   <input
@@ -155,13 +231,42 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors"
+                    style={{
+                      width: '100%',
+                      padding: '16px 24px',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                      backgroundColor: '#f8fafc',
+                      fontSize: '16px',
+                      color: '#1e293b',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
                     placeholder="your.email@example.com"
+                    onFocus={(e) => {
+                      e.target.style.backgroundColor = 'white';
+                      e.target.style.borderColor = '#8B1538';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.backgroundColor = '#f8fafc';
+                      e.target.style.borderColor = '#e2e8f0';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="projectType" className="block text-sm font-semibold text-slate-900 mb-2">
+                <div style={{ marginTop: '24px' }}>
+                  <label 
+                    htmlFor="projectType" 
+                    style={{
+                      display: 'block',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      color: '#1e293b',
+                      marginBottom: '12px'
+                    }}
+                  >
                     Project Type *
                   </label>
                   <select
@@ -170,7 +275,27 @@ export default function ContactPage() {
                     value={formData.projectType}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors"
+                    style={{
+                      width: '100%',
+                      padding: '16px 24px',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                      backgroundColor: '#f8fafc',
+                      fontSize: '16px',
+                      color: '#1e293b',
+                      transition: 'all 0.3s ease',
+                      outline: 'none'
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.backgroundColor = 'white';
+                      e.target.style.borderColor = '#8B1538';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.backgroundColor = '#f8fafc';
+                      e.target.style.borderColor = '#e2e8f0';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   >
                     <option value="">Select project type</option>
                     <option value="custom-home">Custom Home</option>
@@ -183,9 +308,18 @@ export default function ContactPage() {
                   </select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-6" style={{ marginTop: '24px' }}>
                   <div>
-                    <label htmlFor="timeline" className="block text-sm font-semibold text-slate-900 mb-2">
+                    <label 
+                      htmlFor="timeline" 
+                      style={{
+                        display: 'block',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: '#1e293b',
+                        marginBottom: '12px'
+                      }}
+                    >
                       Desired Timeline
                     </label>
                     <select
@@ -193,7 +327,27 @@ export default function ContactPage() {
                       name="timeline"
                       value={formData.timeline}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors"
+                      style={{
+                        width: '100%',
+                        padding: '16px 24px',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        backgroundColor: '#f8fafc',
+                        fontSize: '16px',
+                        color: '#1e293b',
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.backgroundColor = 'white';
+                        e.target.style.borderColor = '#8B1538';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.backgroundColor = '#f8fafc';
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     >
                       <option value="">Select timeline</option>
                       <option value="asap">ASAP</option>
@@ -204,7 +358,16 @@ export default function ContactPage() {
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-semibold text-slate-900 mb-2">
+                    <label 
+                      htmlFor="budget" 
+                      style={{
+                        display: 'block',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        color: '#1e293b',
+                        marginBottom: '12px'
+                      }}
+                    >
                       Budget Range
                     </label>
                     <select
@@ -212,7 +375,27 @@ export default function ContactPage() {
                       name="budget"
                       value={formData.budget}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors"
+                      style={{
+                        width: '100%',
+                        padding: '16px 24px',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        backgroundColor: '#f8fafc',
+                        fontSize: '16px',
+                        color: '#1e293b',
+                        transition: 'all 0.3s ease',
+                        outline: 'none'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.backgroundColor = 'white';
+                        e.target.style.borderColor = '#8B1538';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.backgroundColor = '#f8fafc';
+                        e.target.style.borderColor = '#e2e8f0';
+                        e.target.style.boxShadow = 'none';
+                      }}
                     >
                       <option value="">Select budget range</option>
                       <option value="50k-100k">$50K - $100K</option>
@@ -224,30 +407,86 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-slate-900 mb-2">
+                <div style={{ marginTop: '24px' }}>
+                  <label 
+                    htmlFor="message" 
+                    style={{
+                      display: 'block',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      color: '#1e293b',
+                      marginBottom: '12px'
+                    }}
+                  >
                     Project Details
                   </label>
                   <textarea
                     id="message"
                     name="message"
-                    rows={4}
+                    rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-burgundy focus:border-primary-burgundy transition-colors resize-vertical"
+                    style={{
+                      width: '100%',
+                      padding: '16px 24px',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                      backgroundColor: '#f8fafc',
+                      fontSize: '16px',
+                      color: '#1e293b',
+                      transition: 'all 0.3s ease',
+                      outline: 'none',
+                      resize: 'none',
+                      fontFamily: 'inherit'
+                    }}
                     placeholder="Tell us about your project vision, specific requirements, or any questions you have..."
+                    onFocus={(e) => {
+                      e.target.style.backgroundColor = 'white';
+                      e.target.style.borderColor = '#8B1538';
+                      e.target.style.boxShadow = '0 0 0 3px rgba(139, 21, 56, 0.1)';
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.backgroundColor = '#f8fafc';
+                      e.target.style.borderColor = '#e2e8f0';
+                      e.target.style.boxShadow = 'none';
+                    }}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-primary-burgundy hover:bg-primary-burgundy-hover text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  style={{
+                    width: '100%',
+                    marginTop: '32px',
+                    background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    padding: '20px 32px',
+                    borderRadius: '12px',
+                    fontSize: '18px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.02)';
+                    e.currentTarget.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.2)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+                  }}
                 >
                   Send Message
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-6 h-6" />
                 </button>
 
-                <p className="text-sm text-slate-600 text-center">
+                <p style={{ fontSize: '14px', color: '#94a3b8', fontStyle: 'italic', textAlign: 'center', marginTop: '24px' }}>
                   We'll respond within 24 hours. For urgent matters, please call us directly.
                 </p>
               </form>
@@ -269,102 +508,281 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              <div className="space-y-6 mb-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-burgundy rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Phone</h3>
-                    <button 
-                      onClick={handlePhoneClick}
-                      className="text-primary-burgundy hover:text-primary-burgundy-hover font-medium transition-colors"
+              <div 
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '24px',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                  padding: '32px',
+                  border: '1px solid #f1f5f9',
+                  marginBottom: '32px'
+                }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                    <div 
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 10px 25px -5px rgba(139, 21, 56, 0.3)'
+                      }}
                     >
-                      {phoneNumber}
-                    </button>
-                    <p className="text-sm text-slate-600">Mon-Fri 8:00 AM - 6:00 PM</p>
+                      <Phone className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px', fontSize: '18px' }}>Phone</h3>
+                      <button 
+                        onClick={handlePhoneClick}
+                        style={{
+                          color: '#8B1538',
+                          fontWeight: '600',
+                          fontSize: '16px',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          textDecoration: 'none',
+                          transition: 'color 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#a21650'}
+                        onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#8B1538'}
+                      >
+                        {phoneNumber}
+                      </button>
+                      <p style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>Mon-Fri 8:00 AM - 6:00 PM</p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-burgundy rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
-                    <a 
-                      href="mailto:office@vanguardbuilders.com"
-                      className="text-primary-burgundy hover:text-primary-burgundy-hover font-medium transition-colors"
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                    <div 
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 10px 25px -5px rgba(139, 21, 56, 0.3)'
+                      }}
                     >
-                      office@vanguardbuilders.com
-                    </a>
-                    <p className="text-sm text-slate-600">We respond within 24 hours</p>
+                      <Mail className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px', fontSize: '18px' }}>Email</h3>
+                      <a 
+                        href="mailto:office@vanguardbuilders.com"
+                        style={{
+                          color: '#8B1538',
+                          fontWeight: '600',
+                          fontSize: '16px',
+                          textDecoration: 'none',
+                          transition: 'color 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#a21650'}
+                        onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#8B1538'}
+                      >
+                        office@vanguardbuilders.com
+                      </a>
+                      <p style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>We respond within 24 hours</p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-burgundy rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Office</h3>
-                    <button 
-                      onClick={handleAddressClick}
-                      className="text-primary-burgundy hover:text-primary-burgundy-hover font-medium transition-colors block"
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                    <div 
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 10px 25px -5px rgba(139, 21, 56, 0.3)'
+                      }}
                     >
-                      2300 Woodforest Pkwy N<br />
-                      Ste 250-442<br />
-                      Montgomery, TX 77316
-                    </button>
-                    <p className="text-sm text-slate-600">Click for directions</p>
+                      <MapPin className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px', fontSize: '18px' }}>Office</h3>
+                      <button 
+                        onClick={handleAddressClick}
+                        style={{
+                          color: '#8B1538',
+                          fontWeight: '600',
+                          fontSize: '16px',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          textDecoration: 'none',
+                          transition: 'color 0.3s ease',
+                          textAlign: 'left',
+                          lineHeight: '1.5'
+                        }}
+                        onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#a21650'}
+                        onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#8B1538'}
+                      >
+                        2300 Woodforest Pkwy N<br />
+                        Ste 250-442<br />
+                        Montgomery, TX 77316
+                      </button>
+                      <p style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>Click for directions</p>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary-burgundy rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Office Hours</h3>
-                    <div className="text-slate-700">
-                      <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                      <p>Saturday: 9:00 AM - 4:00 PM</p>
-                      <p>Sunday: By appointment only</p>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
+                    <div 
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                        borderRadius: '16px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 10px 25px -5px rgba(139, 21, 56, 0.3)'
+                      }}
+                    >
+                      <Clock className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <h3 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px', fontSize: '18px' }}>Office Hours</h3>
+                      <div style={{ color: '#475569', fontSize: '16px', lineHeight: '1.6' }}>
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                        <p>Saturday: 9:00 AM - 4:00 PM</p>
+                        <p>Sunday: By appointment only</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Quick Start Options */}
-              <div className="bg-slate-50 rounded-xl p-6">
-                <h3 className="font-semibold text-slate-900 mb-4">Quick Start Options</h3>
-                <div className="space-y-3">
+              <div 
+                style={{
+                  backgroundColor: 'white',
+                  borderRadius: '24px',
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+                  padding: '32px',
+                  border: '1px solid #f1f5f9'
+                }}
+              >
+                <h3 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '24px', fontSize: '20px' }}>
+                  Quick Start Options
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <a 
                     href="/custom-build-wizard" 
-                    className="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-primary-burgundy transition-colors group"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      padding: '20px',
+                      backgroundColor: '#f8fafc',
+                      borderRadius: '16px',
+                      border: '2px solid #e2e8f0',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#8B1538';
+                      e.currentTarget.style.backgroundColor = 'white';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#e2e8f0';
+                      e.currentTarget.style.backgroundColor = '#f8fafc';
+                      e.currentTarget.style.transform = 'translateY(0px)';
+                      e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                    }}
                   >
-                    <div className="w-10 h-10 bg-primary-burgundy rounded-lg flex items-center justify-center group-hover:bg-primary-burgundy-hover transition-colors">
-                      <Home className="w-5 h-5 text-white" />
+                    <div 
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                        borderRadius: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 8px 20px -4px rgba(139, 21, 56, 0.3)'
+                      }}
+                    >
+                      <Home className="w-6 h-6 text-white" />
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900">Custom Build Wizard</div>
-                      <div className="text-sm text-slate-600">Start planning your custom home</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '16px', marginBottom: '4px' }}>
+                        Custom Build Wizard
+                      </div>
+                      <div style={{ fontSize: '14px', color: '#64748b' }}>
+                        Start planning your custom home
+                      </div>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-primary-burgundy ml-auto transition-colors" />
+                    <ArrowRight className="w-6 h-6" style={{ color: '#94a3b8', transition: 'color 0.3s ease' }} />
                   </a>
                   
                   <a 
                     href="/remodeling-wizard" 
-                    className="flex items-center gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-primary-burgundy transition-colors group"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      padding: '20px',
+                      backgroundColor: '#f8fafc',
+                      borderRadius: '16px',
+                      border: '2px solid #e2e8f0',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#8B1538';
+                      e.currentTarget.style.backgroundColor = 'white';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.15)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#e2e8f0';
+                      e.currentTarget.style.backgroundColor = '#f8fafc';
+                      e.currentTarget.style.transform = 'translateY(0px)';
+                      e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                    }}
                   >
-                    <div className="w-10 h-10 bg-primary-burgundy rounded-lg flex items-center justify-center group-hover:bg-primary-burgundy-hover transition-colors">
-                      <Wrench className="w-5 h-5 text-white" />
+                    <div 
+                      style={{
+                        width: '48px',
+                        height: '48px',
+                        background: 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
+                        borderRadius: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        boxShadow: '0 8px 20px -4px rgba(139, 21, 56, 0.3)'
+                      }}
+                    >
+                      <Wrench className="w-6 h-6 text-white" />
                     </div>
-                    <div>
-                      <div className="font-medium text-slate-900">Remodeling Wizard</div>
-                      <div className="text-sm text-slate-600">Plan your renovation project</div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '16px', marginBottom: '4px' }}>
+                        Remodeling Wizard
+                      </div>
+                      <div style={{ fontSize: '14px', color: '#64748b' }}>
+                        Plan your renovation project
+                      </div>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-primary-burgundy ml-auto transition-colors" />
+                    <ArrowRight className="w-6 h-6" style={{ color: '#94a3b8', transition: 'color 0.3s ease' }} />
                   </a>
                 </div>
               </div>
@@ -383,26 +801,25 @@ export default function ContactPage() {
             </div>
             <h2 className="section-title section-title-light">
               Proudly Serving
-              <span className="title-accent"> Greater Houston</span>
+              <span className="title-accent"> Northern Houston</span>
             </h2>
             <p className="section-subtitle section-subtitle-light">
               We bring our luxury home building and renovation expertise to communities 
-              throughout the Houston metropolitan area.
+              throughout the Northern Houston area.
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div className="service-area">Houston</div>
-            <div className="service-area">Katy</div>
+            <div className="service-area">North Houston</div>
+            <div className="service-area">Spring</div>
             <div className="service-area">Cypress</div>
             <div className="service-area">The Woodlands</div>
-            <div className="service-area">Spring</div>
-            <div className="service-area">Sugar Land</div>
-            <div className="service-area">Richmond</div>
-            <div className="service-area">Fulshear</div>
             <div className="service-area">Tomball</div>
             <div className="service-area">Conroe</div>
-            <div className="service-area">Pearland</div>
+            <div className="service-area">Montgomery</div>
+            <div className="service-area">Willis</div>
+            <div className="service-area">Kingwood</div>
+            <div className="service-area">Huntsville</div>
             <div className="service-area-plus">& Surrounding Areas</div>
           </div>
         </div>

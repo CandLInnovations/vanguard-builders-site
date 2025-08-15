@@ -47,7 +47,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
       <div className="text-center py-20">
         <div className="max-w-md mx-auto bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-200 rounded-2xl p-8 shadow-lg">
           <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 18.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
@@ -73,7 +73,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
       <div className="text-center py-20">
         <div className="max-w-2xl mx-auto">
           <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-8">
-            <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-12 h-12 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 21l4-4 4 4" />
             </svg>
@@ -98,14 +98,10 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {homes.map((home: LuxuryHome) => (
-        <Link
-          key={home._id}
-          href={`/inventory/${home.slug.current}${preview ? '?preview=true' : ''}`}
-          className="group block"
-        >
-          <div className="bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2 border border-slate-100">
+        <div key={home._id} className="group">
+          <div className="inventory-card bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-slate-300">
             {/* Status and Featured Badges */}
             <div className="relative">
               {home.status !== 'available' && (
@@ -129,7 +125,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
               )}
 
               {/* Main Image */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[3/2] aspect-ratio-32 overflow-hidden">
                 {home.mainImage ? (
                   <Image
                     src={urlFor(home.mainImage).width(800).height(600).quality(90).url()}
@@ -140,7 +136,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                   />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                    <svg className="w-16 h-16 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-16 h-16 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 21l4-4 4 4" />
                     </svg>
@@ -151,53 +147,103 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
 
             {/* Content */}
             <div className="p-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-primary-burgundy transition-colors line-clamp-2">
-                {home.title}
-              </h3>
+              <Link 
+                href={`/inventory/${home.slug.current}${preview ? '?preview=true' : ''}`}
+                className="block mb-4"
+              >
+                <h3 className="text-xl font-bold text-slate-900 hover:text-primary-burgundy transition-colors line-clamp-2">
+                  {home.title}
+                </h3>
+              </Link>
               
-              <div className="text-3xl font-bold text-primary-burgundy mb-4">
+              <div className="text-2xl font-bold text-primary-burgundy mb-4">
                 {formatPrice(home.price)}
               </div>
 
-              <div className="flex items-center justify-between text-slate-600 mb-4">
-                <div className="flex items-center space-x-1">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="grid grid-cols-3 gap-4 text-slate-600 mb-4">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
                   </svg>
-                  <span className="font-semibold">{home.propertyDetails.bedrooms}</span>
-                  <span className="text-sm">bed</span>
+                  <div className="text-sm">
+                    <div className="font-semibold text-slate-900">{home.propertyDetails.bedrooms}</div>
+                    <div className="text-xs">Beds</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M9 7l3-3 3 3M9 3h6v4H9V3z" />
                   </svg>
-                  <span className="font-semibold">{home.propertyDetails.bathrooms}</span>
-                  <span className="text-sm">bath</span>
+                  <div className="text-sm">
+                    <div className="font-semibold text-slate-900">{home.propertyDetails.bathrooms}</div>
+                    <div className="text-xs">Baths</div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                   </svg>
-                  <span className="font-semibold">{home.propertyDetails.squareFootage?.toLocaleString()}</span>
-                  <span className="text-sm">sq ft</span>
+                  <div className="text-sm">
+                    <div className="font-semibold text-slate-900">{home.propertyDetails.squareFootage?.toLocaleString()}</div>
+                    <div className="text-xs">Sq Ft</div>
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-center text-slate-500 text-sm mb-6">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <span>{home.location.city}, {home.location.state}</span>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="text-primary-burgundy font-semibold group-hover:underline">
-                  View Details
-                </span>
-                <svg className="w-5 h-5 text-primary-burgundy group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+              {/* Additional Property Details */}
+              <div className="space-y-1 text-sm text-slate-600 mb-4">
+                {home.architecturalStyle && (
+                  <div className="flex justify-between">
+                    <span>Style:</span>
+                    <span className="font-medium text-slate-900 ml-2">{home.architecturalStyle.charAt(0).toUpperCase() + home.architecturalStyle.slice(1)}</span>
+                  </div>
+                )}
+                {home.propertyDetails.yearBuilt && (
+                  <div className="flex justify-between">
+                    <span>Built:</span>
+                    <span className="font-medium text-slate-900 ml-2">{home.propertyDetails.yearBuilt}</span>
+                  </div>
+                )}
+                {home.propertyDetails.lotSize && (
+                  <div className="flex justify-between">
+                    <span>Lot Size:</span>
+                    <span className="font-medium text-slate-900 ml-2">{home.propertyDetails.lotSize}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="space-y-3">
+                {home.virtualTourUrl && (
+                  <a
+                    href={home.virtualTourUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-primary-burgundy text-white py-3 px-4 rounded-lg font-semibold text-center hover:bg-primary-burgundy-hover transition-colors inline-block"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Tour This Home
+                  </a>
+                )}
+                <Link 
+                  href={`/inventory/${home.slug.current}${preview ? '?preview=true' : ''}`}
+                  className="flex items-center justify-between text-slate-900 hover:text-primary-burgundy transition-colors no-underline"
+                >
+                  <span className="font-semibold">
+                    View Full Details
+                  </span>
+                  <svg className="w-4 h-4 transition-transform hover:translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
               </div>
 
               {preview && (
@@ -207,7 +253,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
               )}
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   )

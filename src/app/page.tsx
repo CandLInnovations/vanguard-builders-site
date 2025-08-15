@@ -110,7 +110,7 @@ export default function HomePage() {
               </a>
             </div>
             <div className="section-image">
-              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
+              <div className="section-image-enhanced">
                 <Image
                   src="/vanguard-builders-bathroom1.jpg"
                   alt="Custom luxury home construction"
@@ -130,9 +130,9 @@ export default function HomePage() {
         <div className="container">
           <div className="section-grid section-grid-reverse">
             <div className="section-image">
-              <div className="relative aspect-square rounded-2xl overflow-hidden shadow-2xl">
+              <div className="section-image-enhanced">
                 <Image
-                  src="/remodeling-image.jpg"
+                  src="/construction-phase.jpg"
                   alt="Luxury home remodeling and renovation"
                   fill
                   className="object-cover"

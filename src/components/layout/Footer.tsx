@@ -93,8 +93,6 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="footer-divider"></div>
-
             {/* Center - Services & Company */}
             <div className="footer-links-section">
               {/* Services */}
@@ -137,16 +135,14 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="footer-divider"></div>
-
             {/* Right - Logo */}
             <div className="footer-logo-section">
               <Image 
                 src="/vanguard-builders-logo-tp.png" 
                 alt="Vanguard Builders" 
                 className="footer-logo-image"
-                width={250}
-                height={190}
+                width={300}
+                height={228}
                 priority={false}
               />
             </div>
