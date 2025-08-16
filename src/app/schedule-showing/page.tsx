@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ScheduleShowingPage() {
+function ScheduleShowingContent() {
   const searchParams = useSearchParams();
   const propertyTitle = searchParams?.get('property') || '';
   
@@ -538,5 +538,13 @@ export default function ScheduleShowingPage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function ScheduleShowingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ScheduleShowingContent />
+    </Suspense>
   );
 }
