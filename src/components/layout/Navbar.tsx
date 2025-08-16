@@ -62,7 +62,7 @@ const Navbar = () => {
               Portfolio
             </a>
             <a href="/inventory" className="nav-link">
-              Inventory
+              Available Estates
             </a>
             {/* More Dropdown */}
             <div className="nav-dropdown">
@@ -123,7 +123,7 @@ const Navbar = () => {
               Portfolio
             </a>
             <a href="/inventory" className="mobile-nav-link">
-              Inventory
+              Available Estates
             </a>
             <button 
               onClick={handlePhoneClick}

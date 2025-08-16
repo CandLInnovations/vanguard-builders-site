@@ -13,23 +13,93 @@ function FAQItem({ question, answer }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b border-slate-100 last:border-0">
+    <div 
+      style={{
+        border: '1px solid #e2e8f0',
+        borderRadius: '16px',
+        marginBottom: '16px',
+        overflow: 'hidden',
+        backgroundColor: 'white',
+        boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+        transition: 'all 0.3s ease'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+        e.currentTarget.style.borderColor = '#D4AF37';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
+        e.currentTarget.style.borderColor = '#e2e8f0';
+      }}
+    >
       <button
-        className="w-full py-8 flex justify-between items-center text-left hover:bg-gradient-to-r hover:from-slate-50 hover:to-slate-25 px-8 -mx-8 rounded-xl transition-all duration-300"
+        style={{
+          width: '100%',
+          padding: '32px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          textAlign: 'left',
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease'
+        }}
         onClick={() => setIsOpen(!isOpen)}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(to right, #f8fafc, #f1f5f9)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'transparent';
+        }}
       >
-        <h3 className="text-xl font-semibold text-slate-900 pr-6 font-display">{question}</h3>
-        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-slate-100 rounded-full transition-all duration-300 hover:bg-primary-burgundy hover:text-white">
+        <h3 style={{
+          fontSize: '20px',
+          fontWeight: '600',
+          color: '#1e293b',
+          paddingRight: '24px',
+          fontFamily: 'var(--font-bodoni-moda-sc), serif',
+          lineHeight: '1.6',
+          margin: 0
+        }}>
+          {question}
+        </h3>
+        <div 
+          style={{
+            flexShrink: 0,
+            width: '48px',
+            height: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '12px',
+            transition: 'all 0.3s ease',
+            background: isOpen 
+              ? 'linear-gradient(135deg, #D4AF37 0%, #B8941F 100%)' 
+              : '#f1f5f9',
+            color: isOpen ? 'white' : '#8B1538',
+            boxShadow: isOpen ? '0 4px 12px rgba(212, 175, 55, 0.3)' : 'none'
+          }}
+        >
           {isOpen ? (
-            <Minus className="w-5 h-5 text-primary-burgundy" />
+            <Minus style={{ width: '24px', height: '24px' }} />
           ) : (
-            <Plus className="w-5 h-5 text-primary-burgundy" />
+            <Plus style={{ width: '24px', height: '24px' }} />
           )}
         </div>
       </button>
       {isOpen && (
-        <div className="pb-8 px-8 -mx-8 text-slate-600 leading-relaxed text-lg">
-          {answer}
+        <div style={{
+          padding: '0 32px 32px 32px',
+          color: '#64748b',
+          lineHeight: '1.8',
+          fontSize: '18px',
+          borderTop: '1px solid #f1f5f9',
+          background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)'
+        }}>
+          <div style={{ paddingTop: '24px' }}>
+            {answer}
+          </div>
         </div>
       )}
     </div>
@@ -117,7 +187,7 @@ export default function FAQPage() {
         <div className="hero-background">
           <div className="hero-overlay" />
           <Image
-            src="/vanguard-builders-bathroom2.jpg"
+            src="/custom-kitchen.jpg"
             alt="Frequently Asked Questions"
             fill
             className="object-cover"
@@ -144,8 +214,8 @@ export default function FAQPage() {
       <section className="section section-white">
         <div className="container">
           {/* Custom Homes FAQ */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <div className="text-center mb-12">
+          <div className="max-w-5xl mx-auto mb-20">
+            <div className="text-center mb-16">
               <div className="section-badge justify-center">
                 <HelpCircle className="badge-icon" />
                 <span className="badge-text">Custom Homes</span>
@@ -154,20 +224,21 @@ export default function FAQPage() {
                 Custom Home
                 <span className="title-accent"> Questions</span>
               </h2>
+              <p className="section-subtitle max-w-2xl mx-auto">
+                Everything you need to know about building your luxury custom home with Vanguard Builders.
+              </p>
             </div>
             
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-xl border border-slate-100 p-12">
-              <div className="space-y-0">
-                {customHomeFAQs.map((faq, index) => (
-                  <FAQItem key={index} question={faq.question} answer={faq.answer} />
-                ))}
-              </div>
+            <div className="space-y-0">
+              {customHomeFAQs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))}
             </div>
           </div>
 
           {/* Renovations FAQ */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <div className="text-center mb-12">
+          <div className="max-w-5xl mx-auto mb-20">
+            <div className="text-center mb-16">
               <div className="section-badge justify-center">
                 <HelpCircle className="badge-icon" />
                 <span className="badge-text">Renovations</span>
@@ -176,20 +247,21 @@ export default function FAQPage() {
                 Renovation
                 <span className="title-accent"> Questions</span>
               </h2>
+              <p className="section-subtitle max-w-2xl mx-auto">
+                Common questions about luxury home renovations and remodeling projects.
+              </p>
             </div>
             
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-xl border border-slate-100 p-12">
-              <div className="space-y-0">
-                {renovationFAQs.map((faq, index) => (
-                  <FAQItem key={index} question={faq.question} answer={faq.answer} />
-                ))}
-              </div>
+            <div className="space-y-0">
+              {renovationFAQs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))}
             </div>
           </div>
 
           {/* General FAQ */}
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
               <div className="section-badge justify-center">
                 <HelpCircle className="badge-icon" />
                 <span className="badge-text">General</span>
@@ -198,14 +270,15 @@ export default function FAQPage() {
                 General
                 <span className="title-accent"> Questions</span>
               </h2>
+              <p className="section-subtitle max-w-2xl mx-auto">
+                General information about working with Vanguard Builders and our services.
+              </p>
             </div>
             
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl shadow-xl border border-slate-100 p-12">
-              <div className="space-y-0">
-                {generalFAQs.map((faq, index) => (
-                  <FAQItem key={index} question={faq.question} answer={faq.answer} />
-                ))}
-              </div>
+            <div className="space-y-0">
+              {generalFAQs.map((faq, index) => (
+                <FAQItem key={index} question={faq.question} answer={faq.answer} />
+              ))}
             </div>
           </div>
         </div>

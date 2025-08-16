@@ -51,10 +51,10 @@ export default function AboutPage() {
                 <span className="title-accent"> Reality</span>
               </h2>
               <div className="section-subtitle">
-                <p className="mb-6">
+                <p style={{ marginBottom: '1.5rem' }}>
                   At Vanguard Builders, our journey began with a passion for craftsmanship and a commitment to quality. What started as a focus on building spec and entry-level homes quickly evolved as we recognized a growing demand among clients for something more — more attention to detail, more personalized design, and more luxurious finishes.
                 </p>
-                <p className="mb-6">
+                <p style={{ marginBottom: '1.5rem' }}>
                   As our experience deepened and our reputation grew, so did our vision. We made a deliberate shift toward custom and luxury homebuilding — not just because it aligned with our strengths, but because it allowed us to create spaces that are truly exceptional. Our clients weren't looking for cookie-cutter designs; they were looking for homes that reflected their lifestyle, values, and dreams.
                 </p>
                 <p>

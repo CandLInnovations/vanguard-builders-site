@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Home, Users } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -85,10 +85,22 @@ const Footer = () => {
               </div>
               <div className="footer-icons">
                 <div className="footer-icon" title="Equal Opportunity Housing">
-                  <Home className="accessibility-icon" />
+                  <Image 
+                    src="/equal-housing-opportunity.png" 
+                    alt="Equal Opportunity Housing" 
+                    width={28}
+                    height={28}
+                    className="accessibility-icon"
+                  />
                 </div>
                 <div className="footer-icon" title="Accessibility Compliance">
-                  <Users className="accessibility-icon" />
+                  <Image 
+                    src="/accessibility-icon.png" 
+                    alt="Accessibility Compliance" 
+                    width={28}
+                    height={28}
+                    className="accessibility-icon"
+                  />
                 </div>
               </div>
             </div>
@@ -101,7 +113,6 @@ const Footer = () => {
                 <ul className="footer-links">
                   <li><a href="/custom-homes" className="footer-link">Custom Homes</a></li>
                   <li><a href="/renovations" className="footer-link">Renovations</a></li>
-                  <li><a href="/remodeling" className="footer-link">Remodeling</a></li>
                   <li><a href="/additions" className="footer-link">Home Additions</a></li>
                   <li><a href="/kitchens" className="footer-link">Kitchen Design</a></li>
                   <li><a href="/bathrooms" className="footer-link">Bathroom Design</a></li>
@@ -117,7 +128,6 @@ const Footer = () => {
                   <li><a href="/process" className="footer-link">Our Process</a></li>
                   <li><a href="/team" className="footer-link">Our Team</a></li>
                   <li><a href="/testimonials" className="footer-link">Testimonials</a></li>
-                  <li><a href="/careers" className="footer-link">Careers</a></li>
                 </ul>
               </div>
 
