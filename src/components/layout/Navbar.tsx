@@ -55,14 +55,14 @@ const Navbar = () => {
             <a href="/custom-homes" className="nav-link">
               Custom Homes
             </a>
-            <a href="/renovations" className="nav-link">
-              Renovations
+            <a href="/inventory" className="nav-link">
+              Available Homes
             </a>
             <a href="/portfolio" className="nav-link">
               Portfolio
             </a>
-            <a href="/inventory" className="nav-link">
-              Available Estates
+            <a href="/renovations" className="nav-link">
+              Renovations
             </a>
             {/* More Dropdown */}
             <div className="nav-dropdown">
@@ -116,14 +116,14 @@ const Navbar = () => {
             <a href="/custom-homes" className="mobile-nav-link">
               Custom Homes
             </a>
-            <a href="/renovations" className="mobile-nav-link">
-              Renovations
+            <a href="/inventory" className="mobile-nav-link">
+              Available Homes
             </a>
             <a href="/portfolio" className="mobile-nav-link">
               Portfolio
             </a>
-            <a href="/inventory" className="mobile-nav-link">
-              Available Estates
+            <a href="/renovations" className="mobile-nav-link">
+              Renovations
             </a>
             <button 
               onClick={handlePhoneClick}

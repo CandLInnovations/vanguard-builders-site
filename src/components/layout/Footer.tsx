@@ -102,6 +102,44 @@ const Footer = () => {
                     className="accessibility-icon"
                   />
                 </div>
+                <div className="footer-icon" title="Greater Houston Builders Association" style={{ marginLeft: '48px !important' }}>
+                  <a 
+                    href="https://www.ghba.org" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="footer-icon-link"
+                    style={{
+                      display: 'inline-block !important',
+                      width: '100px !important',
+                      height: '60px !important'
+                    }}
+                  >
+                    <div style={{
+                      width: '100px !important',
+                      height: '60px !important',
+                      overflow: 'visible !important',
+                      display: 'flex !important',
+                      alignItems: 'center !important',
+                      justifyContent: 'center !important'
+                    }}>
+                      <Image 
+                        src="/ghba-logo.png" 
+                        alt="Greater Houston Builders Association" 
+                        width={100}
+                        height={60}
+                        className="accessibility-icon"
+                        style={{ 
+                          width: '100px !important', 
+                          height: '60px !important', 
+                          maxWidth: 'none !important',
+                          maxHeight: 'none !important',
+                          objectFit: 'contain' as const,
+                          transform: 'scale(1.5) !important'
+                        }}
+                      />
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
 
