@@ -5,6 +5,10 @@ import type { SanityImageAsset } from '@/types/sanity'
 const builder = imageUrlBuilder(client)
 
 export function urlFor(source: SanityImageAsset | string) {
+  // Handle nested asset structure from Sanity
+  if (typeof source === 'object' && source.asset) {
+    return builder.image(source.asset)
+  }
   return builder.image(source)
 }
 

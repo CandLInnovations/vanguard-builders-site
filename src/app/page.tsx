@@ -112,7 +112,7 @@ export default function HomePage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/vanguard-builders-bathroom1.jpg"
+                  src="/old-hickory-dr-conroe.jpg"
                   alt="Custom luxury home construction"
                   fill
                   className="object-cover"

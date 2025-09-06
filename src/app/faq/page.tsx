@@ -187,7 +187,7 @@ export default function FAQPage() {
         <div className="hero-background">
           <div className="hero-overlay" />
           <Image
-            src="/custom-kitchen.jpg"
+            src="/outdoor-kitchen.jpg"
             alt="Frequently Asked Questions"
             fill
             className="object-cover"

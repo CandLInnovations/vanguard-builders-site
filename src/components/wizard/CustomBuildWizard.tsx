@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { CustomBuildWizardData } from '@/types/wizard';
 import { useWizardState } from '@/hooks/useWizardState';
@@ -60,8 +60,13 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
   const [showSuccess, setShowSuccess] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
   const [spamValidationError, setSpamValidationError] = useState<string>('');
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   const wizard = useWizardState(initialData, wizardSteps.length, 'custom-build-wizard');
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const validateCurrentStep = useCallback(() => {
     const errors: Record<string, string> = {};
@@ -211,7 +216,7 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
 
   return (
     <SpamProtection wizardType="custom-build">
-      {({ validateAndSubmit, isProtectionReady, trustScore, showHoneypot, debugInfo }) => (
+      {({ validateAndSubmit, isProtectionReady, trustScore, debugInfo }) => (
         <>
           <WizardContainer
             title="Custom Home Build Wizard"
@@ -236,7 +241,7 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
             />
             
             {/* Development Debug Info - Only render after hydration */}
-            {typeof window !== 'undefined' && debugInfo && process.env.NODE_ENV === 'development' && (
+            {isClient && debugInfo && process.env.NODE_ENV === 'development' && (
               <div style={{ 
                 position: 'fixed', 
                 top: 10, 

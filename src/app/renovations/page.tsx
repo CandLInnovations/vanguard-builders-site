@@ -11,7 +11,7 @@ export default function RenovationsPage() {
         <div className="hero-background">
           <div className="hero-overlay" />
           <Image
-            src="/vanguard-builders-bathroom1.jpg"
+            src="/luxury-patio.jpg"
             alt="Luxury bathroom renovation"
             fill
             className="object-cover"

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -49,7 +50,7 @@ const Footer = () => {
             
             {/* Left - Company Info */}
             <div className="footer-company">
-              <h2 className="footer-company-name">Vanguard Builders, Inc.</h2>
+              <h2 className="footer-company-name" style={{ fontFamily: 'var(--font-bodoni-moda-sc), serif' }}>Vanguard Builders, Inc.</h2>
               <p className="footer-tagline">Crafting luxury homes with uncompromising attention to detail</p>
               <div className="footer-contact">
                 <div className="contact-item">
@@ -185,14 +186,16 @@ const Footer = () => {
 
             {/* Right - Logo */}
             <div className="footer-logo-section">
-              <Image 
-                src="/vanguard-builders-logo-tp.png" 
-                alt="Vanguard Builders" 
-                className="footer-logo-image"
-                width={300}
-                height={228}
-                priority={false}
-              />
+              <Link href="/">
+                <Image 
+                  src="/vanguard-builders-logo-tp.png" 
+                  alt="Vanguard Builders" 
+                  className="footer-logo-image"
+                  width={300}
+                  height={228}
+                  priority={false}
+                />
+              </Link>
             </div>
           </div>
         </div>

@@ -22,16 +22,6 @@ export default function CustomHomesPage() {
         </div>
         
         <div className="hero-content">
-          <div className="hero-logo">
-            <Image 
-              src="/vanguard-builders-logo-tp.png" 
-              alt="Vanguard Builders" 
-              className="hero-logo-image"
-              width={180}
-              height={136}
-              priority
-            />
-          </div>
           <h1 className="hero-title">
             Custom
             <span className="hero-title-accent">
@@ -75,7 +65,7 @@ export default function CustomHomesPage() {
           <div className="grid md-grid-cols-2 lg-grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-primary-burgundy rounded-full flex items-center justify-center mx-auto mb-6">
-                <Ruler className="w-8 h-8 text-white" />
+                <Ruler className="w-8 h-8" style={{ color: 'white !important' }} />
               </div>
               <h3 className="text-xl font-semibold mb-4 font-display">Design & Planning</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -86,7 +76,7 @@ export default function CustomHomesPage() {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-primary-burgundy rounded-full flex items-center justify-center mx-auto mb-6">
-                <Palette className="w-8 h-8 text-white" />
+                <Palette className="w-8 h-8" style={{ color: 'white !important' }} />
               </div>
               <h3 className="text-xl font-semibold mb-4 font-display">Material Selection</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -97,7 +87,7 @@ export default function CustomHomesPage() {
 
             <div className="text-center">
               <div className="w-16 h-16 bg-primary-burgundy rounded-full flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-8 h-8 text-white" />
+                <Shield className="w-8 h-8" style={{ color: 'white !important' }} />
               </div>
               <h3 className="text-xl font-semibold mb-4 font-display">Expert Construction</h3>
               <p className="text-slate-600 leading-relaxed">
@@ -194,82 +184,37 @@ export default function CustomHomesPage() {
           </div>
 
           <div className="grid md-grid-cols-2 lg-grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl p-10 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-burgundy to-primary-burgundy-hover rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Home className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-6 font-display text-slate-900">Modern Contemporary</h3>
-              <ul className="space-y-3 text-slate-600 mb-8">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Clean lines and open floor plans
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Floor-to-ceiling windows
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Minimalist design elements
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Smart home integration
-                </li>
+            <div className="text-center">
+              <h3 className="text-xl font-semibold mb-4 font-display">Modern Contemporary</h3>
+              <ul className="space-y-2 text-slate-600 mb-6 text-left">
+                <li>Clean lines and open floor plans</li>
+                <li>Floor-to-ceiling windows</li>
+                <li>Minimalist design elements</li>
+                <li>Smart home integration</li>
               </ul>
-              <div className="text-2xl font-bold text-primary-burgundy">Starting at $450/sq ft</div>
+              <div className="text-lg font-bold text-primary-burgundy">Starting at $450/sq ft</div>
             </div>
 
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl p-10 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-burgundy to-primary-burgundy-hover rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Home className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-6 font-display text-slate-900">Traditional Colonial</h3>
-              <ul className="space-y-3 text-slate-600 mb-8">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Classic architectural details
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Formal living and dining spaces
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Rich hardwood throughout
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Custom millwork and trim
-                </li>
+            <div className="text-center">
+              <h3 className="text-xl font-semibold mb-4 font-display">Traditional Colonial</h3>
+              <ul className="space-y-2 text-slate-600 mb-6 text-left">
+                <li>Classic architectural details</li>
+                <li>Formal living and dining spaces</li>
+                <li>Rich hardwood throughout</li>
+                <li>Custom millwork and trim</li>
               </ul>
-              <div className="text-2xl font-bold text-primary-burgundy">Starting at $425/sq ft</div>
+              <div className="text-lg font-bold text-primary-burgundy">Starting at $425/sq ft</div>
             </div>
 
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-3xl p-10 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary-burgundy to-primary-burgundy-hover rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Home className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-6 font-display text-slate-900">Mediterranean Villa</h3>
-              <ul className="space-y-3 text-slate-600 mb-8">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Stucco and stone exteriors
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Courtyard and outdoor living
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Tile roofs and arched windows
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                  Wine cellars and entertainment areas
-                </li>
+            <div className="text-center">
+              <h3 className="text-xl font-semibold mb-4 font-display">Mediterranean Villa</h3>
+              <ul className="space-y-2 text-slate-600 mb-6 text-left">
+                <li>Stucco and stone exteriors</li>
+                <li>Courtyard and outdoor living</li>
+                <li>Tile roofs and arched windows</li>
+                <li>Wine cellars and entertainment areas</li>
               </ul>
-              <div className="text-2xl font-bold text-primary-burgundy">Starting at $475/sq ft</div>
+              <div className="text-lg font-bold text-primary-burgundy">Starting at $475/sq ft</div>
             </div>
           </div>
         </div>

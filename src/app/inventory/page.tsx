@@ -124,8 +124,11 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                 </div>
               )}
 
-              {/* Main Image */}
-              <div className="relative aspect-[3/2] aspect-ratio-32 overflow-hidden">
+              {/* Main Image - Clickable */}
+              <Link 
+                href={`/inventory/${home.slug.current}${preview ? '?preview=true' : ''}`}
+                className="relative aspect-[3/2] aspect-ratio-32 overflow-hidden block cursor-pointer"
+              >
                 {home.mainImage ? (
                   <Image
                     src={urlFor(home.mainImage).width(800).height(600).quality(90).url()}
@@ -142,7 +145,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                     </svg>
                   </div>
                 )}
-              </div>
+              </Link>
             </div>
 
             {/* Content */}

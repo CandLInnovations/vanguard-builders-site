@@ -37,6 +37,7 @@ export default async function HomeDetailPage({
     notFound()
   }
 
+
   return (
     <>
       {preview && <PreviewBanner />}

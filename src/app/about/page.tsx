@@ -13,7 +13,7 @@ export default function AboutPage() {
         <div className="hero-background">
           <div className="hero-overlay" />
           <Image
-            src="/vanguard-builders-bathroom1.jpg"
+            src="/great-room.jpg"
             alt="About Vanguard Builders"
             fill
             className="object-cover"

@@ -42,8 +42,10 @@ export function SanityImage({
   // Get optimized image URL
   const imageUrl = getOptimizedImageUrl(image, preset)
   
-  // Get blur placeholder
+  // Get blur placeholder  
   const blurDataURL = getBlurDataURL(image)
+
+
 
   // Get preset dimensions
   const { width, height } = imagePresets[preset]
@@ -75,14 +77,10 @@ export function SanityImage({
         src={imageUrl}
         alt={imageAlt}
         fill
-        className={`transition-opacity duration-300 ${
-          isLoading ? 'opacity-0' : 'opacity-100'
-        } ${className}`}
+        className={`${className} object-cover`}
         priority={priority}
-        sizes={sizes}
+        sizes={sizes || "100vw"}
         quality={quality}
-        placeholder="blur"
-        blurDataURL={blurDataURL}
         onLoad={handleLoad}
         onError={handleError}
       />
@@ -95,14 +93,10 @@ export function SanityImage({
       alt={imageAlt}
       width={width}
       height={height}
-      className={`transition-opacity duration-300 ${
-        isLoading ? 'opacity-0' : 'opacity-100'
-      } ${className}`}
+      className={className}
       priority={priority}
-      sizes={sizes}
+      sizes={sizes || "100vw"}
       quality={quality}
-      placeholder="blur"
-      blurDataURL={blurDataURL}
       onLoad={handleLoad}
       onError={handleError}
     />
@@ -122,17 +116,16 @@ export function SanityImageGallery({ images, className }: SanityImageGalleryProp
     return null
   }
 
+  // Simple test version using regular img tags to debug
   return (
     <div className={`space-y-4 ${className}`}>
-      {/* Main image */}
-      <div className="relative aspect-video rounded-xl overflow-hidden">
-        <SanityImage
-          image={images[selectedImage]}
+      {/* Main image - using regular img for testing */}
+      <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-200">
+        <img
+          src={getOptimizedImageUrl(images[selectedImage], 'gallery')}
           alt={images[selectedImage].alt || `Gallery image ${selectedImage + 1}`}
-          preset="gallery"
-          fill
-          className="object-cover"
-          priority
+          className="w-full h-full object-cover"
+          style={{ display: 'block' }}
         />
       </div>
 
@@ -143,18 +136,17 @@ export function SanityImageGallery({ images, className }: SanityImageGalleryProp
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`flex-shrink-0 relative w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
+              className={`flex-shrink-0 relative w-20 h-14 rounded-lg overflow-hidden border-2 transition-all bg-gray-200 ${
                 selectedImage === index
                   ? 'border-primary-burgundy'
                   : 'border-transparent hover:border-slate-300'
               }`}
             >
-              <SanityImage
-                image={image}
+              <img
+                src={getOptimizedImageUrl(image, 'thumbnail')}
                 alt={image.alt || `Thumbnail ${index + 1}`}
-                preset="thumbnail"
-                fill
-                className="object-cover"
+                className="w-full h-full object-cover"
+                style={{ display: 'block' }}
               />
             </button>
           ))}

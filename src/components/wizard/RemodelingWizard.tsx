@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { RemodelingWizardData } from '@/types/wizard';
 import { useWizardState } from '@/hooks/useWizardState';
@@ -49,8 +49,13 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
   const [showSuccess, setShowSuccess] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
   const [spamValidationError, setSpamValidationError] = useState<string>('');
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   const wizard = useWizardState(initialData, wizardSteps.length, 'remodeling-wizard');
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const validateCurrentStep = useCallback(() => {
     const errors: Record<string, string> = {};
@@ -190,7 +195,7 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
 
   return (
     <SpamProtection wizardType="remodeling">
-      {({ validateAndSubmit, isProtectionReady, trustScore, showHoneypot, debugInfo }) => (
+      {({ validateAndSubmit, isProtectionReady, trustScore, debugInfo }) => (
         <>
           <WizardContainer
             title="Remodeling Project Wizard"
@@ -215,7 +220,7 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
             />
             
             {/* Development Debug Info - Only render after hydration */}
-            {typeof window !== 'undefined' && debugInfo && process.env.NODE_ENV === 'development' && (
+            {isClient && debugInfo && process.env.NODE_ENV === 'development' && (
               <div style={{ 
                 position: 'fixed', 
                 top: 10, 
