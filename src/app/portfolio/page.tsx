@@ -9,7 +9,7 @@ export default function PortfolioPage() {
   const [activeSection, setActiveSection] = useState<'custom' | 'renovations'>('custom');
 
   return (
-    <div className="page-content">
+    <div className="page-content" style={{marginTop: '2rem', marginBottom: '6rem'}}>
       {/* Hero Section - Half Height */}
       <section className="hero-half">
         {/* Hero Background Image */}
@@ -66,7 +66,7 @@ export default function PortfolioPage() {
 
       {/* Custom Homes Portfolio Section */}
       {activeSection === 'custom' && (
-      <section className="section-white pt-0 pb-8">
+      <section className="section-white pt-0 pb-16">
         <div className="container">
           <div className="text-center max-w-4xl mx-auto mb-8">
             <div className="section-badge justify-center">
@@ -149,7 +149,7 @@ export default function PortfolioPage() {
 
       {/* Renovations Portfolio Section */}
       {activeSection === 'renovations' && (
-      <section className="section-dark pt-0 pb-8">
+      <section className="section-dark pt-0 pb-16">
         <div className="container">
           <div className="text-center max-w-4xl mx-auto mb-8">
             <div className="section-badge justify-center">

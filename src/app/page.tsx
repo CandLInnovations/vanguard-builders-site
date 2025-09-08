@@ -1,10 +1,13 @@
 // app/page.tsx
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown, Home, Wrench } from 'lucide-react';
+import { useInventory } from '@/hooks/useInventory';
 
 export default function HomePage() {
+  const { hasAvailableHomes, loading } = useInventory();
   return (
     <div className="page-content">
       {/* Hero Section */}
@@ -46,13 +49,20 @@ export default function HomePage() {
             Creating bespoke luxury homes that define generations.
           </p>
           <div className="hero-buttons">
-            <a href="/custom-build-wizard" className="hero-cta-primary">
-              Start Your Vision
-              <ArrowRight className="button-icon" />
-            </a>
-            <a href="/remodeling-wizard" className="hero-cta-secondary">
-              Remodeling Wizard
-            </a>
+            {!loading && (
+              <>
+                <a 
+                  href={hasAvailableHomes ? "/inventory" : "/custom-build-wizard"} 
+                  className="hero-cta-primary"
+                >
+                  {hasAvailableHomes ? "View Available Homes" : "Start Your Vision"}
+                  <ArrowRight className="button-icon" />
+                </a>
+                <a href="/remodeling-wizard" className="hero-cta-secondary">
+                  Remodeling Wizard
+                </a>
+              </>
+            )}
           </div>
         </div>
 

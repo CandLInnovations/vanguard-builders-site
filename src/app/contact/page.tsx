@@ -89,6 +89,22 @@ export default function ContactPage() {
     window.location.href = `tel:${deObfuscatePhone(obfuscatedPhone)}`;
   };
 
+  // Obfuscated email
+  const emailAddress = "office@vanguardbuilders.com";
+  const obfuscatedEmail = emailAddress.split('').map((char, index) => 
+    String.fromCharCode(char.charCodeAt(0) + (index % 3 === 0 ? 2 : index % 3 === 1 ? -1 : 1))
+  ).join('');
+
+  const deObfuscateEmail = (obfuscated: string) => {
+    return obfuscated.split('').map((char, index) => 
+      String.fromCharCode(char.charCodeAt(0) + (index % 3 === 0 ? -2 : index % 3 === 1 ? 1 : -1))
+    ).join('');
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = `mailto:${deObfuscateEmail(obfuscatedEmail)}`;
+  };
+
   const handleAddressClick = () => {
     const address = "2300 Woodforest Pkwy N, Ste 250-442, Montgomery, TX 77316";
     const encodedAddress = encodeURIComponent(address);
@@ -169,12 +185,21 @@ export default function ContactPage() {
                   <Mail className="w-8 h-8 text-primary-burgundy" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-2">Email</h3>
-                <a 
-                  href="mailto:office@vanguardbuilders.com"
+                <button 
+                  onClick={handleEmailClick}
                   className="text-primary-burgundy font-semibold hover:text-primary-burgundy/80 transition-colors"
+                  style={{
+                    border: 'none',
+                    background: 'none',
+                    padding: 0,
+                    font: 'inherit',
+                    cursor: 'pointer',
+                    textDecoration: 'inherit',
+                    color: 'inherit'
+                  }}
                 >
                   office@vanguardbuilders.com
-                </a>
+                </button>
                 <p className="text-slate-600 text-sm mt-1">We respond within 24 hours</p>
               </div>
 

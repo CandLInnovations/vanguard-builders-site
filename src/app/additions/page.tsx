@@ -35,11 +35,11 @@ export default function AdditionsPage() {
             with your home's existing architecture and enhance your luxury lifestyle.
           </p>
           <div className="hero-buttons">
-            <a href="/custom-build-wizard" className="hero-cta-primary">
+            <a href="/remodeling-wizard" className="hero-cta-primary">
               Plan Your Addition
               <ArrowRight className="button-icon" />
             </a>
-            <a href="/contact" className="hero-cta-secondary">
+            <a href="/consultation" className="hero-cta-secondary">
               Get Free Consultation
             </a>
           </div>
@@ -93,7 +93,7 @@ export default function AdditionsPage() {
                   </div>
                 </div>
               </div>
-              <a href="/contact" className="section-button">
+              <a href="/remodeling-wizard" className="section-button">
                 Explore Master Suites
                 <ArrowRight className="button-icon" />
               </a>
@@ -101,7 +101,7 @@ export default function AdditionsPage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/vanguard-builders-bathroom1.jpg"
+                  src="/master-ensuite.jpg"
                   alt="Luxury master suite addition"
                   fill
                   className="object-cover"
@@ -121,7 +121,7 @@ export default function AdditionsPage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/construction-phase.jpg"
+                  src="/outdoor-kitchen.jpg"
                   alt="Seamless indoor-outdoor living space addition"
                   fill
                   className="object-cover"
@@ -168,7 +168,7 @@ export default function AdditionsPage() {
                   </div>
                 </div>
               </div>
-              <a href="/contact" className="section-button section-button-accent">
+              <a href="/remodeling-wizard" className="section-button section-button-accent">
                 Explore Outdoor Living
                 <ArrowRight className="button-icon" />
               </a>
@@ -227,7 +227,7 @@ export default function AdditionsPage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/custom-kitchen.jpg"
+                  src="/great-room.jpg"
                   alt="Luxury kitchen addition"
                   fill
                   className="object-cover"
@@ -307,7 +307,7 @@ export default function AdditionsPage() {
                 Start Planning Your Addition
                 <ArrowRight className="button-icon" />
               </a>
-              <a href="/contact" className="hero-cta-secondary">
+              <a href="/consultation" className="hero-cta-secondary">
                 Schedule Consultation
               </a>
             </div>

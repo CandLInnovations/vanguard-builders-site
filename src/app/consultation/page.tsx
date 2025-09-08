@@ -83,6 +83,22 @@ export default function ConsultationPage() {
     window.location.href = `tel:${deObfuscatePhone(obfuscatedPhone)}`;
   };
 
+  // Obfuscated email
+  const emailAddress = "office@vanguardbuilders.com";
+  const obfuscatedEmail = emailAddress.split('').map((char, index) => 
+    String.fromCharCode(char.charCodeAt(0) + (index % 3 === 0 ? 2 : index % 3 === 1 ? -1 : 1))
+  ).join('');
+
+  const deObfuscateEmail = (obfuscated: string) => {
+    return obfuscated.split('').map((char, index) => 
+      String.fromCharCode(char.charCodeAt(0) + (index % 3 === 0 ? -2 : index % 3 === 1 ? 1 : -1))
+    ).join('');
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = `mailto:${deObfuscateEmail(obfuscatedEmail)}`;
+  };
+
   const handleAddressClick = () => {
     const address = "2300 Woodforest Pkwy N, Ste 250-442, Montgomery, TX 77316";
     const encodedAddress = encodeURIComponent(address);
@@ -669,20 +685,24 @@ export default function ConsultationPage() {
                     </div>
                     <div>
                       <h3 style={{ fontWeight: 'bold', color: '#1e293b', marginBottom: '4px', fontSize: '18px' }}>Email</h3>
-                      <a 
-                        href="mailto:office@vanguardbuilders.com"
+                      <button 
+                        onClick={handleEmailClick}
                         style={{
+                          border: 'none',
+                          background: 'none',
+                          padding: 0,
                           color: '#8B1538',
                           fontWeight: '600',
                           fontSize: '16px',
                           textDecoration: 'none',
-                          transition: 'color 0.3s ease'
+                          transition: 'color 0.3s ease',
+                          cursor: 'pointer'
                         }}
                         onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#a21650'}
                         onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#8B1538'}
                       >
                         office@vanguardbuilders.com
-                      </a>
+                      </button>
                       <p style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>We respond within 24 hours</p>
                     </div>
                   </div>

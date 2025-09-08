@@ -1,8 +1,42 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, MapPin, Wrench, Phone, Mail, Home, Palette, Plus, TreePine, Sparkles } from 'lucide-react';
 
 export default function RenovationsPage() {
+  // Obfuscated phone number
+  const phoneNumber = "281-220-9087";
+  const obfuscatedPhone = phoneNumber.split('').map((char, index) => 
+    String.fromCharCode(char.charCodeAt(0) + (index % 2 === 0 ? 1 : -1))
+  ).join('');
+
+  const deObfuscatePhone = (obfuscated: string) => {
+    return obfuscated.split('').map((char, index) => 
+      String.fromCharCode(char.charCodeAt(0) + (index % 2 === 0 ? -1 : 1))
+    ).join('');
+  };
+
+  const handlePhoneClick = () => {
+    window.location.href = `tel:${deObfuscatePhone(obfuscatedPhone)}`;
+  };
+
+  // Obfuscated email
+  const emailAddress = "office@vanguardbuilders.com";
+  const obfuscatedEmail = emailAddress.split('').map((char, index) => 
+    String.fromCharCode(char.charCodeAt(0) + (index % 3 === 0 ? 2 : index % 3 === 1 ? -1 : 1))
+  ).join('');
+
+  const deObfuscateEmail = (obfuscated: string) => {
+    return obfuscated.split('').map((char, index) => 
+      String.fromCharCode(char.charCodeAt(0) + (index % 3 === 0 ? -2 : index % 3 === 1 ? 1 : -1))
+    ).join('');
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = `mailto:${deObfuscateEmail(obfuscatedEmail)}`;
+  };
+
   return (
     <div className="page-content">
       {/* Hero Section */}
@@ -37,9 +71,9 @@ export default function RenovationsPage() {
               Start Your Remodel
               <ArrowRight className="button-icon" />
             </a>
-            <button className="hero-cta-secondary">
+            <a href="/portfolio" className="hero-cta-secondary">
               View Our Work
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -179,9 +213,21 @@ export default function RenovationsPage() {
                   <Phone className="contact-method-icon" />
                 </div>
                 <h3 className="contact-method-title">Call Us</h3>
-                <a href="tel:281-220-9087" className="contact-method-link">
+                <button 
+                  onClick={handlePhoneClick} 
+                  className="contact-method-link"
+                  style={{
+                    border: 'none',
+                    background: 'none',
+                    padding: 0,
+                    font: 'inherit',
+                    cursor: 'pointer',
+                    textDecoration: 'inherit',
+                    color: '#8B1538'
+                  }}
+                >
                   281-220-9087
-                </a>
+                </button>
               </div>
 
               <div className="contact-method">
@@ -189,9 +235,21 @@ export default function RenovationsPage() {
                   <Mail className="contact-method-icon" />
                 </div>
                 <h3 className="contact-method-title">Email Us</h3>
-                <a href="mailto:office@vanguardbuilders.com" className="contact-method-link">
+                <button 
+                  onClick={handleEmailClick} 
+                  className="contact-method-link"
+                  style={{
+                    border: 'none',
+                    background: 'none',
+                    padding: 0,
+                    font: 'inherit',
+                    cursor: 'pointer',
+                    textDecoration: 'inherit',
+                    color: '#8B1538'
+                  }}
+                >
                   office@vanguardbuilders.com
-                </a>
+                </button>
               </div>
 
               <div className="contact-method">
@@ -205,8 +263,8 @@ export default function RenovationsPage() {
               </div>
             </div>
 
-            <a href="/remodeling-wizard" className="hero-cta-primary">
-              Start Remodeling Wizard
+            <a href="/consultation" className="hero-cta-primary">
+              Request Free Consultation
               <ArrowRight className="button-icon" />
             </a>
           </div>

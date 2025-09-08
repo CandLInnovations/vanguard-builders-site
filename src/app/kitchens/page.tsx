@@ -13,7 +13,7 @@ export default function KitchensPage() {
         <div className="hero-background">
           <div className="hero-overlay" />
           <Image
-            src="/custom-kitchen.jpg"
+            src="/custom-kitchen3.jpg"
             alt="Luxury custom kitchen design by Vanguard Builders"
             fill
             className="object-cover"
@@ -35,11 +35,11 @@ export default function KitchensPage() {
             premium appliances, handcrafted cabinetry, and sophisticated finishes.
           </p>
           <div className="hero-buttons">
-            <a href="/custom-build-wizard" className="hero-cta-primary">
+            <a href="/remodeling-wizard" className="hero-cta-primary">
               Design Your Kitchen
               <ArrowRight className="button-icon" />
             </a>
-            <a href="/contact" className="hero-cta-secondary">
+            <a href="/consultation" className="hero-cta-secondary">
               Free Design Consultation
             </a>
           </div>
@@ -93,7 +93,7 @@ export default function KitchensPage() {
                   </div>
                 </div>
               </div>
-              <a href="/contact" className="section-button">
+              <a href="/remodeling-wizard" className="section-button">
                 Start Your Kitchen Design
                 <ArrowRight className="button-icon" />
               </a>
@@ -101,7 +101,7 @@ export default function KitchensPage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/custom-kitchen.jpg"
+                  src="/old-hickory-kitchen2.jpg"
                   alt="Luxury gourmet kitchen with custom cabinetry"
                   fill
                   className="object-cover"
@@ -121,7 +121,7 @@ export default function KitchensPage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/vanguard-builders-bathroom1.jpg"
+                  src="/custom-kitchen2.jpg"
                   alt="Modern luxury kitchen with smart technology"
                   fill
                   className="object-cover"
@@ -168,7 +168,7 @@ export default function KitchensPage() {
                   </div>
                 </div>
               </div>
-              <a href="/contact" className="section-button section-button-accent">
+              <a href="/remodeling-wizard" className="section-button section-button-accent">
                 Explore Smart Kitchen Features
                 <ArrowRight className="button-icon" />
               </a>
@@ -219,7 +219,7 @@ export default function KitchensPage() {
                   </div>
                 </div>
               </div>
-              <a href="/contact" className="section-button">
+              <a href="/remodeling-wizard" className="section-button">
                 Design Your Kitchen Island
                 <ArrowRight className="button-icon" />
               </a>
@@ -227,7 +227,7 @@ export default function KitchensPage() {
             <div className="section-image">
               <div className="section-image-enhanced">
                 <Image
-                  src="/construction-phase.jpg"
+                  src="/old-hickory-kitchen.jpg"
                   alt="Luxury kitchen island with custom finishes"
                   fill
                   className="object-cover"
@@ -312,11 +312,11 @@ export default function KitchensPage() {
               your lifestyle and adds significant value to your home. Schedule your complimentary design consultation today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/custom-build-wizard" className="hero-cta-primary">
+              <a href="/remodeling-wizard" className="hero-cta-primary">
                 Start Your Kitchen Design
                 <ArrowRight className="button-icon" />
               </a>
-              <a href="/contact" className="hero-cta-secondary">
+              <a href="/consultation" className="hero-cta-secondary">
                 Book Design Consultation
               </a>
             </div>

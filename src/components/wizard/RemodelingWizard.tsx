@@ -35,7 +35,7 @@ const initialData: RemodelingWizardData = {
 const wizardSteps = [
   { id: 'project-type', title: 'Project Type', component: ProjectTypeStep },
   { id: 'scope', title: 'Scope Selection', component: ScopeSelectionStep },
-  { id: 'style', title: 'Style Preferences', component: StylePreferencesStep },
+  { id: 'style', title: 'Style Choice', component: StylePreferencesStep },
   { id: 'budget', title: 'Budget Range', component: BudgetStep },
   { id: 'contact', title: 'Contact & Timeline', component: ContactStep },
   { id: 'summary', title: 'Review & Submit', component: SummaryStep }

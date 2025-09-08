@@ -3,8 +3,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, Home, Ruler, Palette, Shield, Clock, Award } from 'lucide-react';
+import { useInventory } from '@/hooks/useInventory';
 
 export default function CustomHomesPage() {
+  const { hasAvailableHomes, loading } = useInventory();
   return (
     <div className="page-content">
       {/* Hero Section */}
@@ -33,13 +35,20 @@ export default function CustomHomesPage() {
             personalized design, and luxury finishes that reflect your unique lifestyle.
           </p>
           <div className="hero-buttons">
-            <a href="/custom-build-wizard" className="hero-cta-primary">
-              Start Your Custom Build
-              <ArrowRight className="button-icon" />
-            </a>
-            <a href="/portfolio" className="hero-cta-secondary">
-              View Our Portfolio
-            </a>
+            {!loading && (
+              <>
+                <a 
+                  href={hasAvailableHomes ? "/inventory" : "/custom-build-wizard"} 
+                  className="hero-cta-primary"
+                >
+                  {hasAvailableHomes ? "View Available Homes" : "Start Your Custom Build"}
+                  <ArrowRight className="button-icon" />
+                </a>
+                <a href="/portfolio" className="hero-cta-secondary">
+                  View Our Portfolio
+                </a>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -156,8 +165,14 @@ export default function CustomHomesPage() {
               </div>
             </div>
             <div className="section-image">
-              <div className="image-placeholder image-placeholder-dark">
-                <span>Luxury Home Interior</span>
+              <div className="section-image-enhanced">
+                <Image
+                  src="/old-hickory-kitchen.jpg"
+                  alt="Luxury custom home interior with premium finishes"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
               <div className="image-decoration image-decoration-right"></div>
             </div>
@@ -225,8 +240,14 @@ export default function CustomHomesPage() {
         <div className="container">
           <div className="section-grid-reverse">
             <div className="section-image">
-              <div className="image-placeholder image-placeholder-dark">
-                <span>Construction Timeline</span>
+              <div className="section-image-enhanced">
+                <Image
+                  src="/old-hickory-bathroom.jpg"
+                  alt="Custom home construction progress showing timeline phases"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
               <div className="image-decoration image-decoration-left"></div>
             </div>
@@ -297,11 +318,16 @@ export default function CustomHomesPage() {
               Let's discuss your vision and create a personalized plan for your dream home.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <a href="/custom-build-wizard" className="section-button">
-                Start Custom Build Wizard
-                <ArrowRight className="button-icon" />
-              </a>
-              <a href="/contact" className="section-button-accent">
+              {!loading && (
+                <a 
+                  href={hasAvailableHomes ? "/inventory" : "/custom-build-wizard"} 
+                  className="section-button"
+                >
+                  {hasAvailableHomes ? "View Available Homes" : "Start Custom Build Wizard"}
+                  <ArrowRight className="button-icon" />
+                </a>
+              )}
+              <a href="/consultation" className="section-button-accent">
                 Schedule Consultation
                 <ArrowRight className="button-icon" />
               </a>

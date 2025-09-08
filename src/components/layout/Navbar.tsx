@@ -3,10 +3,13 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { Phone } from 'lucide-react';
+import { useInventory } from '@/hooks/useInventory';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileCtaOpen, setMobileCtaOpen] = useState(false);
+  const { hasAvailableHomes, loading } = useInventory();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,9 +58,11 @@ const Navbar = () => {
             <a href="/custom-homes" className="nav-link">
               Custom Homes
             </a>
-            <a href="/inventory" className="nav-link">
-              Available Homes
-            </a>
+            {!loading && hasAvailableHomes && (
+              <a href="/inventory" className="nav-link">
+                Available Homes
+              </a>
+            )}
             <a href="/portfolio" className="nav-link">
               Portfolio
             </a>
@@ -89,10 +94,26 @@ const Navbar = () => {
               Call Us
             </button>
 
-            {/* CTA Button */}
-            <a href="/start-your-vision" className="cta-button">
-              Start Your Vision
-            </a>
+            {/* CTA Dropdown */}
+            <div className="nav-dropdown cta-dropdown">
+              <button className="cta-button cta-dropdown-trigger">
+                Start Your Vision
+              </button>
+              <div className="dropdown-menu cta-dropdown-menu">
+                <a href="/custom-build-wizard" className="dropdown-link cta-dropdown-link">
+                  <div className="cta-option">
+                    <div className="cta-option-title">Custom Build Wizard</div>
+                    <div className="cta-option-desc">Design your dream home</div>
+                  </div>
+                </a>
+                <a href="/remodeling-wizard" className="dropdown-link cta-dropdown-link">
+                  <div className="cta-option">
+                    <div className="cta-option-title">Remodeling Wizard</div>
+                    <div className="cta-option-desc">Transform your current home</div>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -116,9 +137,11 @@ const Navbar = () => {
             <a href="/custom-homes" className="mobile-nav-link">
               Custom Homes
             </a>
-            <a href="/inventory" className="mobile-nav-link">
-              Available Homes
-            </a>
+            {!loading && hasAvailableHomes && (
+              <a href="/inventory" className="mobile-nav-link">
+                Available Homes
+              </a>
+            )}
             <a href="/portfolio" className="mobile-nav-link">
               Portfolio
             </a>
@@ -145,9 +168,35 @@ const Navbar = () => {
             <a href="/contact" className="mobile-nav-link-secondary">
               Contact
             </a>
-            <a href="/start-your-vision" className="mobile-cta-button">
-              Start Your Vision
-            </a>
+            
+            {/* Mobile CTA Section */}
+            <div className="mobile-cta-section">
+              <button 
+                onClick={() => setMobileCtaOpen(!mobileCtaOpen)}
+                className="mobile-cta-button mobile-cta-toggle"
+              >
+                Start Your Vision
+                <svg 
+                  className={`dropdown-arrow ${mobileCtaOpen ? 'dropdown-arrow-open' : ''}`} 
+                  fill="currentColor" 
+                  viewBox="0 0 20 20"
+                >
+                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+              {mobileCtaOpen && (
+                <div className="mobile-cta-options">
+                  <a href="/custom-build-wizard" className="mobile-cta-option">
+                    <div className="mobile-cta-option-title">Custom Build Wizard</div>
+                    <div className="mobile-cta-option-desc">Design your dream home</div>
+                  </a>
+                  <a href="/remodeling-wizard" className="mobile-cta-option">
+                    <div className="mobile-cta-option-title">Remodeling Wizard</div>
+                    <div className="mobile-cta-option-desc">Transform your current home</div>
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

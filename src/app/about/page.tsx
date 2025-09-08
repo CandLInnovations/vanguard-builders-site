@@ -63,8 +63,14 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="section-image">
-              <div className="image-placeholder">
-                <span>Custom Home Construction</span>
+              <div className="section-image-enhanced">
+                <Image
+                  src="/old-hickory-dr-conroe.jpg"
+                  alt="Custom home construction by Vanguard Builders"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
               <div className="image-decoration image-decoration-right"></div>
             </div>
@@ -77,8 +83,14 @@ export default function AboutPage() {
         <div className="container">
           <div className="section-grid-reverse">
             <div className="section-image">
-              <div className="image-placeholder image-placeholder-dark">
-                <span>Luxury Interior Design</span>
+              <div className="section-image-enhanced">
+                <Image
+                  src="/old-hickory-kitchen.jpg"
+                  alt="Luxury interior design by Vanguard Builders"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
               <div className="image-decoration image-decoration-left"></div>
             </div>
@@ -123,7 +135,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-              <a href="/contact" className="section-button-accent">
+              <a href="/custom-build-wizard" className="section-button-accent">
                 Start Your Project
                 <ArrowRight className="button-icon" />
               </a>
@@ -186,7 +198,7 @@ export default function AboutPage() {
                 Start Custom Build
                 <ArrowRight className="button-icon" />
               </a>
-              <a href="/contact" className="hero-cta-secondary">
+              <a href="/consultation" className="hero-cta-secondary">
                 Schedule Consultation
               </a>
             </div>
