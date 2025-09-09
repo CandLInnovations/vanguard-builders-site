@@ -9,7 +9,7 @@ export default function PortfolioPage() {
   const [activeSection, setActiveSection] = useState<'custom' | 'renovations'>('custom');
 
   return (
-    <div className="page-content" style={{marginTop: '2rem', marginBottom: '6rem'}}>
+    <div className="page-content">
       {/* Hero Section - Half Height */}
       <section className="hero-half">
         {/* Hero Background Image */}
@@ -231,6 +231,11 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+      )}
+
+      {/* Gradient transition spacer - only show when renovations section is active */}
+      {activeSection === 'renovations' && (
+        <div className="gradient-transition"></div>
       )}
     </div>
   );

@@ -1243,6 +1243,12 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
 }
 
+/* Gradient transition spacer */
+.gradient-transition {
+  height: 120px;
+  background: linear-gradient(to bottom, var(--slate-900) 0%, rgba(71, 85, 105, 0.6) 20%, rgba(148, 163, 184, 0.3) 40%, white 100%);
+}
+
 .section-grid {
   display: grid;
   gap: 4rem;
