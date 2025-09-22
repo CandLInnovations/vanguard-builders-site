@@ -189,9 +189,7 @@ const Footer = () => {
                 <ul className="footer-links">
                   <li><a href="/about" className="footer-link">About Us</a></li>
                   <li><a href="/portfolio" className="footer-link">Portfolio</a></li>
-                  <li><a href="/process" className="footer-link">Our Process</a></li>
-                  <li><a href="/team" className="footer-link">Our Team</a></li>
-                  <li><a href="/testimonials" className="footer-link">Testimonials</a></li>
+                  <li><a href="/legacy-of-giving" className="footer-link">Legacy of Giving</a></li>
                 </ul>
               </div>
 

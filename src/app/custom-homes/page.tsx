@@ -205,9 +205,7 @@ export default function CustomHomesPage() {
                 <li>Clean lines and open floor plans</li>
                 <li>Floor-to-ceiling windows</li>
                 <li>Minimalist design elements</li>
-                <li>Smart home integration</li>
               </ul>
-              <div className="text-lg font-bold text-primary-burgundy">Starting at $450/sq ft</div>
             </div>
 
             <div className="text-center">
@@ -218,18 +216,16 @@ export default function CustomHomesPage() {
                 <li>Rich hardwood throughout</li>
                 <li>Custom millwork and trim</li>
               </ul>
-              <div className="text-lg font-bold text-primary-burgundy">Starting at $425/sq ft</div>
             </div>
 
             <div className="text-center">
-              <h3 className="text-xl font-semibold mb-4 font-display">Mediterranean Villa</h3>
+              <h3 className="text-xl font-semibold mb-4 font-display">Farmhouse</h3>
               <ul className="space-y-2 text-slate-600 mb-6 text-left">
-                <li>Stucco and stone exteriors</li>
+                <li>Stone, brick, and siding exteriors</li>
                 <li>Courtyard and outdoor living</li>
-                <li>Tile roofs and arched windows</li>
+                <li>Metal roofs and arched windows</li>
                 <li>Wine cellars and entertainment areas</li>
               </ul>
-              <div className="text-lg font-bold text-primary-burgundy">Starting at $475/sq ft</div>
             </div>
           </div>
         </div>
@@ -243,7 +239,7 @@ export default function CustomHomesPage() {
               <div className="section-image-enhanced">
                 <Image
                   src="/old-hickory-bathroom.jpg"
-                  alt="Custom home construction progress showing timeline phases"
+                  alt="Custom home construction process"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -254,14 +250,14 @@ export default function CustomHomesPage() {
             <div className="section-content">
               <div className="section-badge">
                 <Clock className="badge-icon" />
-                <span className="badge-text">Timeline</span>
+                <span className="badge-text">Process</span>
               </div>
               <h2 className="section-title section-title-light">
                 Custom Home
-                <span className="title-accent"> Construction Timeline</span>
+                <span className="title-accent"> Construction Process</span>
               </h2>
               <p className="section-subtitle section-subtitle-light">
-                Understanding our construction timeline helps you plan for your dream home's completion.
+                Understanding our construction process helps you plan for your dream home's completion.
               </p>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -269,7 +265,7 @@ export default function CustomHomesPage() {
                     <span className="text-sm font-bold text-white">1</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-2">Design & Permitting (2-4 months)</h4>
+                    <h4 className="font-semibold text-white mb-2">Design & Permitting</h4>
                     <p className="text-slate-300">Architectural design, engineering, and permit approval.</p>
                   </div>
                 </div>
@@ -278,7 +274,7 @@ export default function CustomHomesPage() {
                     <span className="text-sm font-bold text-white">2</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-2">Foundation & Framing (6-8 weeks)</h4>
+                    <h4 className="font-semibold text-white mb-2">Foundation & Framing</h4>
                     <p className="text-slate-300">Site preparation, foundation, and structural framing.</p>
                   </div>
                 </div>
@@ -287,7 +283,7 @@ export default function CustomHomesPage() {
                     <span className="text-sm font-bold text-white">3</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-2">Interior & Finishes (8-12 weeks)</h4>
+                    <h4 className="font-semibold text-white mb-2">Interior & Finishes</h4>
                     <p className="text-slate-300">Interior systems, custom millwork, and luxury finishes.</p>
                   </div>
                 </div>
@@ -296,7 +292,7 @@ export default function CustomHomesPage() {
                     <span className="text-sm font-bold text-white">4</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white mb-2">Final Inspection (1-2 weeks)</h4>
+                    <h4 className="font-semibold text-white mb-2">Final Inspection</h4>
                     <p className="text-slate-300">Quality inspection, walkthrough, and move-in preparation.</p>
                   </div>
                 </div>

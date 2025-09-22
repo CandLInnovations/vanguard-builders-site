@@ -1,19 +1,20 @@
 import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
+import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/sanity/schemas'
 
 export default defineConfig({
   name: 'default',
   title: 'Vanguard Builders CMS',
-  
+
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  apiVersion: '2024-01-01',
   
   basePath: '/admin',
   
   plugins: [
-    deskTool({
+    structureTool({
       structure: (S) =>
         S.list()
           .title('Content Management')
@@ -44,7 +45,7 @@ export default defineConfig({
   
   document: {
     productionUrl: async (prev, context) => {
-      const {dataset, document} = context
+      const {document} = context
       if (document._type === 'luxuryHome' && document.slug && typeof document.slug === 'object' && 'current' in document.slug) {
         return `${process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'}/inventory/${document.slug.current}`
       }

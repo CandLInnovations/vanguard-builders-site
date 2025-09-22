@@ -258,7 +258,7 @@ export default function RenovationsPage() {
                 </div>
                 <h3 className="contact-method-title">Start Planning</h3>
                 <a href="/remodeling-wizard" className="contact-method-link">
-                  Remodeling Wizard
+                  Start Remodeling
                 </a>
               </div>
             </div>

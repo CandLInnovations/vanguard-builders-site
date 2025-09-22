@@ -163,15 +163,15 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md-grid-cols-2 lg-grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary-burgundy mb-2">50+</div>
+              <div className="text-4xl font-bold text-primary-burgundy mb-2">100+</div>
               <div className="text-slate-600 font-medium">Luxury Homes Built</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary-burgundy mb-2">100+</div>
+              <div className="text-4xl font-bold text-primary-burgundy mb-2">50+</div>
               <div className="text-slate-600 font-medium">Renovations Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary-burgundy mb-2">15+</div>
+              <div className="text-4xl font-bold text-primary-burgundy mb-2">20+</div>
               <div className="text-slate-600 font-medium">Years Experience</div>
             </div>
             <div className="text-center">

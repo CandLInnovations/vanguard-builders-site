@@ -122,10 +122,18 @@ export default defineType({
         },
         {
           name: 'bathrooms',
-          title: 'Bathrooms',
+          title: 'Full Bathrooms',
           type: 'number',
-          description: 'Use decimal for half baths (e.g., 3.5 for 3 full + 1 half)',
+          description: 'Number of full bathrooms (with bathtub/shower)',
           validation: (Rule) => Rule.required().min(1),
+        },
+        {
+          name: 'halfBathrooms',
+          title: 'Half Bathrooms',
+          type: 'number',
+          description: 'Number of powder rooms/half baths (toilet and sink only)',
+          validation: (Rule) => Rule.min(0),
+          initialValue: 0,
         },
         {
           name: 'lotSize',
@@ -253,15 +261,22 @@ export default defineType({
       image: 'mainImage',
       bedrooms: 'propertyDetails.bedrooms',
       bathrooms: 'propertyDetails.bathrooms',
+      halfBathrooms: 'propertyDetails.halfBathrooms',
       sqft: 'propertyDetails.squareFootage',
     },
-    prepare({title, price, status, image, bedrooms, bathrooms, sqft}) {
+    prepare({title, price, status, image, bedrooms, bathrooms, halfBathrooms, sqft}) {
       const formattedPrice = price ? `$${price.toLocaleString()}` : 'Price not set'
       const statusEmoji = status === 'available' ? '✅' : status === 'pending' ? '🟡' : '❌'
-      
+
+      // Format bathroom display
+      let bathText = `${bathrooms} bath`
+      if (halfBathrooms && halfBathrooms > 0) {
+        bathText = `${bathrooms}+${halfBathrooms} bath`
+      }
+
       return {
         title: `${statusEmoji} ${title}`,
-        subtitle: `${formattedPrice} • ${bedrooms}bed/${bathrooms}bath • ${sqft?.toLocaleString()} sq ft`,
+        subtitle: `${formattedPrice} • ${bedrooms}bed/${bathText} • ${sqft?.toLocaleString()} sq ft`,
         media: image,
       }
     },

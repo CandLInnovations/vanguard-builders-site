@@ -114,7 +114,7 @@ export default function StartYourVisionPage() {
                   </div>
                   
                   <a href="/remodeling-wizard" className="wizard-card-button">
-                    Start Remodeling Wizard
+                    Start Remodeling
                     <ArrowRight className="button-icon" />
                   </a>
                 </div>

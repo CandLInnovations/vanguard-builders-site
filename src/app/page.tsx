@@ -59,7 +59,7 @@ export default function HomePage() {
                   <ArrowRight className="button-icon" />
                 </a>
                 <a href="/remodeling-wizard" className="hero-cta-secondary">
-                  Remodeling Wizard
+                  Start Remodeling
                 </a>
               </>
             )}

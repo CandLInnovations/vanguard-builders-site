@@ -102,13 +102,13 @@ const Navbar = () => {
               <div className="dropdown-menu cta-dropdown-menu">
                 <a href="/custom-build-wizard" className="dropdown-link cta-dropdown-link">
                   <div className="cta-option">
-                    <div className="cta-option-title">Custom Build Wizard</div>
+                    <div className="cta-option-title">Custom Build</div>
                     <div className="cta-option-desc">Design your dream home</div>
                   </div>
                 </a>
                 <a href="/remodeling-wizard" className="dropdown-link cta-dropdown-link">
                   <div className="cta-option">
-                    <div className="cta-option-title">Remodeling Wizard</div>
+                    <div className="cta-option-title">Remodeling</div>
                     <div className="cta-option-desc">Transform your current home</div>
                   </div>
                 </a>
@@ -187,11 +187,11 @@ const Navbar = () => {
               {mobileCtaOpen && (
                 <div className="mobile-cta-options">
                   <a href="/custom-build-wizard" className="mobile-cta-option">
-                    <div className="mobile-cta-option-title">Custom Build Wizard</div>
+                    <div className="mobile-cta-option-title">Custom Build</div>
                     <div className="mobile-cta-option-desc">Design your dream home</div>
                   </a>
                   <a href="/remodeling-wizard" className="mobile-cta-option">
-                    <div className="mobile-cta-option-title">Remodeling Wizard</div>
+                    <div className="mobile-cta-option-title">Remodeling</div>
                     <div className="mobile-cta-option-desc">Transform your current home</div>
                   </a>
                 </div>

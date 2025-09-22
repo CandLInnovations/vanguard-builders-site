@@ -32,6 +32,7 @@ const LUXURY_HOME_QUERY = `
     squareFootage,
     bedrooms,
     bathrooms,
+    halfBathrooms,
     lotSize,
     garageSpaces,
     yearBuilt

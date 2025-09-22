@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { Check } from 'lucide-react';
 import { OptionCard as OptionCardType } from '@/types/wizard';
 
@@ -31,18 +30,6 @@ export default function OptionCard({ option, selected, onSelect, multiSelect = f
         {selected && <Check className="option-card-check" />}
       </div>
 
-      {/* Image */}
-      {option.image && (
-        <div className="option-card-image">
-          <Image
-            src={option.image}
-            alt={option.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
-      )}
 
       {/* Content */}
       <div className="option-card-content">

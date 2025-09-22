@@ -15,6 +15,7 @@ export interface PropertyDetails {
   squareFootage: number
   bedrooms: number
   bathrooms: number
+  halfBathrooms?: number
   lotSize?: string
   garageSpaces?: number
   yearBuilt?: number
@@ -88,6 +89,7 @@ export interface BasicHomeInfo {
     squareFootage: number
     bedrooms: number
     bathrooms: number
+    halfBathrooms?: number
   }
   location: {
     city: string

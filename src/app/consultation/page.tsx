@@ -889,7 +889,7 @@ export default function ConsultationPage() {
                     </div>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 'bold', color: '#1e293b', fontSize: '16px', marginBottom: '4px' }}>
-                        Remodeling Wizard
+                        Start Remodeling
                       </div>
                       <div style={{ fontSize: '14px', color: '#64748b' }}>
                         Plan your renovation project

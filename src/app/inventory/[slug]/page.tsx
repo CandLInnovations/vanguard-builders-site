@@ -104,8 +104,16 @@ export default async function HomeDetailPage({
                   <div className="text-center">
                     <div className="text-3xl font-bold text-slate-900 mb-2">
                       {home.propertyDetails.bathrooms}
+                      {home.propertyDetails.halfBathrooms && home.propertyDetails.halfBathrooms > 0 &&
+                        <span className="text-xl">+{home.propertyDetails.halfBathrooms}</span>
+                      }
                     </div>
-                    <div className="text-slate-600 font-medium">Bathrooms</div>
+                    <div className="text-slate-600 font-medium">
+                      {home.propertyDetails.halfBathrooms && home.propertyDetails.halfBathrooms > 0
+                        ? 'Full+Half Baths'
+                        : 'Bathrooms'
+                      }
+                    </div>
                   </div>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-slate-900 mb-2">

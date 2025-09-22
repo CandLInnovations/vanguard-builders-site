@@ -178,7 +178,12 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M9 7l3-3 3 3M9 3h6v4H9V3z" />
                   </svg>
                   <div className="text-sm">
-                    <div className="font-semibold text-slate-900">{home.propertyDetails.bathrooms}</div>
+                    <div className="font-semibold text-slate-900">
+                      {home.propertyDetails.bathrooms}
+                      {home.propertyDetails.halfBathrooms && home.propertyDetails.halfBathrooms > 0 &&
+                        `+${home.propertyDetails.halfBathrooms}`
+                      }
+                    </div>
                     <div className="text-xs">Baths</div>
                   </div>
                 </div>

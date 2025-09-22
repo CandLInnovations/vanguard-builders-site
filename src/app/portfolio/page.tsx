@@ -88,52 +88,76 @@ export default function PortfolioPage() {
           <div className="portfolio-grid">
             <PortfolioItem
               images={[
-                '/portfolio/custom-home-1.jpg',
-                '/vanguard-builders-bathroom1.jpg',
-                '/vanguard-builders-bathroom2.jpg'
+                '/old-hickory-dr-conroe.jpg',
+                '/old-hickory-kitchen.jpg',
+                '/old-hickory-kitchen2.jpg',
+                '/Old-Hickory-great-room.jpg',
+                '/Old-Hickory-master-suite.jpg',
+                '/old-hickory-bathroom.jpg',
+                '/old-hickory-outdoor-kitchen.jpg'
               ]}
               altTexts={[
-                'Modern luxury custom home exterior',
-                'Luxury bathroom interior',
-                'Luxury bathroom details'
+                'Transitional luxury custom home exterior',
+                'Luxury kitchen interior',
+                'Luxury kitchen interior second perspective',
+                'Expansive great room',
+                'Expansive master suite',
+                'Posh master ensuite',
+                'Outdoor kitchen'
               ]}
               location="The Woodlands, TX"
               year="2024"
-              title="Modern Hill Country Estate"
+              title="Hill Country Estate"
               description="6,500 sq ft contemporary masterpiece featuring soaring ceilings, floor-to-ceiling windows, and seamless indoor-outdoor living."
               features={['5 Bedrooms', '6 Bathrooms', 'Pool & Spa', '3-Car Garage']}
             />
             
             <PortfolioItem
               images={[
-                '/portfolio/custom-home-2.jpg',
-                '/vanguard-builders-bathroom1.jpg'
+                '/custom-home-exterior.jpg',
+                '/custom-kitchen.jpg',
+                '/custom-kitchen2.jpg',
+                '/great-room.jpg',
+                '/master-ensuite.jpg',
+                '/luxury-shower.jpg',
+                '/luxury-patio.jpg',
+                '/outdoor-kitchen.jpg'
               ]}
               altTexts={[
                 'Traditional luxury custom home',
-                'Luxury bathroom interior'
+                'Gourmet custom kitchen',
+                'Gourmet custom kitchen second perspective',
+                'Capacious great room',
+                'Luxury master ensuite',
+                'Master ensuite shower',
+                'Lavish outdoor entertainment',
+                'Custom outdoor kitchen'
               ]}
               location="Katy, TX"
               year="2024"
-              title="Classic Colonial Manor"
+              title="Classic Transitional Manor"
               description="8,200 sq ft traditional estate with timeless elegance, featuring custom millwork and premium finishes throughout."
               features={['6 Bedrooms', '7 Bathrooms', 'Wine Cellar', 'Home Theater']}
             />
             
             <PortfolioItem
               images={[
-                '/portfolio/custom-home-3.jpg',
-                '/vanguard-builders-bathroom2.jpg'
+                '/lorna-unfinished-exterior.jpg',
+                '/lorna-kitchen1.jpg',
+                '/lorna-patio-under-construction.jpg',
+                '/lorna-front-porch-under-construction.jpg'
               ]}
               altTexts={[
-                'Mediterranean luxury custom home',
-                'Luxury bathroom details'
+                'Luxury custom home under construction',
+                'Beautiful custom kitchen',
+                'Back patio details',
+                'Front porch details'
               ]}
-              location="Sugar Land, TX"
-              year="2023"
-              title="Mediterranean Villa"
-              description="7,800 sq ft Mediterranean-inspired home with courtyard design, featuring authentic materials and luxury outdoor living spaces."
-              features={['5 Bedrooms', '6 Bathrooms', 'Courtyard', 'Outdoor Kitchen']}
+              location="Montgomery, TX"
+              year="2025"
+              title="Building Masterpieces"
+              description="Explore the meticulous journey from blueprint to bespoke luxury, where every detail is sculpted with unwavering expertise."
+              features={['4 Bedrooms', '6 Bathrooms', '3 Car Garage', 'Outdoor Kitchen']}
             />
           </div>
 
@@ -171,9 +195,9 @@ export default function PortfolioPage() {
           <div className="portfolio-grid">
             <PortfolioItem
               images={[
-                '/portfolio/renovation-1.jpg',
-                '/vanguard-builders-bathroom1.jpg',
-                '/vanguard-builders-bathroom2.jpg'
+                '/custom-kitchen2.jpg',
+                '/custom-kitchen3.jpg',
+                '/outdoor-kitchen.jpg'
               ]}
               altTexts={[
                 'Luxury kitchen renovation',
@@ -190,8 +214,8 @@ export default function PortfolioPage() {
             
             <PortfolioItem
               images={[
-                '/portfolio/renovation-2.jpg',
-                '/vanguard-builders-bathroom2.jpg'
+                '/luxury-shower.jpg',
+                '/vanguard-builders-bathroom1.jpg'
               ]}
               altTexts={[
                 'Master bathroom renovation',
@@ -207,8 +231,8 @@ export default function PortfolioPage() {
             
             <PortfolioItem
               images={[
-                '/portfolio/renovation-3.jpg',
-                '/vanguard-builders-bathroom1.jpg'
+                '/luxury-patio.jpg',
+                '/construction-phase.jpg'
               ]}
               altTexts={[
                 'Whole home renovation exterior',
