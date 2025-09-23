@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Home, Wrench, MapPin, Calendar, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { Home, ArrowRight } from 'lucide-react';
 import PortfolioItem from '@/components/portfolio/PortfolioItem';
 
 export default function PortfolioPage() {
-  const [activeSection, setActiveSection] = useState<'custom' | 'renovations'>('custom');
+  // const [activeSection, setActiveSection] = useState<'custom' | 'renovations'>('custom'); // COMMENTED OUT WHEN RENOVATIONS HIDDEN
 
   return (
     <div className="page-content">
@@ -24,23 +24,24 @@ export default function PortfolioPage() {
             sizes="100vw"
           />
         </div>
-        
+
         {/* Hero Content */}
         <div className="hero-content">
           <h1 className="hero-title">
-            Our 
+            Our
             <span className="hero-title-accent">
               Portfolio
             </span>
           </h1>
           <p className="hero-subtitle">
-            Discover the exceptional craftsmanship and architectural excellence that defines 
+            Discover the exceptional craftsmanship and architectural excellence that defines
             every Vanguard Builders project. From luxury custom homes to stunning renovations.
           </p>
         </div>
       </section>
 
-      {/* Toggle Section */}
+      {/* Toggle Section - RENOVATIONS HIDDEN FOR NOW */}
+      {/*
       <section className="py-4">
         <div className="container">
           <div className="flex justify-center mb-2">
@@ -63,9 +64,9 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+      */}
 
-      {/* Custom Homes Portfolio Section */}
-      {activeSection === 'custom' && (
+      {/* Custom Homes Portfolio Section - ALWAYS SHOW WHEN RENOVATIONS HIDDEN */}
       <section className="section-white pt-0 pb-16">
         <div className="container">
           <div className="text-center max-w-4xl mx-auto mb-8">
@@ -169,10 +170,10 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
-      )}
+      {/* When renovations are restored, add closing: ) and } */}
 
-      {/* Renovations Portfolio Section */}
-      {activeSection === 'renovations' && (
+      {/* Renovations Portfolio Section - HIDDEN FOR NOW */}
+      {/* {activeSection === 'renovations' && (
       <section className="section-dark pt-0 pb-16">
         <div className="container">
           <div className="text-center max-w-4xl mx-auto mb-8">
@@ -255,12 +256,12 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
-      )}
+      )} */}
 
       {/* Gradient transition spacer - only show when renovations section is active */}
-      {activeSection === 'renovations' && (
+      {/* {activeSection === 'renovations' && (
         <div className="gradient-transition"></div>
-      )}
+      )} */}
     </div>
   );
 }
