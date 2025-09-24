@@ -17,7 +17,7 @@ function formatPrice(price: number) {
 
 function LoadingSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
       {[...Array(6)].map((_, i) => (
         <div key={i} className="animate-pulse">
           <div className="bg-white rounded-3xl overflow-hidden shadow-lg">
@@ -109,7 +109,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="inventory-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
       {homes.map((home: LuxuryHome) => (
         <div key={home._id} className="group">
           <div className="inventory-card bg-white rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-2">
@@ -129,7 +129,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
 
               {home.featured && (
                 <div className="absolute top-6 right-6 z-10">
-                  <span className="bg-gradient-to-r from-primary-burgundy to-primary-burgundy-hover text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
+                  <span className="featured-badge bg-gradient-to-r from-primary-burgundy to-primary-burgundy-hover text-white px-5 py-2.5 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg border-2 border-white">
                     Featured
                   </span>
                 </div>
@@ -183,7 +183,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                   <div className="text-lg font-bold text-primary-burgundy">
                     {home.propertyDetails.bathrooms}
                     {home.propertyDetails.halfBathrooms && home.propertyDetails.halfBathrooms > 0 &&
-                      `.${home.propertyDetails.halfBathrooms}`
+                      ` + ${home.propertyDetails.halfBathrooms}½`
                     }
                   </div>
                   <div className="text-xs text-slate-600 font-medium uppercase tracking-wider">Baths</div>

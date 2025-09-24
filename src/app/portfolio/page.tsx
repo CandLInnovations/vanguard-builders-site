@@ -40,8 +40,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Toggle Section - RENOVATIONS HIDDEN FOR NOW */}
-      {/*
+      {/* Toggle Section - RENOVATIONS HIDDEN FOR NOW
       <section className="py-4">
         <div className="container">
           <div className="flex justify-center mb-2">
@@ -173,7 +172,7 @@ export default function PortfolioPage() {
       {/* When renovations are restored, add closing: ) and } */}
 
       {/* Renovations Portfolio Section - HIDDEN FOR NOW */}
-      {/* {activeSection === 'renovations' && (
+      {/* Commented out: {activeSection === 'renovations' && (
       <section className="section-dark pt-0 pb-16">
         <div className="container">
           <div className="text-center max-w-4xl mx-auto mb-8">
@@ -259,7 +258,7 @@ export default function PortfolioPage() {
       )} */}
 
       {/* Gradient transition spacer - only show when renovations section is active */}
-      {/* {activeSection === 'renovations' && (
+      {/* Commented out: {activeSection === 'renovations' && (
         <div className="gradient-transition"></div>
       )} */}
     </div>
