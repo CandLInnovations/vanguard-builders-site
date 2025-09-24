@@ -129,7 +129,7 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
 
   const handleRequestConsultation = useCallback(async (validateAndSubmit: (formData: ContactFormData) => Promise<ValidationResult>) => {
     setSpamValidationError('');
-    
+
     // Convert wizard data to contact form format
     const formData: ContactFormData = {
       firstName: wizard.data.contactInfo?.firstName || '',
@@ -145,12 +145,30 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
 
     try {
       const result = await validateAndSubmit(formData);
-      
+
       if (result.isValid) {
-        // Passed validation, show success
-        console.log('Consultation request validated and submitted:', wizard.data);
-        setShowSuccess(true);
-        onComplete?.(wizard.data);
+        // Passed validation, now submit to API
+        try {
+          const response = await fetch('/api/remodeling-wizard', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(wizard.data),
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+            throw new Error(errorData.error || 'Failed to submit request');
+          }
+
+          // Success - show success screen
+          setShowSuccess(true);
+          onComplete?.(wizard.data);
+        } catch (apiError) {
+          console.error('API submission error:', apiError);
+          setSpamValidationError(apiError instanceof Error ? apiError.message : 'Failed to submit your request. Please try again.');
+        }
       } else if (result.requiresAdditionalVerification) {
         // Show verification challenge
         setShowVerification(true);
@@ -170,10 +188,30 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
     router.push('/portfolio');
   }, [wizard, router]);
 
-  const handleVerificationComplete = useCallback(() => {
+  const handleVerificationComplete = useCallback(async () => {
     setShowVerification(false);
-    setShowSuccess(true);
-    onComplete?.(wizard.data);
+
+    // Submit to API after verification
+    try {
+      const response = await fetch('/api/remodeling-wizard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(wizard.data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || 'Failed to submit request');
+      }
+
+      setShowSuccess(true);
+      onComplete?.(wizard.data);
+    } catch (apiError) {
+      console.error('API submission error after verification:', apiError);
+      setSpamValidationError(apiError instanceof Error ? apiError.message : 'Failed to submit your request. Please try again.');
+    }
   }, [wizard.data, onComplete]);
 
   const handleVerificationCancel = useCallback(() => {

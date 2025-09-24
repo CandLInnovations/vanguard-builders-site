@@ -20,11 +20,22 @@ function LoadingSkeleton() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {[...Array(6)].map((_, i) => (
         <div key={i} className="animate-pulse">
-          <div className="bg-slate-200 aspect-[4/3] rounded-2xl mb-6"></div>
-          <div className="space-y-3">
-            <div className="bg-slate-200 h-7 rounded w-3/4"></div>
-            <div className="bg-slate-200 h-6 rounded w-1/2"></div>
-            <div className="bg-slate-200 h-5 rounded w-2/3"></div>
+          <div className="bg-white rounded-3xl overflow-hidden shadow-lg">
+            <div className="bg-slate-200 aspect-[3/2] mb-0"></div>
+            <div className="p-6 space-y-4">
+              <div className="bg-slate-200 h-6 rounded w-3/4"></div>
+              <div className="bg-slate-200 h-8 rounded w-1/2"></div>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-slate-100 h-16 rounded-xl"></div>
+                <div className="bg-slate-100 h-16 rounded-xl"></div>
+                <div className="bg-slate-100 h-16 rounded-xl"></div>
+              </div>
+              <div className="bg-slate-100 h-20 rounded-xl"></div>
+              <div className="space-y-2">
+                <div className="bg-slate-200 h-10 rounded-xl"></div>
+                <div className="bg-slate-100 h-10 rounded-xl"></div>
+              </div>
+            </div>
           </div>
         </div>
       ))}
@@ -98,10 +109,10 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {homes.map((home: LuxuryHome) => (
         <div key={home._id} className="group">
-          <div className="inventory-card bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-slate-300">
+          <div className="inventory-card bg-white rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-slate-200/50 hover:-translate-y-2">
             {/* Status and Featured Badges */}
             <div className="relative">
               {home.status !== 'available' && (
@@ -149,7 +160,7 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
             </div>
 
             {/* Content */}
-            <div className="p-8">
+            <div className="p-6 lg:p-8">
               <Link 
                 href={`/inventory/${home.slug.current}${preview ? '?preview=true' : ''}`}
                 className="block mb-4"
@@ -163,38 +174,23 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                 {formatPrice(home.price)}
               </div>
 
-              <div className="grid grid-cols-3 gap-4 text-slate-600 mb-4">
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-                  </svg>
-                  <div className="text-sm">
-                    <div className="font-semibold text-slate-900">{home.propertyDetails.bedrooms}</div>
-                    <div className="text-xs">Beds</div>
-                  </div>
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                <div className="text-center p-3 bg-slate-50 rounded-xl">
+                  <div className="text-lg font-bold text-primary-burgundy">{home.propertyDetails.bedrooms}</div>
+                  <div className="text-xs text-slate-600 font-medium uppercase tracking-wider">Beds</div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M9 7l3-3 3 3M9 3h6v4H9V3z" />
-                  </svg>
-                  <div className="text-sm">
-                    <div className="font-semibold text-slate-900">
-                      {home.propertyDetails.bathrooms}
-                      {home.propertyDetails.halfBathrooms && home.propertyDetails.halfBathrooms > 0 &&
-                        `+${home.propertyDetails.halfBathrooms}`
-                      }
-                    </div>
-                    <div className="text-xs">Baths</div>
+                <div className="text-center p-3 bg-slate-50 rounded-xl">
+                  <div className="text-lg font-bold text-primary-burgundy">
+                    {home.propertyDetails.bathrooms}
+                    {home.propertyDetails.halfBathrooms && home.propertyDetails.halfBathrooms > 0 &&
+                      `.${home.propertyDetails.halfBathrooms}`
+                    }
                   </div>
+                  <div className="text-xs text-slate-600 font-medium uppercase tracking-wider">Baths</div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                  </svg>
-                  <div className="text-sm">
-                    <div className="font-semibold text-slate-900">{home.propertyDetails.squareFootage?.toLocaleString()}</div>
-                    <div className="text-xs">Sq Ft</div>
-                  </div>
+                <div className="text-center p-3 bg-slate-50 rounded-xl">
+                  <div className="text-lg font-bold text-primary-burgundy">{home.propertyDetails.squareFootage?.toLocaleString()}</div>
+                  <div className="text-xs text-slate-600 font-medium uppercase tracking-wider">Sq Ft</div>
                 </div>
               </div>
 
@@ -207,23 +203,23 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
               </div>
 
               {/* Additional Property Details */}
-              <div className="space-y-1 text-sm text-slate-600 mb-4">
+              <div className="bg-slate-50 rounded-xl p-4 space-y-2 text-sm mb-6">
                 {home.architecturalStyle && (
-                  <div className="flex justify-between">
-                    <span>Style:</span>
-                    <span className="font-medium text-slate-900 ml-2">{home.architecturalStyle.charAt(0).toUpperCase() + home.architecturalStyle.slice(1)}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-600">Style</span>
+                    <span className="font-semibold text-slate-900">{home.architecturalStyle.charAt(0).toUpperCase() + home.architecturalStyle.slice(1)}</span>
                   </div>
                 )}
                 {home.propertyDetails.yearBuilt && (
-                  <div className="flex justify-between">
-                    <span>Built:</span>
-                    <span className="font-medium text-slate-900 ml-2">{home.propertyDetails.yearBuilt}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-600">Built</span>
+                    <span className="font-semibold text-slate-900">{home.propertyDetails.yearBuilt}</span>
                   </div>
                 )}
                 {home.propertyDetails.lotSize && (
-                  <div className="flex justify-between">
-                    <span>Lot Size:</span>
-                    <span className="font-medium text-slate-900 ml-2">{home.propertyDetails.lotSize}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-600">Lot Size</span>
+                    <span className="font-semibold text-slate-900">{home.propertyDetails.lotSize}</span>
                   </div>
                 )}
               </div>
@@ -235,20 +231,20 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
                     href={home.virtualTourUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-primary-burgundy text-white py-3 px-4 rounded-lg font-semibold text-center hover:bg-primary-burgundy-hover transition-colors inline-block"
+                    className="w-full bg-gradient-to-r from-primary-burgundy to-primary-burgundy-hover text-white py-3 px-6 rounded-xl font-semibold text-center hover:shadow-lg hover:shadow-primary-burgundy/30 transition-all duration-300 inline-block"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    Tour This Home
+                    🏠 Tour This Home
                   </a>
                 )}
-                <Link 
+                <Link
                   href={`/inventory/${home.slug.current}${preview ? '?preview=true' : ''}`}
-                  className="flex items-center justify-between text-slate-900 hover:text-primary-burgundy transition-colors no-underline"
+                  className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl text-slate-900 hover:text-primary-burgundy transition-all duration-300 no-underline group"
                 >
                   <span className="font-semibold">
                     View Full Details
                   </span>
-                  <svg className="w-4 h-4 transition-transform hover:translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
@@ -279,17 +275,17 @@ export default async function InventoryPage({
     <>
       {preview && <PreviewBanner />}
       
-      <div className={`min-h-screen bg-gradient-to-br from-slate-50 to-white ${preview ? 'pt-14' : ''}`}>
+      <div className={`min-h-screen ${preview ? 'pt-14' : ''}`}>
         {/* Hero Section */}
-        <section className="relative py-20 lg:py-28">
+        <section className="relative py-20 lg:py-28 bg-gradient-to-br from-slate-50 via-white to-slate-50">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-4xl mx-auto mb-16">
-              <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6">
-                Luxury Home 
+              <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-6 inventory-page-title">
+                Luxury Home
                 <span className="block text-primary-burgundy">Inventory</span>
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 leading-relaxed">
-                Discover our exclusive collection of luxury homes, each crafted with 
+                Discover our exclusive collection of luxury homes, each crafted with
                 uncompromising attention to detail and exceptional quality.
               </p>
               {preview && (
