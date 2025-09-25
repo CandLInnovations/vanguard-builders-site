@@ -56,12 +56,12 @@ export default function LuxuryHomeTrends2024() {
 
             {/* Excerpt */}
             <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-              Discover the latest trends in luxury home design, from sustainable materials to smart home integration, that are defining architectural excellence in 2024.
+              Discover the latest trends in luxury home design, from sustainable materials to premium finishes, that are defining architectural excellence in 2024.
             </p>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-3 mb-8">
-              {['Luxury Homes', 'Design Trends', 'Architecture', 'Smart Homes'].map((tag) => (
+              {['Luxury Homes', 'Design Trends', 'Architecture', 'Premium Materials'].map((tag) => (
                 <span
                   key={tag}
                   className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium"
@@ -121,30 +121,30 @@ export default function LuxuryHomeTrends2024() {
                 </li>
               </ul>
 
-              <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Smart Home Integration: Seamless Technology</h2>
+              <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Luxury Materials & Finishes: Timeless Elegance</h2>
 
               <p className="text-slate-700 mb-6">
-                The modern luxury home is a sophisticated ecosystem of integrated technology that enhances comfort, security, and efficiency without compromising aesthetic appeal. Key trends include:
+                2024 has brought a renewed focus on exceptional materials and finishes that create lasting beauty and sophistication. Today's luxury homeowners are investing in premium elements that will stand the test of time while making a bold design statement.
               </p>
 
               <div className="bg-slate-50 rounded-xl p-8 mb-8">
-                <h3 className="text-xl font-semibold text-slate-900 mb-4">Featured Smart Home Elements</h3>
+                <h3 className="text-xl font-semibold text-slate-900 mb-4">Premium Material Trends</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-semibold text-primary-burgundy mb-2">Invisible Technology</h4>
-                    <p className="text-slate-600 text-sm">Controls and interfaces seamlessly integrated into architectural elements, maintaining clean design lines.</p>
+                    <h4 className="font-semibold text-primary-burgundy mb-2">Natural Stone Features</h4>
+                    <p className="text-slate-600 text-sm">Statement marble slabs, travertine walls, and granite accents that bring organic luxury indoors.</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-primary-burgundy mb-2">Wellness Monitoring</h4>
-                    <p className="text-slate-600 text-sm">Air quality sensors, circadian lighting systems, and health-focused environmental controls.</p>
+                    <h4 className="font-semibold text-primary-burgundy mb-2">Custom Millwork</h4>
+                    <p className="text-slate-600 text-sm">Hand-crafted cabinetry, coffered ceilings, and architectural details that showcase artisan craftsmanship.</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-primary-burgundy mb-2">Predictive Automation</h4>
-                    <p className="text-slate-600 text-sm">AI-driven systems that learn preferences and automatically adjust settings for optimal comfort.</p>
+                    <h4 className="font-semibold text-primary-burgundy mb-2">Designer Hardware</h4>
+                    <p className="text-slate-600 text-sm">Curated fixtures, handles, and accents in brass, bronze, and brushed metals that elevate every detail.</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-primary-burgundy mb-2">Advanced Security</h4>
-                    <p className="text-slate-600 text-sm">Biometric access, perimeter monitoring, and integrated emergency response systems.</p>
+                    <h4 className="font-semibold text-primary-burgundy mb-2">Luxury Flooring</h4>
+                    <p className="text-slate-600 text-sm">Wide-plank hardwoods, large-format tiles, and custom inlays that create stunning foundations.</p>
                   </div>
                 </div>
               </div>

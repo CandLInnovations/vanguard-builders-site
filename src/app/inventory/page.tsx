@@ -311,7 +311,7 @@ export default async function InventoryPage({
               Our luxury home specialists are ready to help you discover the perfect property that matches your vision and lifestyle.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/contact" className="cta-button bg-primary-burgundy hover:bg-primary-burgundy-hover">
+              <a href="/consultation" className="cta-button bg-primary-burgundy hover:bg-primary-burgundy-hover">
                 Schedule Consultation
               </a>
               <a href="/custom-homes" className="section-button bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900">

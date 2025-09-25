@@ -21,13 +21,13 @@ const blogPosts: BlogPost[] = [
   {
     slug: 'luxury-home-trends-2024',
     title: 'Luxury Home Design Trends Shaping 2024',
-    excerpt: 'Discover the latest trends in luxury home design, from sustainable materials to smart home integration, that are defining architectural excellence in 2024.',
+    excerpt: 'Discover the latest trends in luxury home design, from sustainable materials to premium finishes, that are defining architectural excellence in 2024.',
     publishedDate: '2024-01-15',
     readTime: '5 min read',
     category: 'Design Trends',
     author: 'Vanguard Builders Team',
     featuredImage: '/luxury-patio.jpg',
-    tags: ['Luxury Homes', 'Design Trends', 'Architecture', 'Smart Homes']
+    tags: ['Luxury Homes', 'Design Trends', 'Architecture', 'Premium Materials']
   },
   {
     slug: 'custom-home-building-process',

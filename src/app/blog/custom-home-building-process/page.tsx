@@ -332,7 +332,7 @@ export default function CustomHomeBuildingProcess() {
               <a href="/consultation" className="cta-button">
                 Schedule Your Consultation
               </a>
-              <a href="/custom-homes" className="section-button">
+              <a href="/portfolio" className="section-button">
                 View Custom Home Gallery
               </a>
             </div>

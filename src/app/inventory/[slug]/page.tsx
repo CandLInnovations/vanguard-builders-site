@@ -194,30 +194,30 @@ export default async function HomeDetailPage({
             {/* Sidebar */}
             <div className="space-y-8">
               {/* Property Details */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-6">
+              <div className="bg-white rounded-2xl p-6">
                 <h3 className="text-xl font-bold text-slate-900 mb-4">
                   Property Details
                 </h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                    <span className="text-slate-600 font-medium">Style</span>
+                <div className="space-y-3">
+                  <div>
+                    <span className="text-slate-600 font-medium">Style: </span>
                     <span className="font-semibold text-slate-900">{home.architecturalStyle?.charAt(0).toUpperCase() + home.architecturalStyle?.slice(1)}</span>
                   </div>
                   {home.propertyDetails.yearBuilt && (
-                    <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                      <span className="text-slate-600 font-medium">Year Built</span>
+                    <div>
+                      <span className="text-slate-600 font-medium">Year Built: </span>
                       <span className="font-semibold text-slate-900">{home.propertyDetails.yearBuilt}</span>
                     </div>
                   )}
                   {home.propertyDetails.lotSize && (
-                    <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                      <span className="text-slate-600 font-medium">Lot Size</span>
+                    <div>
+                      <span className="text-slate-600 font-medium">Lot Size: </span>
                       <span className="font-semibold text-slate-900">{home.propertyDetails.lotSize}</span>
                     </div>
                   )}
                   {home.mlsNumber && (
-                    <div className="flex justify-between items-center py-1">
-                      <span className="text-slate-600 font-medium">MLS #</span>
+                    <div>
+                      <span className="text-slate-600 font-medium">MLS #: </span>
                       <span className="font-semibold text-slate-900">{home.mlsNumber}</span>
                     </div>
                   )}
@@ -225,7 +225,7 @@ export default async function HomeDetailPage({
               </div>
 
               {/* Location */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-6">
+              <div className="bg-white rounded-2xl p-6">
                 <h3 className="text-xl font-bold text-slate-900 mb-4">
                   Location
                 </h3>
