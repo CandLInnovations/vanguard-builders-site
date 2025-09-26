@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import { getFeaturedHomes } from '@/lib/sanity-queries'
-import type { FeaturedHomesApiResponse } from '@/types/sanity'
 
 export async function GET() {
   try {

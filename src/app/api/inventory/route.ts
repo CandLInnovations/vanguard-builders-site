@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAvailableHomes, searchHomes } from '@/lib/sanity-queries'
-import type { HomeSearchFilters, InventoryApiResponse } from '@/types/sanity'
+import type { HomeSearchFilters } from '@/types/sanity'
 
 export async function GET(request: NextRequest) {
   try {
