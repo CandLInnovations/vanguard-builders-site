@@ -65,9 +65,9 @@ export default function LegacyOfGivingPage() {
                 homelessness to independence.
               </p>
               <div className="bg-accent-gold/10 rounded-lg p-6">
-                <h4 className="text-accent-gold font-display font-semibold text-2xl mb-4">
+                <h3 className="text-accent-gold font-display font-semibold text-2xl mb-6">
                   Our Promise
-                </h4>
+                </h3>
                 <p className="text-slate-700 leading-relaxed">
                   A portion of profits from every Vanguard Builders home directly supports
                   Family Promise of Montgomery County's mission to help homeless families

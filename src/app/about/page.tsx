@@ -182,15 +182,54 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Service Areas Section */}
+      <section className="section section-dark" style={{ paddingTop: '3rem' }}>
+        <div className="container">
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <div className="section-badge justify-center">
+              <svg className="badge-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span className="badge-text">
+                Service Areas
+              </span>
+            </div>
+            <h2 className="section-title section-title-light">
+              Proudly Serving
+              <span className="title-accent"> Greater Houston</span>
+            </h2>
+            <p className="section-subtitle section-subtitle-light">
+              We bring our construction and remodeling expertise to communities throughout the Houston metropolitan area.
+            </p>
+            <div className="grid grid-cols-2 md-grid-cols-3 lg-grid-cols-4 gap-4 text-lg">
+              <div className="service-area">Houston</div>
+              <div className="service-area">Katy</div>
+              <div className="service-area">Cypress</div>
+              <div className="service-area">The Woodlands</div>
+              <div className="service-area">Spring</div>
+              <div className="service-area">Sugar Land</div>
+              <div className="service-area">Willis</div>
+              <div className="service-area">Huntsville</div>
+              <div className="service-area">Tomball</div>
+              <div className="service-area">Conroe</div>
+              <div className="service-area">Kingwood</div>
+              <div className="service-area">Cleveland</div>
+              <div className="service-area-plus">& Surrounding Areas</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="section section-dark">
+      <section className="section section-white">
         <div className="container">
           <div className="text-center max-w-4xl mx-auto">
-            <h2 className="section-title section-title-light">
+            <h2 className="section-title">
               Ready to Build Your
               <span className="title-accent"> Dream Home?</span>
             </h2>
-            <p className="section-subtitle section-subtitle-light mb-12">
+            <p className="section-subtitle mb-12">
               Let's discuss your vision and create something extraordinary together.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">

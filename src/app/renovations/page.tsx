@@ -102,10 +102,12 @@ export default function RenovationsPage() {
               <div className="service-area">The Woodlands</div>
               <div className="service-area">Spring</div>
               <div className="service-area">Sugar Land</div>
-              <div className="service-area">Richmond</div>
-              <div className="service-area">Fulshear</div>
+              <div className="service-area">Willis</div>
+              <div className="service-area">Huntsville</div>
               <div className="service-area">Tomball</div>
               <div className="service-area">Conroe</div>
+              <div className="service-area">Kingwood</div>
+              <div className="service-area">Cleveland</div>
               <div className="service-area-plus">& Surrounding Areas</div>
             </div>
           </div>
