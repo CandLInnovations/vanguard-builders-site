@@ -97,8 +97,7 @@ function FAQItem({ question, answer }: FAQItemProps) {
           borderTop: '1px solid #f1f5f9',
           background: 'linear-gradient(135deg, #f8fafc 0%, #ffffff 100%)'
         }}>
-          <div style={{ paddingTop: '24px' }}>
-            {answer}
+          <div style={{ paddingTop: '24px' }} dangerouslySetInnerHTML={{ __html: answer }}>
           </div>
         </div>
       )}
@@ -110,7 +109,7 @@ export default function FAQPage() {
   const customHomeFAQs = [
     {
       question: "How long does it take to build a custom home?",
-      answer: "Custom home construction typically takes 8-12 months from groundbreaking to completion, depending on the size and complexity of the design. This includes 2-4 months for design and permitting, followed by 6-8 months of construction."
+      answer: "Custom home construction typically takes 8-12 months from groundbreaking to completion, depending on the size and complexity of the design. This includes 2-4 months for design and permitting, followed by 6-8 months of construction. <em>Please note that timelines may be affected by factors outside our control, including utility company schedules, municipal inspections and approvals, and weather conditions. We work diligently to minimize delays and will keep you informed throughout the process.</em>"
     },
     {
       question: "What is the typical cost per square foot for a custom home?",

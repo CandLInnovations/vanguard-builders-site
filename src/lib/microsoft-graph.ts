@@ -11,7 +11,6 @@ const msalConfig = {
 };
 
 let msalInstance: ConfidentialClientApplication | null = null;
-let graphClient: Client | null = null;
 
 // Initialize MSAL instance
 const getMsalInstance = (): ConfidentialClientApplication => {
@@ -31,7 +30,7 @@ const getAccessToken = async (): Promise<string> => {
 
     const clientCredentialRequest = {
       scopes: ['https://graph.microsoft.com/.default'],
-      skipCache: false,
+      skipCache: true, // Always get a fresh token
     };
 
     const response = await msal.acquireTokenByClientCredential(clientCredentialRequest);
@@ -45,18 +44,15 @@ const getAccessToken = async (): Promise<string> => {
   }
 };
 
-// Get authenticated Graph client
+// Get authenticated Graph client with fresh token
 export const getGraphClient = async (): Promise<Client> => {
-  if (!graphClient) {
-    const accessToken = await getAccessToken();
+  const accessToken = await getAccessToken();
 
-    graphClient = Client.init({
-      authProvider: (done) => {
-        done(null, accessToken);
-      },
-    });
-  }
-  return graphClient;
+  return Client.init({
+    authProvider: (done) => {
+      done(null, accessToken);
+    },
+  });
 };
 
 // Send email using Microsoft Graph API
@@ -87,13 +83,22 @@ export const sendEmail = async (emailData: EmailMessage): Promise<void> => {
       })),
     };
 
-    // Send email from the configured user account
+    // Send email using application permissions
     const senderEmail = process.env.FROM_EMAIL || 'office@vanguardbuilders.com';
+
+    const mailMessage = {
+      ...message,
+      from: {
+        emailAddress: {
+          address: senderEmail,
+        },
+      },
+    };
 
     await graphClient
       .api(`/users/${senderEmail}/sendMail`)
       .post({
-        message,
+        message: mailMessage,
         saveToSentItems: true,
       });
 
@@ -110,7 +115,7 @@ export const validateGraphConnection = async (): Promise<boolean> => {
     const graphClient = await getGraphClient();
     const senderEmail = process.env.FROM_EMAIL || 'office@vanguardbuilders.com';
 
-    // Test connection by getting user info
+    // Test connection by getting user info with application permissions
     await graphClient.api(`/users/${senderEmail}`).get();
     return true;
   } catch (error) {

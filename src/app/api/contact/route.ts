@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
 
 interface ContactFormData {
   name: string;
@@ -9,26 +9,11 @@ interface ContactFormData {
   message: string;
 }
 
-// Email configuration
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-};
+// Email configuration is handled by Microsoft Graph service
 
-// Admin notification email template
-const createAdminEmail = (data: ContactFormData) => {
-  return {
-    from: process.env.FROM_EMAIL,
-    to: process.env.ADMIN_EMAIL,
-    subject: `New Contact Form Message - ${data.subject}`,
-    html: `
+// Admin notification email content
+const createAdminEmailContent = (data: ContactFormData): string => {
+  return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
           <h1 style="margin: 0; font-size: 28px;">New Contact Message</h1>
@@ -75,23 +60,18 @@ const createAdminEmail = (data: ContactFormData) => {
           <p style="margin: 8px 0 0 0;">Generated on ${new Date().toLocaleString()}</p>
         </div>
       </div>
-    `,
-  };
+    `;
 };
 
-// Customer confirmation email template
-const createCustomerEmail = (data: ContactFormData) => {
-  return {
-    from: process.env.FROM_EMAIL,
-    to: data.email,
-    subject: 'Message Received - Vanguard Builders',
-    html: `
+// Customer confirmation email content
+const createCustomerEmailContent = (data: ContactFormData): string => {
+  return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
           <h1 style="margin: 0; font-size: 28px;">Thank You, ${data.name}!</h1>
           <p style="margin: 10px 0 0 0; opacity: 0.9;">Your message has been received</p>
         </div>
-        
+
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">
           <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
             <h2 style="color: #1e293b; margin-top: 0;">Your Message</h2>
@@ -100,7 +80,7 @@ const createCustomerEmail = (data: ContactFormData) => {
               "${data.message.length > 150 ? data.message.substring(0, 150) + '...' : data.message}"
             </div>
           </div>
-          
+
           <div style="background: #ecfdf5; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 25px;">
             <h3 style="color: #065f46; margin-top: 0;">What Happens Next?</h3>
             <ul style="color: #047857; margin: 0; padding-left: 20px;">
@@ -109,7 +89,7 @@ const createCustomerEmail = (data: ContactFormData) => {
               <li style="margin-bottom: 8px;">If you need immediate assistance, please call us</li>
             </ul>
           </div>
-          
+
           <div style="text-align: center;">
             <p style="color: #64748b; margin-bottom: 20px;">Need immediate assistance?</p>
             <a href="tel:281-220-9087" style="display: inline-block; background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">
@@ -117,14 +97,13 @@ const createCustomerEmail = (data: ContactFormData) => {
             </a>
           </div>
         </div>
-        
+
         <div style="text-align: center; margin-top: 30px; padding: 20px; color: #64748b; font-size: 14px;">
           <p style="margin: 0;">Thank you for choosing Vanguard Builders</p>
           <p style="margin: 8px 0 0 0;"><em>Crafting Architectural Excellence</em></p>
         </div>
       </div>
-    `,
-  };
+    `;
 };
 
 export async function POST(request: NextRequest) {
@@ -157,44 +136,62 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if email configuration exists
-    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.error('Email configuration missing');
+    // Check if Microsoft Graph OAuth configuration exists
+    if (!process.env.AZURE_CLIENT_ID || !process.env.AZURE_CLIENT_SECRET || !process.env.AZURE_TENANT_ID) {
+      console.error('Microsoft Graph OAuth configuration missing');
       return NextResponse.json(
         { error: 'Email service not configured. Please try again later.' },
         { status: 500 }
       );
     }
 
-    const transporter = createTransporter();
+    // Validate Graph API connection
+    const isConnected = await validateGraphConnection();
+    if (!isConnected) {
+      console.error('Microsoft Graph API connection failed');
+      return NextResponse.json(
+        { error: 'Email service temporarily unavailable. Please try again later.' },
+        { status: 500 }
+      );
+    }
 
     // Send admin notification
-    const adminEmail = createAdminEmail(data);
-    await transporter.sendMail(adminEmail);
+    await sendEmail({
+      subject: `New Contact Form Message - ${data.subject}`,
+      toRecipients: [process.env.ADMIN_EMAIL || 'office@vanguardbuilders.com'],
+      body: {
+        contentType: 'HTML',
+        content: createAdminEmailContent(data),
+      },
+    });
 
     // Send customer confirmation
-    const customerEmail = createCustomerEmail(data);
-    await transporter.sendMail(customerEmail);
+    await sendEmail({
+      subject: 'Message Received - Vanguard Builders',
+      toRecipients: [data.email],
+      body: {
+        contentType: 'HTML',
+        content: createCustomerEmailContent(data),
+      },
+    });
 
     return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Message sent successfully! We will respond within 24 hours.' 
+      {
+        success: true,
+        message: 'Message sent successfully! We will respond within 24 hours.'
       },
       { status: 200 }
     );
 
   } catch (error) {
     console.error('Error processing contact form:', error);
-    
+
     if (error instanceof Error) {
-      // Log specific error details for debugging
       console.error('Error details:', {
         message: error.message,
         stack: error.stack
       });
-      
-      // Return user-friendly error message
+
       return NextResponse.json(
         { error: 'Unable to send your message. Please try again or call us directly.' },
         { status: 500 }

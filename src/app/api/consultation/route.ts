@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
 
 interface ConsultationFormData {
   name: string;
@@ -11,21 +11,10 @@ interface ConsultationFormData {
   message: string;
 }
 
-// Email configuration
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-};
+// Email configuration is handled by Microsoft Graph service
 
-// Admin notification email template
-const createAdminEmail = (data: ConsultationFormData) => {
+// Admin notification email content
+const createAdminEmailContent = (data: ConsultationFormData): string => {
   const projectTypeNames: Record<string, string> = {
     'custom-home': 'Custom Home',
     'renovation': 'Home Renovation',
@@ -52,11 +41,7 @@ const createAdminEmail = (data: ConsultationFormData) => {
     '1m-plus': '$1M+'
   };
 
-  return {
-    from: process.env.FROM_EMAIL,
-    to: process.env.ADMIN_EMAIL,
-    subject: `New Consultation Request - ${projectTypeNames[data.projectType] || data.projectType}`,
-    html: `
+  return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
           <h1 style="margin: 0; font-size: 28px;">New Consultation Request</h1>
@@ -118,12 +103,11 @@ const createAdminEmail = (data: ConsultationFormData) => {
           <p style="margin: 8px 0 0 0;">Generated on ${new Date().toLocaleString()}</p>
         </div>
       </div>
-    `,
-  };
+    `;
 };
 
-// Customer confirmation email template
-const createCustomerEmail = (data: ConsultationFormData) => {
+// Customer confirmation email content
+const createCustomerEmailContent = (data: ConsultationFormData): string => {
   const projectTypeNames: Record<string, string> = {
     'custom-home': 'Custom Home',
     'renovation': 'Home Renovation',
@@ -134,11 +118,7 @@ const createCustomerEmail = (data: ConsultationFormData) => {
     'other': 'Other'
   };
 
-  return {
-    from: process.env.FROM_EMAIL,
-    to: data.email,
-    subject: 'Consultation Request Received - Vanguard Builders',
-    html: `
+  return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
           <h1 style="margin: 0; font-size: 28px;">Thank You, ${data.name}!</h1>
@@ -176,8 +156,7 @@ const createCustomerEmail = (data: ConsultationFormData) => {
           <p style="margin: 8px 0 0 0;"><em>Crafting Architectural Excellence</em></p>
         </div>
       </div>
-    `,
-  };
+    `;
 };
 
 export async function POST(request: NextRequest) {
@@ -210,24 +189,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if email configuration exists
-    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.error('Email configuration missing');
+    // Check if Microsoft Graph OAuth configuration exists
+    if (!process.env.AZURE_CLIENT_ID || !process.env.AZURE_CLIENT_SECRET || !process.env.AZURE_TENANT_ID) {
+      console.error('Microsoft Graph OAuth configuration missing');
       return NextResponse.json(
         { error: 'Email service not configured. Please try again later.' },
         { status: 500 }
       );
     }
 
-    const transporter = createTransporter();
+    // Validate Graph API connection
+    const isConnected = await validateGraphConnection();
+    if (!isConnected) {
+      console.error('Microsoft Graph API connection failed');
+      return NextResponse.json(
+        { error: 'Email service temporarily unavailable. Please try again later.' },
+        { status: 500 }
+      );
+    }
 
     // Send admin notification
-    const adminEmail = createAdminEmail(data);
-    await transporter.sendMail(adminEmail);
+    await sendEmail({
+      subject: `New Consultation Request - ${data.projectType}`,
+      toRecipients: [process.env.ADMIN_EMAIL || 'office@vanguardbuilders.com'],
+      body: {
+        contentType: 'HTML',
+        content: createAdminEmailContent(data),
+      },
+    });
 
     // Send customer confirmation
-    const customerEmail = createCustomerEmail(data);
-    await transporter.sendMail(customerEmail);
+    await sendEmail({
+      subject: 'Consultation Request Received - Vanguard Builders',
+      toRecipients: [data.email],
+      body: {
+        contentType: 'HTML',
+        content: createCustomerEmailContent(data),
+      },
+    });
 
     return NextResponse.json(
       { 

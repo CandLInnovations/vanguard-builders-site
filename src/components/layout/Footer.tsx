@@ -201,7 +201,6 @@ const Footer = () => {
                   <li><a href="/faq" className="footer-link">FAQ</a></li>
                   <li><a href="/contact" className="footer-link">Contact Us</a></li>
                   <li><a href="/consultation" className="footer-link">Free Consultation</a></li>
-                  <li><a href="/financing" className="footer-link">Financing</a></li>
                   <li><a href="/warranty" className="footer-link">Warranty</a></li>
                 </ul>
               </div>

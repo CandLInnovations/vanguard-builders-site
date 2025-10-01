@@ -17,6 +17,9 @@ export default function SuccessDisplay({
   redirectDelay = 3000 
 }: SuccessDisplayProps) {
   useEffect(() => {
+    // Scroll to top when success message appears
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     const timer = setTimeout(() => {
       onComplete();
     }, redirectDelay);
