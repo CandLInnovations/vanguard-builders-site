@@ -24,7 +24,7 @@ export default function FeaturesStep({
     'Outdoor Living': ['pool', 'outdoor-kitchen', 'covered-patios'],
     'Garage & Storage': ['2-car-garage', '3-car-garage', '4-car-garage'],
     'Special Rooms': ['home-office', 'media-room', 'wine-cellar', 'gym'],
-    'Luxury Features': ['smart-home', 'high-end-appliances', 'custom-millwork']
+    'Luxury Features': ['custom-closets', 'high-end-appliances', 'custom-millwork']
   };
 
   const handleFeatureSelect = (featureId: string) => {

@@ -312,9 +312,9 @@ export const HOME_FEATURES: OptionCard[] = [
     description: 'Private fitness space'
   },
   {
-    id: 'smart-home',
-    title: 'Smart Home Integration',
-    description: 'Advanced home automation'
+    id: 'custom-closets',
+    title: 'Custom Closets',
+    description: 'Luxury walk-in closet systems'
   },
   {
     id: 'high-end-appliances',
