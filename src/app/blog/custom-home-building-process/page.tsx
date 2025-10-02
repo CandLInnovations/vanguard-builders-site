@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Calendar, Clock, ArrowLeft, CheckCircle, ArrowRight } from 'lucide-react'
+import { Calendar, Clock, ArrowLeft, CheckCircle } from 'lucide-react'
 
 export default function CustomHomeBuildingProcess() {
   return (
@@ -60,11 +60,17 @@ export default function CustomHomeBuildingProcess() {
             </p>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap mb-8">
               {['Custom Homes', 'Building Process', 'Construction', 'Client Experience'].map((tag) => (
                 <span
                   key={tag}
-                  className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium"
+                  className="px-3 py-1.5 rounded-lg text-sm"
+                  style={{
+                    marginRight: '12px',
+                    marginBottom: '12px',
+                    fontWeight: 'bold',
+                    color: '#8B1538'
+                  }}
                 >
                   {tag}
                 </span>
@@ -77,7 +83,7 @@ export default function CustomHomeBuildingProcess() {
       {/* Featured Image */}
       <section className="pb-16">
         <div className="container">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div className="aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl relative">
               <Image
                 src="/custom-home-exterior.jpg"
@@ -97,14 +103,14 @@ export default function CustomHomeBuildingProcess() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <p className="lead text-xl text-slate-600 mb-8">
-                Building a custom luxury home is one of life's most significant investments – both financially and emotionally. At Vanguard Builders, we understand that this journey should be as remarkable as the destination. Our comprehensive process is designed to guide you seamlessly from your initial vision to the moment you receive your keys.
+                Building a custom luxury home is one of life&apos;s most significant investments – both financially and emotionally. At Vanguard Builders, we understand that this journey should be as remarkable as the destination. Our comprehensive process is designed to guide you seamlessly from your initial vision to the moment you receive your keys.
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Phase 1: Discovery & Design (Weeks 1-8)</h2>
 
               <h3 className="text-2xl font-semibold text-slate-800 mb-4">Initial Consultation</h3>
               <p className="text-slate-700 mb-6">
-                Every great home begins with understanding our clients' unique vision, lifestyle, and dreams. Our initial consultation is comprehensive, covering:
+                Every great home begins with understanding our clients&apos; unique vision, lifestyle, and dreams. Our initial consultation is comprehensive, covering:
               </p>
 
               <ul className="space-y-3 mb-8">
@@ -140,7 +146,7 @@ export default function CustomHomeBuildingProcess() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h5 className="font-semibold text-primary-burgundy mb-2">Conceptual Design</h5>
-                    <p className="text-slate-600 text-sm mb-4">Initial sketches and 3D renderings help visualize your home's overall aesthetic and flow.</p>
+                    <p className="text-slate-600 text-sm mb-4">Initial sketches and 3D renderings help visualize your home&apos;s overall aesthetic and flow.</p>
                   </div>
                   <div>
                     <h5 className="font-semibold text-primary-burgundy mb-2">Schematic Design</h5>
@@ -199,7 +205,7 @@ export default function CustomHomeBuildingProcess() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold mb-2 opacity-90">Foundation & Structure</h4>
-                    <p className="text-sm opacity-75 mb-4">Site work, foundation, framing, and roofing establish your home's solid foundation.</p>
+                    <p className="text-sm opacity-75 mb-4">Site work, foundation, framing, and roofing establish your home&apos;s solid foundation.</p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2 opacity-90">Systems Installation</h4>
@@ -244,7 +250,7 @@ export default function CustomHomeBuildingProcess() {
 
               <h3 className="text-2xl font-semibold text-slate-800 mb-4">Pre-Delivery Inspection</h3>
               <p className="text-slate-700 mb-6">
-                Before your final walkthrough, our team conducts a comprehensive pre-delivery inspection, addressing any items that don't meet our exacting standards. This includes:
+                Before your final walkthrough, our team conducts a comprehensive pre-delivery inspection, addressing any items that don&apos;t meet our exacting standards. This includes:
               </p>
 
               <ul className="space-y-3 mb-8">
@@ -268,20 +274,20 @@ export default function CustomHomeBuildingProcess() {
 
               <h3 className="text-2xl font-semibold text-slate-800 mb-4">Final Walkthrough & Closing</h3>
               <p className="text-slate-700 mb-8">
-                Your final walkthrough is a celebration of the journey's completion. We provide detailed orientation for all home systems, comprehensive warranty information, and ongoing support contacts. This isn't just a handover – it's the beginning of our long-term relationship as your preferred home care partner.
+                Your final walkthrough is a celebration of the journey&apos;s completion. We provide detailed orientation for all home systems, comprehensive warranty information, and ongoing support contacts. This isn&apos;t just a handover – it&apos;s the beginning of our long-term relationship as your preferred home care partner.
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">The Vanguard Difference</h2>
 
               <p className="text-slate-700 mb-6">
-                What sets our process apart isn't just our attention to detail or quality craftsmanship – it's our commitment to making the journey as exceptional as the destination. Here's what you can expect when working with Vanguard Builders:
+                What sets our process apart isn&apos;t just our attention to detail or quality craftsmanship – it&apos;s our commitment to making the journey as exceptional as the destination. Here&apos;s what you can expect when working with Vanguard Builders:
               </p>
 
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div className="bg-slate-50 rounded-xl p-6">
                   <h4 className="text-lg font-semibold text-slate-900 mb-3">Transparent Communication</h4>
                   <p className="text-slate-600 text-sm">
-                    No surprises, no hidden costs. You'll always know exactly where your project stands, what's happening next, and why.
+                    No surprises, no hidden costs. You&apos;ll always know exactly where your project stands, what&apos;s happening next, and why.
                   </p>
                 </div>
                 <div className="bg-slate-50 rounded-xl p-6">
@@ -307,7 +313,7 @@ export default function CustomHomeBuildingProcess() {
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Ready to Begin Your Journey?</h2>
 
               <p className="text-slate-700 mb-8">
-                Every luxury home we build represents a unique collaboration between our expertise and our clients' dreams. If you're ready to begin this exciting journey, we invite you to schedule a consultation to discuss your vision, explore your options, and discover how Vanguard Builders can bring your dream home to life.
+                Every luxury home we build represents a unique collaboration between our expertise and our clients&apos; dreams. If you&apos;re ready to begin this exciting journey, we invite you to schedule a consultation to discuss your vision, explore your options, and discover how Vanguard Builders can bring your dream home to life.
               </p>
 
               <p className="text-slate-700">
@@ -326,7 +332,7 @@ export default function CustomHomeBuildingProcess() {
               Start Your Custom Home Journey Today
             </h2>
             <p className="text-xl text-slate-600 mb-8">
-              Ready to transform your vision into reality? Let's discuss your dream home project and how our proven process can bring it to life.
+              Ready to transform your vision into reality? Let&apos;s discuss your dream home project and how our proven process can bring it to life.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/consultation" className="cta-button">

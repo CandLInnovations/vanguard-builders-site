@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+// Removed unused MetadataRoute import
 
 export async function GET(): Promise<Response> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vanguardbuilders.vercel.app'

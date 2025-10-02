@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Calendar, Clock, ArrowLeft, Share2 } from 'lucide-react'
+import { Calendar, Clock, ArrowLeft } from 'lucide-react'
 
 export default function LuxuryHomeTrends2024() {
   return (
@@ -60,11 +60,17 @@ export default function LuxuryHomeTrends2024() {
             </p>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap mb-8">
               {['Luxury Homes', 'Design Trends', 'Architecture', 'Premium Materials'].map((tag) => (
                 <span
                   key={tag}
-                  className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-medium"
+                  className="px-3 py-1.5 rounded-lg text-sm"
+                  style={{
+                    marginRight: '12px',
+                    marginBottom: '12px',
+                    fontWeight: 'bold',
+                    color: '#8B1538'
+                  }}
                 >
                   {tag}
                 </span>
@@ -77,7 +83,7 @@ export default function LuxuryHomeTrends2024() {
       {/* Featured Image */}
       <section className="pb-16">
         <div className="container">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div className="aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl relative">
               <Image
                 src="/luxury-patio.jpg"
@@ -97,13 +103,13 @@ export default function LuxuryHomeTrends2024() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <p className="lead text-xl text-slate-600 mb-8">
-                As we move through 2024, luxury home design continues to evolve, blending timeless elegance with cutting-edge innovation. At Vanguard Builders, we're at the forefront of these transformative trends, crafting homes that not only meet today's sophisticated standards but anticipate tomorrow's lifestyle needs.
+                As we move through 2024, luxury home design continues to evolve, blending timeless elegance with cutting-edge innovation. At Vanguard Builders, we&apos;re at the forefront of these transformative trends, crafting homes that not only meet today&apos;s sophisticated standards but anticipate tomorrow&apos;s lifestyle needs.
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Sustainable Luxury: The New Standard</h2>
 
               <p className="text-slate-700 mb-6">
-                Sustainability has transcended from being a nice-to-have feature to an essential element of luxury design. Today's discerning homeowners understand that true luxury includes responsibility to the environment. We're seeing increased demand for:
+                Sustainability has transcended from being a nice-to-have feature to an essential element of luxury design. Today&apos;s discerning homeowners understand that true luxury includes responsibility to the environment. We&apos;re seeing increased demand for:
               </p>
 
               <ul className="space-y-3 mb-8">
@@ -124,7 +130,7 @@ export default function LuxuryHomeTrends2024() {
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Luxury Materials & Finishes: Timeless Elegance</h2>
 
               <p className="text-slate-700 mb-6">
-                2024 has brought a renewed focus on exceptional materials and finishes that create lasting beauty and sophistication. Today's luxury homeowners are investing in premium elements that will stand the test of time while making a bold design statement.
+                2024 has brought a renewed focus on exceptional materials and finishes that create lasting beauty and sophistication. Today&apos;s luxury homeowners are investing in premium elements that will stand the test of time while making a bold design statement.
               </p>
 
               <div className="bg-slate-50 rounded-xl p-8 mb-8">
@@ -156,7 +162,7 @@ export default function LuxuryHomeTrends2024() {
               </p>
 
               <p className="text-slate-700 mb-8">
-                We're incorporating living walls, indoor gardens, natural materials, and expansive windows that blur the boundaries between interior and exterior spaces. Water features, natural stone, and organic shapes create environments that promote wellness and tranquility.
+                We&apos;re incorporating living walls, indoor gardens, natural materials, and expansive windows that blur the boundaries between interior and exterior spaces. Water features, natural stone, and organic shapes create environments that promote wellness and tranquility.
               </p>
 
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Flexible Spaces for Evolving Lifestyles</h2>
@@ -187,13 +193,13 @@ export default function LuxuryHomeTrends2024() {
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">The Vanguard Approach to 2024 Trends</h2>
 
               <p className="text-slate-700 mb-6">
-                At Vanguard Builders, we don't just follow trends – we help create them by listening to our clients' evolving needs and anticipating future lifestyle requirements. Our approach to incorporating these 2024 trends focuses on:
+                At Vanguard Builders, we don&apos;t just follow trends – we help create them by listening to our clients&apos; evolving needs and anticipating future lifestyle requirements. Our approach to incorporating these 2024 trends focuses on:
               </p>
 
               <div className="bg-gradient-to-br from-primary-burgundy to-primary-burgundy-hover rounded-xl p-8 text-white mb-8">
                 <h3 className="text-xl font-semibold mb-4">Our Design Philosophy</h3>
                 <p className="mb-4 opacity-90">
-                  "True luxury isn't about following every trend – it's about creating timeless spaces that incorporate the best innovations while maintaining enduring elegance and functionality."
+                  &ldquo;True luxury isn&apos;t about following every trend – it&apos;s about creating timeless spaces that incorporate the best innovations while maintaining enduring elegance and functionality.&rdquo;
                 </p>
                 <p className="text-sm opacity-75">— Vanguard Builders Design Team</p>
               </div>
@@ -205,11 +211,11 @@ export default function LuxuryHomeTrends2024() {
               <h2 className="text-3xl font-bold text-slate-900 mt-12 mb-6">Looking Ahead</h2>
 
               <p className="text-slate-700 mb-6">
-                As we continue through 2024, we anticipate these trends will continue evolving, with increased emphasis on personalization, sustainability, and technology integration. The luxury homes we're building today are designed to adapt and grow with their owners, incorporating infrastructure for future innovations while maintaining the timeless elegance that defines true luxury.
+                As we continue through 2024, we anticipate these trends will continue evolving, with increased emphasis on personalization, sustainability, and technology integration. The luxury homes we&apos;re building today are designed to adapt and grow with their owners, incorporating infrastructure for future innovations while maintaining the timeless elegance that defines true luxury.
               </p>
 
               <p className="text-slate-700 mb-8">
-                Whether you're planning a new custom home or considering renovations to incorporate these trends, the key is working with a team that understands both current innovations and timeless design principles.
+                Whether you&apos;re planning a new custom home or considering renovations to incorporate these trends, the key is working with a team that understands both current innovations and timeless design principles.
               </p>
             </div>
           </div>
@@ -224,7 +230,7 @@ export default function LuxuryHomeTrends2024() {
               Ready to Incorporate These Trends?
             </h2>
             <p className="text-xl text-slate-600 mb-8">
-              Let's discuss how these luxury design trends can be incorporated into your dream home project.
+              Let&apos;s discuss how these luxury design trends can be incorporated into your dream home project.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="/consultation" className="cta-button">

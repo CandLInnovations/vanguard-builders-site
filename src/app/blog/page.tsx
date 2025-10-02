@@ -19,6 +19,17 @@ interface BlogPost {
 // Sample blog data - in production, this would come from a CMS or API
 const blogPosts: BlogPost[] = [
   {
+    slug: 'smart-money-moves-montgomery-remodel',
+    title: 'Financial Focus: Smart Money Moves for Your Montgomery Remodel',
+    excerpt: 'Navigate the financial landscape of home remodeling with confidence. From financing options to tax benefits, discover the smartest money moves for your Montgomery area renovation project.',
+    publishedDate: '2025-10-02',
+    readTime: '12 min read',
+    category: 'Financial Planning',
+    author: 'Vanguard Builders Team',
+    featuredImage: '/custom-kitchen.jpg',
+    tags: ['Home Financing', 'Remodeling', 'Montgomery County', 'Tax Benefits', 'Investment Strategy']
+  },
+  {
     slug: 'luxury-home-trends-2024',
     title: 'Luxury Home Design Trends Shaping 2024',
     excerpt: 'Discover the latest trends in luxury home design, from sustainable materials to premium finishes, that are defining architectural excellence in 2024.',
@@ -129,11 +140,17 @@ function BlogPostCard({ post }: { post: BlogPost }) {
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap mb-6">
           {post.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-xs font-medium"
+              className="px-2.5 py-1 rounded-md text-xs"
+              style={{
+                marginRight: '8px',
+                marginBottom: '8px',
+                fontWeight: 'bold',
+                color: '#8B1538'
+              }}
             >
               {tag}
             </span>
@@ -157,7 +174,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="hero-half" style={{ minHeight: '60vh', paddingBottom: '3rem' }}>
+      <section className="hero-half" style={{ minHeight: '45vh' }}>
         {/* Hero Background */}
         <div className="hero-background">
           <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200"></div>
@@ -165,7 +182,7 @@ export default function BlogPage() {
         </div>
 
         {/* Hero Content */}
-        <div className="hero-content" style={{ paddingBottom: '2rem' }}>
+        <div className="hero-content flex items-center justify-center py-12 md:py-4" style={{ minHeight: '45vh' }}>
           <div className="container">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="hero-title text-white">

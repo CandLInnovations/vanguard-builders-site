@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowRight, Home, Users, Award, CheckCircle } from 'lucide-react';
+import { ArrowRight, Home, Users, Award } from 'lucide-react';
 
 export default function AboutPage() {
   return (

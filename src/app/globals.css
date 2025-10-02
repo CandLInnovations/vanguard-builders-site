@@ -4094,3 +4094,15 @@ h1, h2, h3, h4, h5, h6 {
     height: 0.625rem;
   }
 }
+/* Family Promise Logo Styles */
+.family-promise-logo {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.family-promise-link:hover .family-promise-logo {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.02);
+}

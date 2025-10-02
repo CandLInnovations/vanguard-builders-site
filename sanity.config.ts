@@ -25,6 +25,7 @@ export default defineConfig({
                 S.documentList()
                   .title('Available Homes')
                   .filter('_type == "luxuryHome"')
+                  .apiVersion('2024-01-01')
                   .defaultOrdering([
                     {field: 'status', direction: 'asc'},
                     {field: 'price', direction: 'desc'}

@@ -115,7 +115,7 @@ export default function HomePage() {
                 </div>
               </div>
               <a href="/custom-build-wizard" className="section-button">
-                Explore Custom Homes
+                Start Your Custom Build
                 <ArrowRight className="button-icon" />
               </a>
             </div>

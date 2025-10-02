@@ -191,6 +191,29 @@ const Footer = () => {
                   <li><a href="/portfolio" className="footer-link">Portfolio</a></li>
                   <li><a href="/legacy-of-giving" className="footer-link">Legacy of Giving</a></li>
                 </ul>
+                <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-start' }}>
+                  <a
+                    href="https://www.familypromiseofmc.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="family-promise-link"
+                    style={{ display: 'inline-block', width: '100%', maxWidth: '150px' }}
+                  >
+                    <Image
+                      src="/family-promise-montgomery-county.avif"
+                      alt="Family Promise Montgomery County"
+                      width={150}
+                      height={150}
+                      className="family-promise-logo"
+                      style={{
+                        width: '100%',
+                        maxWidth: '150px',
+                        height: 'auto',
+                        objectFit: 'contain' as const
+                      }}
+                    />
+                  </a>
+                </div>
               </div>
 
               {/* Resources */}

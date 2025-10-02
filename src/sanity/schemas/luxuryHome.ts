@@ -52,7 +52,7 @@ export default defineType({
       type: 'text',
       description: 'Detailed description highlighting luxury features and unique selling points',
       rows: 4,
-      validation: (Rule) => Rule.required().min(100).max(500),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'mainImage',
