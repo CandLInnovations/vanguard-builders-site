@@ -103,7 +103,7 @@ export default function SmartMoneyMovesMontgomeryRemodel() {
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
               <p className="lead text-xl text-slate-600 mb-8">
-                You know that feeling. You&apos;re sitting at your kitchen table—the one with the worn laminate countertops and the cabinets that haven&apos;t been updated since the &apos;90s—scrolling through real estate listings. Again. There&apos;s a gorgeous new construction in The Woodlands calling your name. Modern finishes, open floor plan, that chef&apos;s kitchen you&apos;ve been dreaming about for years.
+                You know that feeling. You&apos;re sitting at your kitchen table—the one with the worn laminate countertops and the cabinets that haven&apos;t been updated since the &apos;90s—scrolling through real estate listings. Again. There&apos;s a gorgeous new construction home in The Woodlands calling your name. Modern finishes, open floor plan, that chef&apos;s kitchen you&apos;ve been dreaming about for years.
               </p>
 
               <p className="text-lg text-slate-700 mb-8">

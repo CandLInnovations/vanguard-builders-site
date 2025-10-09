@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Raleway } from 'next/font/google';
 import { Bodoni_Moda_SC } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -74,6 +75,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
