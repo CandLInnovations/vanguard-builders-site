@@ -200,7 +200,7 @@ const Footer = () => {
                     style={{ display: 'inline-block', width: '100%', maxWidth: '150px' }}
                   >
                     <Image
-                      src="/family-promise-montgomery-county.avif"
+                      src="/fp-montgomery-county.avif"
                       alt="Family Promise Montgomery County"
                       width={150}
                       height={150}
