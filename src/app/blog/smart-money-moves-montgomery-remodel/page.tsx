@@ -1,10 +1,54 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { Calendar, Clock, ArrowLeft, DollarSign, Home, Calculator, TrendingUp } from 'lucide-react'
+import { generateBlogPostingSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data'
+
+export const metadata: Metadata = {
+  title: 'Smart Money Moves for Your Montgomery County Remodel | Vanguard Homes',
+  description: 'Strategic budgeting and financial planning for Montgomery County home remodels. Maximize your investment with expert advice from luxury remodeling professionals.',
+  alternates: {
+    canonical: 'https://vanguardhomes.com/blog/smart-money-moves-montgomery-remodel',
+  },
+  openGraph: {
+    title: 'Smart Money Moves for Your Montgomery County Remodel',
+    description: 'Strategic budgeting and financial planning for Montgomery County home remodels. Maximize your investment with expert advice from luxury remodeling professionals.',
+    url: 'https://vanguardhomes.com/blog/smart-money-moves-montgomery-remodel',
+    siteName: 'Vanguard Homes',
+    type: 'article',
+    publishedTime: '2024-01-05T00:00:00Z',
+    images: ['/luxury-bathroom.jpg'],
+  },
+}
 
 export default function SmartMoneyMovesMontgomeryRemodel() {
+  const blogPostSchema = generateBlogPostingSchema({
+    title: 'Smart Money Moves for Your Montgomery County Remodel',
+    description: 'Strategic budgeting and financial planning for Montgomery County home remodels. Maximize your investment with expert advice from luxury remodeling professionals.',
+    slug: 'smart-money-moves-montgomery-remodel',
+    publishedDate: '2024-01-05T00:00:00Z',
+    category: 'Financial Planning',
+    tags: ['remodeling', 'budgeting', 'Montgomery County', 'ROI', 'home value'],
+    image: 'https://vanguardhomes.com/luxury-bathroom.jpg',
+  })
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Smart Money Moves for Montgomery Remodel', path: '/blog/smart-money-moves-montgomery-remodel' },
+  ])
+
   return (
     <div className="min-h-screen">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(blogPostSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
       {/* Article Header */}
       <section className="pt-20 pb-12 bg-gradient-to-br from-slate-50 via-white to-slate-50">
         <div className="container">

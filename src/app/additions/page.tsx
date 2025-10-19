@@ -3,10 +3,32 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown, Home, Plus, Square, Users, Ruler, Palette } from 'lucide-react';
+import { generateServiceSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data';
 
 export default function AdditionsPage() {
+  const serviceSchema = generateServiceSchema({
+    name: 'Home Additions & Expansions',
+    description: 'Expand your living space with luxury home additions. Master suites, home offices, sunrooms, outdoor living spaces, and second stories. Seamless integration with your existing home.',
+    url: 'https://vanguardhomes.com/additions',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Home Additions', path: '/additions' },
+  ]);
+
   return (
     <div className="page-content">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(serviceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
+
       {/* Hero Section */}
       <section className="hero">
         {/* Hero Background Image */}

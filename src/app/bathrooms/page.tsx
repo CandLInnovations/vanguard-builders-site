@@ -3,10 +3,32 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown, Droplets, Sparkles, Palette, Thermometer, Crown, Zap } from 'lucide-react';
+import { generateServiceSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data';
 
 export default function BathroomsPage() {
+  const serviceSchema = generateServiceSchema({
+    name: 'Luxury Bathroom Design & Remodeling',
+    description: 'Create your personal spa retreat with luxury bathroom remodeling. Featuring spa-inspired features, premium fixtures, smart technology, and elegant design. Master bathrooms, powder rooms, and complete renovations.',
+    url: 'https://vanguardhomes.com/bathrooms',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Bathroom Design', path: '/bathrooms' },
+  ]);
+
   return (
     <div className="page-content">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(serviceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
+
       {/* Hero Section */}
       <section className="hero">
         {/* Hero Background Image */}

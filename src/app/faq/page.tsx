@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ArrowRight, Plus, Minus, HelpCircle } from 'lucide-react';
+import { generateFAQPageSchema, renderJsonLd } from '@/lib/structured-data';
 
 interface FAQItemProps {
   question: string;
@@ -179,8 +180,25 @@ export default function FAQPage() {
     }
   ];
 
+  // Combine all FAQs for structured data
+  const allFAQs = [...customHomeFAQs, ...renovationFAQs, ...generalFAQs];
+
+  // Strip HTML tags for schema (Google requires plain text)
+  const faqsForSchema = allFAQs.map(faq => ({
+    question: faq.question,
+    answer: faq.answer.replace(/<[^>]*>/g, ''),
+  }));
+
+  const faqSchema = generateFAQPageSchema(faqsForSchema);
+
   return (
     <div className="page-content">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(faqSchema)}
+      />
+
       {/* Hero Section - Half Height */}
       <section className="hero-half">
         <div className="hero-background">

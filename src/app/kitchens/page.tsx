@@ -3,10 +3,32 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, ChevronDown, ChefHat, Lightbulb, Palette, Zap, Crown, Gem } from 'lucide-react';
+import { generateServiceSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data';
 
 export default function KitchensPage() {
+  const serviceSchema = generateServiceSchema({
+    name: 'Luxury Kitchen Design & Remodeling',
+    description: 'Transform your kitchen with custom cabinetry, premium appliances, and sophisticated design. Expert kitchen remodeling services in Texas featuring smart technology integration and gourmet features.',
+    url: 'https://vanguardhomes.com/kitchens',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Kitchen Design', path: '/kitchens' },
+  ]);
+
   return (
     <div className="page-content">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(serviceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
+
       {/* Hero Section */}
       <section className="hero">
         {/* Hero Background Image */}

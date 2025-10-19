@@ -6,6 +6,11 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import {
+  generateLocalBusinessSchema,
+  generateWebSiteSchema,
+  renderJsonLd
+} from '@/lib/structured-data';
 
 const raleway = Raleway({ 
   subsets: ['latin'],
@@ -59,6 +64,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const localBusinessSchema = generateLocalBusinessSchema();
+  const webSiteSchema = generateWebSiteSchema();
+
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
@@ -67,6 +75,16 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={renderJsonLd(localBusinessSchema)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={renderJsonLd(webSiteSchema)}
+        />
       </head>
       <body className={`${raleway.variable} ${bodoniModaSC.variable} font-sans`}>
         <Navbar />

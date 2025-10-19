@@ -1,9 +1,16 @@
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { getHomeBySlug } from '@/lib/sanity-queries'
 import { getPreviewHomeBySlug } from '@/lib/sanity-preview'
 import { SanityImageGallery } from '@/components/ui/SanityImage'
 import { PreviewBanner } from '@/components/ui/PreviewBanner'
 import { urlFor } from '@/lib/sanity-image'
+import {
+  generateProductSchema,
+  generateResidenceSchema,
+  generateBreadcrumbSchema,
+  renderJsonLd,
+} from '@/lib/structured-data'
 
 interface HomeDetailPageProps {
   params: Promise<{
@@ -22,14 +29,67 @@ function formatPrice(price: number) {
   }).format(price)
 }
 
-export default async function HomeDetailPage({ 
-  params, 
-  searchParams 
+// Generate dynamic metadata for SEO
+export async function generateMetadata({ params }: HomeDetailPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const home = await getHomeBySlug(resolvedParams.slug)
+
+  if (!home) {
+    return {
+      title: 'Property Not Found',
+    }
+  }
+
+  const title = `${home.title} - ${home.location.city}, TX | Vanguard Homes`
+  const description = home.description
+    ? home.description.substring(0, 160)
+    : `${home.propertyDetails.bedrooms} bed, ${home.propertyDetails.bathrooms} bath luxury home in ${home.location.city}, TX. ${formatPrice(home.price)}`
+
+  const imageUrl = home.mainImage?.asset
+    ? urlFor(home.mainImage).width(1200).height(630).quality(90).url()
+    : 'https://vanguardhomes.com/vanguard-builders-logo-tp.png'
+
+  const url = `https://vanguardhomes.com/inventory/${resolvedParams.slug}`
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'Vanguard Homes',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: home.title,
+        },
+      ],
+      locale: 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
+  }
+}
+
+export default async function HomeDetailPage({
+  params,
+  searchParams
 }: HomeDetailPageProps) {
   const resolvedParams = await params
   const resolvedSearchParams = await searchParams
   const preview = resolvedSearchParams.preview === 'true'
-  const home = preview 
+  const home = preview
     ? await getPreviewHomeBySlug(resolvedParams.slug, true)
     : await getHomeBySlug(resolvedParams.slug)
 
@@ -37,9 +97,31 @@ export default async function HomeDetailPage({
     notFound()
   }
 
+  // Generate structured data
+  const productSchema = generateProductSchema(home, resolvedParams.slug)
+  const residenceSchema = generateResidenceSchema(home, resolvedParams.slug)
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Available Homes', path: '/inventory' },
+    { name: home.title, path: `/inventory/${resolvedParams.slug}` },
+  ])
 
   return (
     <>
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(productSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(residenceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
+
       {preview && <PreviewBanner />}
       
       <div className={`min-h-screen bg-white ${preview ? 'pt-14' : ''}`}>

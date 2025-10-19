@@ -3,8 +3,19 @@
 import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, MapPin, Wrench, Phone, Mail, Home, Palette, Plus, TreePine, Sparkles } from 'lucide-react';
+import { generateServiceSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data';
 
 export default function RenovationsPage() {
+  const serviceSchema = generateServiceSchema({
+    name: 'Luxury Home Renovation & Remodeling',
+    description: 'Expert whole-home renovations, kitchen and bathroom remodeling, and historic preservation services in Texas. Transform your existing home with luxury finishes and master craftsmanship.',
+    url: 'https://vanguardhomes.com/renovations',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Renovations', path: '/renovations' },
+  ]);
   // Obfuscated phone number
   const phoneNumber = "281-220-9087";
   const obfuscatedPhone = phoneNumber.split('').map((char, index) => 
@@ -39,6 +50,16 @@ export default function RenovationsPage() {
 
   return (
     <div className="page-content">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(serviceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
+
       {/* Hero Section */}
       <section className="hero">
         {/* Hero Background Image */}

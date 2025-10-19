@@ -1,10 +1,54 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { Calendar, Clock, ArrowLeft, CheckCircle } from 'lucide-react'
+import { generateBlogPostingSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data'
+
+export const metadata: Metadata = {
+  title: 'The Custom Home Building Process: A Complete Guide | Vanguard Homes',
+  description: 'Learn the complete custom home building process from design to completion. Expert insights from Texas luxury home builders.',
+  alternates: {
+    canonical: 'https://vanguardhomes.com/blog/custom-home-building-process',
+  },
+  openGraph: {
+    title: 'The Custom Home Building Process: A Complete Guide',
+    description: 'Learn the complete custom home building process from design to completion. Expert insights from Texas luxury home builders.',
+    url: 'https://vanguardhomes.com/blog/custom-home-building-process',
+    siteName: 'Vanguard Homes',
+    type: 'article',
+    publishedTime: '2024-01-10T00:00:00Z',
+    images: ['/construction-phase.jpg'],
+  },
+}
 
 export default function CustomHomeBuildingProcess() {
+  const blogPostSchema = generateBlogPostingSchema({
+    title: 'The Custom Home Building Process: A Complete Guide',
+    description: 'Learn the complete custom home building process from design to completion. Expert insights from Texas luxury home builders.',
+    slug: 'custom-home-building-process',
+    publishedDate: '2024-01-10T00:00:00Z',
+    category: 'Building Process',
+    tags: ['custom homes', 'building process', 'construction', 'home design'],
+    image: 'https://vanguardhomes.com/construction-phase.jpg',
+  })
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Custom Home Building Process', path: '/blog/custom-home-building-process' },
+  ])
+
   return (
     <div className="min-h-screen">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(blogPostSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
       {/* Article Header */}
       <section className="pt-20 pb-12 bg-gradient-to-br from-slate-50 via-white to-slate-50">
         <div className="container">

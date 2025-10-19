@@ -4,11 +4,33 @@ import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, Home, Ruler, Palette, Shield, Clock, Award } from 'lucide-react';
 import { useInventory } from '@/hooks/useInventory';
+import { generateServiceSchema, generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data';
 
 export default function CustomHomesPage() {
   const { hasAvailableHomes, loading } = useInventory();
+
+  const serviceSchema = generateServiceSchema({
+    name: 'Custom Luxury Home Building',
+    description: 'Expert custom home building services in Texas. We create bespoke luxury homes with premium materials, architectural excellence, and master craftsmanship.',
+    url: 'https://vanguardhomes.com/custom-homes',
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Custom Homes', path: '/custom-homes' },
+  ]);
+
   return (
     <div className="page-content">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(serviceSchema)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)}
+      />
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-background">
