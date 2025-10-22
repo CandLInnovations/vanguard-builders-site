@@ -1,13 +1,23 @@
 // app/page.tsx
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight, ChevronDown, Home, Wrench } from 'lucide-react';
-import { useInventory } from '@/hooks/useInventory';
+import { getAvailableHomes } from '@/lib/sanity-queries';
 
-export default function HomePage() {
-  const { hasAvailableHomes, loading } = useInventory();
+async function checkInventory() {
+  try {
+    const homes = await getAvailableHomes();
+    return homes.length > 0;
+  } catch (error) {
+    console.error('Error fetching inventory:', error);
+    return false;
+  }
+}
+
+export default async function HomePage() {
+  // Fetch inventory on server side for better SEO
+  const hasAvailableHomes = await checkInventory();
   return (
     <div className="page-content">
       {/* Hero Section */}
@@ -49,20 +59,16 @@ export default function HomePage() {
             Creating bespoke luxury homes that define generations.
           </p>
           <div className="hero-buttons">
-            {!loading && (
-              <>
-                <a 
-                  href={hasAvailableHomes ? "/inventory" : "/custom-build-wizard"} 
-                  className="hero-cta-primary"
-                >
-                  {hasAvailableHomes ? "View Available Homes" : "Start Your Vision"}
-                  <ArrowRight className="button-icon" />
-                </a>
-                <a href="/remodeling-wizard" className="hero-cta-secondary">
-                  Start Remodeling
-                </a>
-              </>
-            )}
+            <Link
+              href={hasAvailableHomes ? "/inventory" : "/custom-build-wizard"}
+              className="hero-cta-primary"
+            >
+              {hasAvailableHomes ? "View Available Homes" : "Start Your Vision"}
+              <ArrowRight className="button-icon" />
+            </Link>
+            <Link href="/remodeling-wizard" className="hero-cta-secondary">
+              Start Remodeling
+            </Link>
           </div>
         </div>
 
@@ -114,10 +120,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <a href="/custom-build-wizard" className="section-button">
+              <Link href="/custom-build-wizard" className="section-button">
                 Start Your Custom Build
                 <ArrowRight className="button-icon" />
-              </a>
+              </Link>
             </div>
             <div className="section-image">
               <div className="section-image-enhanced">
@@ -189,10 +195,10 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-              <a href="/remodeling-wizard" className="section-button section-button-accent">
+              <Link href="/remodeling-wizard" className="section-button section-button-accent">
                 Discover Remodeling
                 <ArrowRight className="button-icon" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

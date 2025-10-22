@@ -12,18 +12,23 @@ import {
   renderJsonLd
 } from '@/lib/structured-data';
 
-const raleway = Raleway({ 
+const raleway = Raleway({
   subsets: ['latin'],
   variable: '--font-raleway',
+  display: 'swap', // Optimize font loading
+  preload: true,
 });
 
-const bodoniModaSC = Bodoni_Moda_SC({ 
+const bodoniModaSC = Bodoni_Moda_SC({
   subsets: ['latin'],
   variable: '--font-bodoni-moda-sc',
   weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap', // Optimize font loading
+  preload: true,
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://vanguardbuilders.com'),
   title: 'Vanguard Homes - Luxury Custom Home Builder & Remodeler in Texas',
   description: 'Texas premier luxury home builder and remodeler. Crafting architectural excellence with custom homes, renovations, and luxury remodeling services since 2010.',
   keywords: 'luxury homes Texas, custom home builder, home remodeling, renovations, Austin home builder',
