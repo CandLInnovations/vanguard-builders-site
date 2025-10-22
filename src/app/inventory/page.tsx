@@ -68,12 +68,12 @@ async function InventoryGrid({ preview = false }: { preview?: boolean }) {
           <p className="text-slate-600 mb-6">
             The Content Management System needs to be configured to display your luxury inventory.
           </p>
-          <a
+          <Link
             href="/admin"
             className="cta-button inline-block"
           >
             Configure CMS
-          </a>
+          </Link>
         </div>
       </div>
     )

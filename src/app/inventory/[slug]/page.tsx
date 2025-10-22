@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { getHomeBySlug } from '@/lib/sanity-queries'
 import { getPreviewHomeBySlug } from '@/lib/sanity-preview'
 import { SanityImageGallery } from '@/components/ui/SanityImage'
@@ -126,12 +127,15 @@ export default async function HomeDetailPage({
       
       <div className={`min-h-screen bg-white ${preview ? 'pt-14' : ''}`}>
         {/* Hero Image Only - No Overlays */}
-        <div className="relative w-full h-64 md:h-96 bg-slate-200">
+        <div className="relative w-full h-64 md:h-96 bg-slate-200 overflow-hidden">
           {home.mainImage ? (
-            <img 
+            <Image
               src={urlFor(home.mainImage).width(1200).height(600).quality(90).url()}
               alt={home.title}
+              width={1200}
+              height={600}
               className="w-full h-full object-cover"
+              priority
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">

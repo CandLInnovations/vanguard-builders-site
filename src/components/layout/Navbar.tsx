@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { Phone } from 'lucide-react';
 import { useInventory } from '@/hooks/useInventory';
@@ -41,34 +42,34 @@ const Navbar = () => {
         <div className="navbar-content">
           {/* Left - Logo */}
           <div className="logo">
-            <a href="/">
-              <Image 
-    src="/vanguard-builders-text-logo.png" 
-    alt="Vanguard Builders" 
+            <Link href="/">
+              <Image
+    src="/vanguard-builders-text-logo.png"
+    alt="Vanguard Builders"
     className="logo-image"
     width={312}
     height={235}
     priority
   />
-            </a>
+            </Link>
           </div>
 
           {/* Right - All Navigation */}
           <div className="nav-right">
-            <a href="/custom-homes" className="nav-link">
+            <Link href="/custom-homes" className="nav-link">
               Custom Homes
-            </a>
+            </Link>
             {!loading && hasAvailableHomes && (
-              <a href="/inventory" className="nav-link">
+              <Link href="/inventory" className="nav-link">
                 Available Homes
-              </a>
+              </Link>
             )}
-            <a href="/portfolio" className="nav-link">
+            <Link href="/portfolio" className="nav-link">
               Portfolio
-            </a>
-            <a href="/renovations" className="nav-link">
+            </Link>
+            <Link href="/renovations" className="nav-link">
               Renovations
-            </a>
+            </Link>
             {/* More Dropdown */}
             <div className="nav-dropdown">
               <button className="dropdown-trigger">
@@ -78,10 +79,10 @@ const Navbar = () => {
                 </svg>
               </button>
               <div className="dropdown-menu">
-                <a href="/about" className="dropdown-link">About Us</a>
-                <a href="/faq" className="dropdown-link">FAQ</a>
-                <a href="/blog" className="dropdown-link">Blog</a>
-                <a href="/contact" className="dropdown-link">Contact</a>
+                <Link href="/about" className="dropdown-link">About Us</Link>
+                <Link href="/faq" className="dropdown-link">FAQ</Link>
+                <Link href="/blog" className="dropdown-link">Blog</Link>
+                <Link href="/contact" className="dropdown-link">Contact</Link>
               </div>
             </div>
 
@@ -100,18 +101,18 @@ const Navbar = () => {
                 Start Your Vision
               </button>
               <div className="dropdown-menu cta-dropdown-menu">
-                <a href="/custom-build-wizard" className="dropdown-link cta-dropdown-link">
+                <Link href="/custom-build-wizard" className="dropdown-link cta-dropdown-link">
                   <div className="cta-option">
                     <div className="cta-option-title">Custom Build</div>
                     <div className="cta-option-desc">Design your dream home</div>
                   </div>
-                </a>
-                <a href="/remodeling-wizard" className="dropdown-link cta-dropdown-link">
+                </Link>
+                <Link href="/remodeling-wizard" className="dropdown-link cta-dropdown-link">
                   <div className="cta-option">
                     <div className="cta-option-title">Remodeling</div>
                     <div className="cta-option-desc">Transform your current home</div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -134,20 +135,20 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="mobile-menu">
           <div className="mobile-menu-content">
-            <a href="/custom-homes" className="mobile-nav-link">
+            <Link href="/custom-homes" className="mobile-nav-link">
               Custom Homes
-            </a>
+            </Link>
             {!loading && hasAvailableHomes && (
-              <a href="/inventory" className="mobile-nav-link">
+              <Link href="/inventory" className="mobile-nav-link">
                 Available Homes
-              </a>
+              </Link>
             )}
-            <a href="/portfolio" className="mobile-nav-link">
+            <Link href="/portfolio" className="mobile-nav-link">
               Portfolio
-            </a>
-            <a href="/renovations" className="mobile-nav-link">
+            </Link>
+            <Link href="/renovations" className="mobile-nav-link">
               Renovations
-            </a>
+            </Link>
             <button 
               onClick={handlePhoneClick}
               className="mobile-phone-button"
@@ -156,18 +157,18 @@ const Navbar = () => {
               Call Us
             </button>
             <hr className="mobile-divider" />
-            <a href="/about" className="mobile-nav-link-secondary">
+            <Link href="/about" className="mobile-nav-link-secondary">
               About Us
-            </a>
-            <a href="/faq" className="mobile-nav-link-secondary">
+            </Link>
+            <Link href="/faq" className="mobile-nav-link-secondary">
               FAQ
-            </a>
-            <a href="/blog" className="mobile-nav-link-secondary">
+            </Link>
+            <Link href="/blog" className="mobile-nav-link-secondary">
               Blog
-            </a>
-            <a href="/contact" className="mobile-nav-link-secondary">
+            </Link>
+            <Link href="/contact" className="mobile-nav-link-secondary">
               Contact
-            </a>
+            </Link>
             
             {/* Mobile CTA Section */}
             <div className="mobile-cta-section">
@@ -186,14 +187,14 @@ const Navbar = () => {
               </button>
               {mobileCtaOpen && (
                 <div className="mobile-cta-options">
-                  <a href="/custom-build-wizard" className="mobile-cta-option">
+                  <Link href="/custom-build-wizard" className="mobile-cta-option">
                     <div className="mobile-cta-option-title">Custom Build</div>
                     <div className="mobile-cta-option-desc">Design your dream home</div>
-                  </a>
-                  <a href="/remodeling-wizard" className="mobile-cta-option">
+                  </Link>
+                  <Link href="/remodeling-wizard" className="mobile-cta-option">
                     <div className="mobile-cta-option-title">Remodeling</div>
                     <div className="mobile-cta-option-desc">Transform your current home</div>
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>

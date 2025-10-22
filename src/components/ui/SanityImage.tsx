@@ -2,11 +2,9 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { 
-  getOptimizedImageUrl, 
-  getBlurDataURL, 
-  generateSrcSet,
-  imagePresets 
+import {
+  getOptimizedImageUrl,
+  imagePresets
 } from '@/lib/sanity-image'
 import type { SanityImageAsset } from '@/types/sanity'
 
@@ -33,7 +31,6 @@ export function SanityImage({
   quality,
   onLoad,
 }: SanityImageProps) {
-  const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
   // Extract alt text from Sanity image if available
@@ -41,9 +38,6 @@ export function SanityImage({
 
   // Get optimized image URL
   const imageUrl = getOptimizedImageUrl(image, preset)
-  
-  // Get blur placeholder  
-  const blurDataURL = getBlurDataURL(image)
 
 
 
@@ -51,12 +45,10 @@ export function SanityImage({
   const { width, height } = imagePresets[preset]
 
   const handleLoad = () => {
-    setIsLoading(false)
     onLoad?.()
   }
 
   const handleError = () => {
-    setIsLoading(false)
     setHasError(true)
   }
 
@@ -116,16 +108,18 @@ export function SanityImageGallery({ images, className }: SanityImageGalleryProp
     return null
   }
 
-  // Simple test version using regular img tags to debug
+  // Simple test version using Next.js Image for optimization
   return (
     <div className={`space-y-4 ${className}`}>
-      {/* Main image - using regular img for testing */}
+      {/* Main image - using Next.js Image for optimization */}
       <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-200">
-        <img
+        <Image
           src={getOptimizedImageUrl(images[selectedImage], 'gallery')}
           alt={images[selectedImage].alt || `Gallery image ${selectedImage + 1}`}
+          width={1200}
+          height={800}
           className="w-full h-full object-cover"
-          style={{ display: 'block' }}
+          priority
         />
       </div>
 
@@ -136,17 +130,18 @@ export function SanityImageGallery({ images, className }: SanityImageGalleryProp
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`flex-shrink-0 relative w-20 h-14 rounded-lg overflow-hidden border-2 transition-all bg-gray-200 ${
+              className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all bg-gray-200 ${
                 selectedImage === index
                   ? 'border-primary-burgundy'
                   : 'border-transparent hover:border-slate-300'
               }`}
             >
-              <img
+              <Image
                 src={getOptimizedImageUrl(image, 'thumbnail')}
                 alt={image.alt || `Thumbnail ${index + 1}`}
+                width={80}
+                height={56}
                 className="w-full h-full object-cover"
-                style={{ display: 'block' }}
               />
             </button>
           ))}

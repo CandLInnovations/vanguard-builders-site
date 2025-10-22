@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 function ScheduleShowingContent() {
   const searchParams = useSearchParams();
@@ -98,7 +99,7 @@ function ScheduleShowingContent() {
           <p style={{ fontSize: '18px', color: '#64748b', marginBottom: '32px', lineHeight: '1.6' }}>
             We've received your request to schedule a showing. Our luxury home specialists will contact you within 24 hours to confirm your private appointment.
           </p>
-          <a
+          <Link
             href="/inventory"
             style={{
               display: 'inline-block',
@@ -122,7 +123,7 @@ function ScheduleShowingContent() {
             }}
           >
             Explore More Properties
-          </a>
+          </Link>
         </div>
       </div>
     );
