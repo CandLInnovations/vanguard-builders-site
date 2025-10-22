@@ -1,10 +1,8 @@
-import { MetadataRoute } from 'next'
-
 export function GET(): Response {
   const robots = `User-agent: *
 Allow: /
 
-Sitemap: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://vanguardhomes.com'}/sitemap.xml`
+Sitemap: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://vanguardbuilders.com'}/sitemap.xml`
 
   return new Response(robots, {
     headers: {

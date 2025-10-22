@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Vanguard Homes - Luxury Custom Home Builder Texas',
     description: 'Where visionary design meets uncompromising craftsmanship. Creating bespoke luxury homes that define generations.',
-    url: 'https://vanguardhomes.com',
+    url: 'https://vanguardbuilders.com',
     siteName: 'Vanguard Homes',
     locale: 'en_US',
     type: 'website',

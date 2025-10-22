@@ -9,8 +9,8 @@ import type { LuxuryHome } from '@/types/sanity';
 export const COMPANY_INFO = {
   name: 'Vanguard Builders, Inc.',
   legalName: 'Vanguard Builders, Inc.',
-  url: 'https://vanguardhomes.com',
-  logo: 'https://vanguardhomes.com/vanguard-builders-logo-tp.png',
+  url: 'https://vanguardbuilders.com',
+  logo: 'https://vanguardbuilders.com/vanguard-builders-logo-tp.png',
   description: 'Texas premier luxury home builder and remodeler. Crafting architectural excellence with custom homes, renovations, and luxury remodeling services since 2010.',
   telephone: '+1-281-220-9087',
   email: 'office@vanguardbuilders.com',

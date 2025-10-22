@@ -12,7 +12,7 @@ export default function CustomHomesPage() {
   const serviceSchema = generateServiceSchema({
     name: 'Custom Luxury Home Building',
     description: 'Expert custom home building services in Texas. We create bespoke luxury homes with premium materials, architectural excellence, and master craftsmanship.',
-    url: 'https://vanguardhomes.com/custom-homes',
+    url: 'https://vanguardbuilders.com/custom-homes',
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([

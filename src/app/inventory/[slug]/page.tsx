@@ -48,9 +48,9 @@ export async function generateMetadata({ params }: HomeDetailPageProps): Promise
 
   const imageUrl = home.mainImage?.asset
     ? urlFor(home.mainImage).width(1200).height(630).quality(90).url()
-    : 'https://vanguardhomes.com/vanguard-builders-logo-tp.png'
+    : 'https://vanguardbuilders.com/vanguard-builders-logo-tp.png'
 
-  const url = `https://vanguardhomes.com/inventory/${resolvedParams.slug}`
+  const url = `https://vanguardbuilders.com/inventory/${resolvedParams.slug}`
 
   return {
     title,

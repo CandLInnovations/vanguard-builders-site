@@ -9,7 +9,7 @@ export default function RenovationsPage() {
   const serviceSchema = generateServiceSchema({
     name: 'Luxury Home Renovation & Remodeling',
     description: 'Expert whole-home renovations, kitchen and bathroom remodeling, and historic preservation services in Texas. Transform your existing home with luxury finishes and master craftsmanship.',
-    url: 'https://vanguardhomes.com/renovations',
+    url: 'https://vanguardbuilders.com/renovations',
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([

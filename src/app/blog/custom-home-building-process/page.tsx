@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: 'The Custom Home Building Process: A Complete Guide | Vanguard Homes',
   description: 'Learn the complete custom home building process from design to completion. Expert insights from Texas luxury home builders.',
   alternates: {
-    canonical: 'https://vanguardhomes.com/blog/custom-home-building-process',
+    canonical: 'https://vanguardbuilders.com/blog/custom-home-building-process',
   },
   openGraph: {
     title: 'The Custom Home Building Process: A Complete Guide',
     description: 'Learn the complete custom home building process from design to completion. Expert insights from Texas luxury home builders.',
-    url: 'https://vanguardhomes.com/blog/custom-home-building-process',
+    url: 'https://vanguardbuilders.com/blog/custom-home-building-process',
     siteName: 'Vanguard Homes',
     type: 'article',
     publishedTime: '2024-01-10T00:00:00Z',
@@ -29,7 +29,7 @@ export default function CustomHomeBuildingProcess() {
     publishedDate: '2024-01-10T00:00:00Z',
     category: 'Building Process',
     tags: ['custom homes', 'building process', 'construction', 'home design'],
-    image: 'https://vanguardhomes.com/construction-phase.jpg',
+    image: 'https://vanguardbuilders.com/construction-phase.jpg',
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([

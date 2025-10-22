@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: 'Luxury Home Design Trends 2024 | Vanguard Homes',
   description: 'Discover the latest luxury home design trends for 2024, from sustainable materials to smart home integration and wellness-focused spaces.',
   alternates: {
-    canonical: 'https://vanguardhomes.com/blog/luxury-home-trends-2024',
+    canonical: 'https://vanguardbuilders.com/blog/luxury-home-trends-2024',
   },
   openGraph: {
     title: 'Luxury Home Design Trends 2024',
     description: 'Discover the latest luxury home design trends for 2024, from sustainable materials to smart home integration and wellness-focused spaces.',
-    url: 'https://vanguardhomes.com/blog/luxury-home-trends-2024',
+    url: 'https://vanguardbuilders.com/blog/luxury-home-trends-2024',
     siteName: 'Vanguard Homes',
     type: 'article',
     publishedTime: '2024-01-15T00:00:00Z',
@@ -29,7 +29,7 @@ export default function LuxuryHomeTrends2024() {
     publishedDate: '2024-01-15T00:00:00Z',
     category: 'Design Trends',
     tags: ['luxury homes', 'design trends', 'sustainable design', 'smart homes', 'wellness'],
-    image: 'https://vanguardhomes.com/custom-kitchen.jpg',
+    image: 'https://vanguardbuilders.com/custom-kitchen.jpg',
   })
 
   const breadcrumbSchema = generateBreadcrumbSchema([

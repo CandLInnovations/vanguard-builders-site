@@ -9,7 +9,7 @@ export default function AdditionsPage() {
   const serviceSchema = generateServiceSchema({
     name: 'Home Additions & Expansions',
     description: 'Expand your living space with luxury home additions. Master suites, home offices, sunrooms, outdoor living spaces, and second stories. Seamless integration with your existing home.',
-    url: 'https://vanguardhomes.com/additions',
+    url: 'https://vanguardbuilders.com/additions',
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([

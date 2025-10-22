@@ -9,7 +9,7 @@ export default function KitchensPage() {
   const serviceSchema = generateServiceSchema({
     name: 'Luxury Kitchen Design & Remodeling',
     description: 'Transform your kitchen with custom cabinetry, premium appliances, and sophisticated design. Expert kitchen remodeling services in Texas featuring smart technology integration and gourmet features.',
-    url: 'https://vanguardhomes.com/kitchens',
+    url: 'https://vanguardbuilders.com/kitchens',
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([

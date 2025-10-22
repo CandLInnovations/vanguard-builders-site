@@ -9,7 +9,7 @@ export default function BathroomsPage() {
   const serviceSchema = generateServiceSchema({
     name: 'Luxury Bathroom Design & Remodeling',
     description: 'Create your personal spa retreat with luxury bathroom remodeling. Featuring spa-inspired features, premium fixtures, smart technology, and elegant design. Master bathrooms, powder rooms, and complete renovations.',
-    url: 'https://vanguardhomes.com/bathrooms',
+    url: 'https://vanguardbuilders.com/bathrooms',
   });
 
   const breadcrumbSchema = generateBreadcrumbSchema([
