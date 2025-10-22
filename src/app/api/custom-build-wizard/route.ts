@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
+import { applyRateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 interface CustomBuildWizardData {
   landStatus: string;
@@ -207,6 +208,22 @@ const createCustomerEmailContent = (data: CustomBuildWizardData): string => {
 
 export async function POST(request: NextRequest) {
   try {
+    // Apply rate limiting (2 submissions per hour per IP)
+    const rateLimitResult = await applyRateLimit(request, RATE_LIMITS.WIZARD);
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        {
+          error: 'Too many wizard submissions. Please try again later.',
+          retryAfter: rateLimitResult.headers['Retry-After']
+        },
+        {
+          status: 429,
+          headers: rateLimitResult.headers
+        }
+      );
+    }
+
     const data: CustomBuildWizardData = await request.json();
 
     // Basic validation

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
+import { applyRateLimit, RATE_LIMITS } from '@/lib/rate-limit';
 
 interface ContactFormData {
   name: string;
@@ -108,8 +109,24 @@ const createCustomerEmailContent = (data: ContactFormData): string => {
 
 export async function POST(request: NextRequest) {
   try {
+    // Apply rate limiting (3 submissions per hour per IP)
+    const rateLimitResult = await applyRateLimit(request, RATE_LIMITS.CONTACT_FORM);
+
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        {
+          error: 'Too many contact form submissions. Please try again later.',
+          retryAfter: rateLimitResult.headers['Retry-After']
+        },
+        {
+          status: 429,
+          headers: rateLimitResult.headers
+        }
+      );
+    }
+
     const data: ContactFormData = await request.json();
-    
+
     // Basic validation
     if (!data.name || !data.email || !data.phone || !data.subject || !data.message) {
       return NextResponse.json(
