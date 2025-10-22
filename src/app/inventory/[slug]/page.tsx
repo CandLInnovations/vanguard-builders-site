@@ -131,7 +131,7 @@ export default async function HomeDetailPage({
           {home.mainImage ? (
             <Image
               src={urlFor(home.mainImage).width(1200).height(600).quality(90).url()}
-              alt={home.title}
+              alt={`${home.title} - Luxury ${home.propertyDetails.bedrooms} bedroom, ${home.propertyDetails.bathrooms} bathroom home in ${home.location.city}, Texas`}
               width={1200}
               height={600}
               className="w-full h-full object-cover"
