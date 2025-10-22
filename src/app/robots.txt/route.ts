@@ -4,7 +4,7 @@ export function GET(): Response {
   const robots = `User-agent: *
 Allow: /
 
-Sitemap: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://vanguardbuilders.vercel.app'}/sitemap.xml`
+Sitemap: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://vanguardhomes.com'}/api/sitemap`
 
   return new Response(robots, {
     headers: {
