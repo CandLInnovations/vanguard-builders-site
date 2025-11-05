@@ -8,29 +8,13 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
 
-// Parse the REDIS_URL to extract connection details
-// Format: redis://default:password@host:port
-function parseRedisUrl(url: string) {
-  const match = url.match(/redis:\/\/([^:]+):([^@]+)@([^:]+):(\d+)/);
-  if (!match) {
-    throw new Error('Invalid REDIS_URL format');
-  }
-  const [, username, password, host, port] = match;
-
-  // Construct REST API URL for Upstash
-  // Upstash REST format: https://host
-  const restUrl = `https://${host}`;
-  const token = password;
-
-  return { url: restUrl, token };
-}
-
-// Initialize Redis client
-const { url, token } = parseRedisUrl(process.env.REDIS_URL!);
-const redis = new Redis({
-  url,
-  token,
-});
+/**
+ * Initialize Redis client using Vercel KV
+ * Vercel KV automatically provides these environment variables:
+ * - KV_REST_API_URL
+ * - KV_REST_API_TOKEN
+ */
+const redis = Redis.fromEnv();
 
 /**
  * Rate limit configurations for different endpoint types
