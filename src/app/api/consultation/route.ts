@@ -3,6 +3,7 @@ import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
 import { applyRateLimit, RATE_LIMITS, getClientIdentifier } from '@/lib/rate-limit';
 import { verifyTurnstileToken } from '@/lib/turnstile';
 import { analyzeContentQuality, validateNameQuality } from '@/lib/content-quality';
+import { escapeHtml, escapeHtmlWithBreaks } from '@/lib/sanitize';
 
 interface ConsultationFormData {
   name: string;
@@ -57,42 +58,42 @@ const createAdminEmailContent = (data: ConsultationFormData): string => {
           <table style="width: 100%; background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600; width: 140px;">Project Type:</td>
-              <td style="padding: 8px 0; color: #1e293b; font-weight: 600;">${projectTypeNames[data.projectType] || data.projectType}</td>
+              <td style="padding: 8px 0; color: #1e293b; font-weight: 600;">${escapeHtml(projectTypeNames[data.projectType] || data.projectType)}</td>
             </tr>
             ${data.timeline ? `
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Timeline:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${timelineNames[data.timeline] || data.timeline}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(timelineNames[data.timeline] || data.timeline)}</td>
             </tr>
             ` : ''}
             ${data.budget ? `
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Budget:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${budgetNames[data.budget] || data.budget}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(budgetNames[data.budget] || data.budget)}</td>
             </tr>
             ` : ''}
           </table>
-          
+
           <h2 style="color: #1e293b; margin-top: 30px;">Client Information</h2>
           <table style="width: 100%; background: white; border-radius: 8px; padding: 20px;">
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600; width: 120px;">Name:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${data.name}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(data.name)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Email:</td>
-              <td style="padding: 8px 0; color: #1e293b;"><a href="mailto:${data.email}" style="color: #8B1538; text-decoration: none;">${data.email}</a></td>
+              <td style="padding: 8px 0; color: #1e293b;"><a href="mailto:${escapeHtml(data.email)}" style="color: #8B1538; text-decoration: none;">${escapeHtml(data.email)}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Phone:</td>
-              <td style="padding: 8px 0; color: #1e293b;"><a href="tel:${data.phone}" style="color: #8B1538; text-decoration: none;">${data.phone}</a></td>
+              <td style="padding: 8px 0; color: #1e293b;"><a href="tel:${escapeHtml(data.phone)}" style="color: #8B1538; text-decoration: none;">${escapeHtml(data.phone)}</a></td>
             </tr>
           </table>
-          
+
           ${data.message ? `
           <h2 style="color: #1e293b; margin-top: 30px;">Project Details & Message</h2>
           <div style="background: white; padding: 20px; border-radius: 8px; color: #374151; line-height: 1.6;">
-            ${data.message.replace(/\n/g, '<br>')}
+            ${escapeHtmlWithBreaks(data.message)}
           </div>
           ` : ''}
           
@@ -125,16 +126,16 @@ const createCustomerEmailContent = (data: ConsultationFormData): string => {
   return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
-          <h1 style="margin: 0; font-size: 28px;">Thank You, ${data.name}!</h1>
+          <h1 style="margin: 0; font-size: 28px;">Thank You, ${escapeHtml(data.name)}!</h1>
           <p style="margin: 10px 0 0 0; opacity: 0.9;">Your consultation request has been received</p>
         </div>
-        
+
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">
           <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
             <h2 style="color: #1e293b; margin-top: 0;">Your Consultation Request</h2>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Project Type:</strong> ${projectTypeNames[data.projectType] || data.projectType}</p>
-            ${data.timeline ? `<p style="color: #374151; margin-bottom: 15px;"><strong>Timeline:</strong> ${data.timeline}</p>` : ''}
-            ${data.budget ? `<p style="color: #374151; margin-bottom: 15px;"><strong>Budget Range:</strong> ${data.budget}</p>` : ''}
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Project Type:</strong> ${escapeHtml(projectTypeNames[data.projectType] || data.projectType)}</p>
+            ${data.timeline ? `<p style="color: #374151; margin-bottom: 15px;"><strong>Timeline:</strong> ${escapeHtml(data.timeline)}</p>` : ''}
+            ${data.budget ? `<p style="color: #374151; margin-bottom: 15px;"><strong>Budget Range:</strong> ${escapeHtml(data.budget)}</p>` : ''}
           </div>
           
           <div style="background: #ecfdf5; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 25px;">

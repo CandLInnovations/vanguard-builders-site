@@ -3,6 +3,7 @@ import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
 import { applyRateLimit, RATE_LIMITS, getClientIdentifier } from '@/lib/rate-limit';
 import { verifyTurnstileToken } from '@/lib/turnstile';
 import { analyzeContentQuality, validateNameQuality } from '@/lib/content-quality';
+import { escapeHtml, escapeHtmlWithBreaks } from '@/lib/sanitize';
 
 interface CustomBuildWizardData {
   landStatus: string;
@@ -71,35 +72,35 @@ const createAdminEmailContent = (data: CustomBuildWizardData): string => {
           <table style="width: 100%; background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600; width: 140px;">Land Status:</td>
-              <td style="padding: 8px 0; color: #1e293b; font-weight: 600;">${landStatusNames[data.landStatus] || data.landStatus}</td>
+              <td style="padding: 8px 0; color: #1e293b; font-weight: 600;">${escapeHtml(landStatusNames[data.landStatus] || data.landStatus)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Square Footage:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${data.homeSize.squareFootage}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(data.homeSize.squareFootage)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Bedrooms:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${data.homeSize.bedrooms}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(String(data.homeSize.bedrooms))}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Bathrooms:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${data.homeSize.bathrooms}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(String(data.homeSize.bathrooms))}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Stories:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${storiesNames[data.homeSize.stories] || data.homeSize.stories}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(storiesNames[data.homeSize.stories] || data.homeSize.stories)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Architectural Style:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${data.architecturalStyle}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(data.architecturalStyle)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Budget:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${budgetNames[data.budget] || data.budget}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(budgetNames[data.budget] || data.budget)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Timeline:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${timelineNames[data.timeline] || data.timeline}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(timelineNames[data.timeline] || data.timeline)}</td>
             </tr>
           </table>
 
@@ -107,7 +108,7 @@ const createAdminEmailContent = (data: CustomBuildWizardData): string => {
           <h2 style="color: #1e293b; margin-top: 30px;">Features & Amenities</h2>
           <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <ul style="margin: 0; padding-left: 20px; color: #374151;">
-              ${data.features.map(feature => `<li style="margin-bottom: 8px;">${feature}</li>`).join('')}
+              ${data.features.map(feature => `<li style="margin-bottom: 8px;">${escapeHtml(feature)}</li>`).join('')}
             </ul>
           </div>
           ` : ''}
@@ -116,7 +117,7 @@ const createAdminEmailContent = (data: CustomBuildWizardData): string => {
           <h2 style="color: #1e293b; margin-top: 30px;">Interior Style Preferences</h2>
           <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
             <ul style="margin: 0; padding-left: 20px; color: #374151;">
-              ${data.stylePreferences.map(style => `<li style="margin-bottom: 8px;">${style}</li>`).join('')}
+              ${data.stylePreferences.map(style => `<li style="margin-bottom: 8px;">${escapeHtml(style)}</li>`).join('')}
             </ul>
           </div>
           ` : ''}
@@ -125,15 +126,15 @@ const createAdminEmailContent = (data: CustomBuildWizardData): string => {
           <table style="width: 100%; background: white; border-radius: 8px; padding: 20px;">
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600; width: 120px;">Name:</td>
-              <td style="padding: 8px 0; color: #1e293b;">${data.contactInfo.firstName} ${data.contactInfo.lastName}</td>
+              <td style="padding: 8px 0; color: #1e293b;">${escapeHtml(data.contactInfo.firstName)} ${escapeHtml(data.contactInfo.lastName)}</td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Email:</td>
-              <td style="padding: 8px 0; color: #1e293b;"><a href="mailto:${data.contactInfo.email}" style="color: #8B1538; text-decoration: none;">${data.contactInfo.email}</a></td>
+              <td style="padding: 8px 0; color: #1e293b;"><a href="mailto:${escapeHtml(data.contactInfo.email)}" style="color: #8B1538; text-decoration: none;">${escapeHtml(data.contactInfo.email)}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Phone:</td>
-              <td style="padding: 8px 0; color: #1e293b;"><a href="tel:${data.contactInfo.phone}" style="color: #8B1538; text-decoration: none;">${data.contactInfo.phone}</a></td>
+              <td style="padding: 8px 0; color: #1e293b;"><a href="tel:${escapeHtml(data.contactInfo.phone)}" style="color: #8B1538; text-decoration: none;">${escapeHtml(data.contactInfo.phone)}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748b; font-weight: 600;">Preferred Contact:</td>
@@ -144,7 +145,7 @@ const createAdminEmailContent = (data: CustomBuildWizardData): string => {
           ${data.contactInfo.message ? `
           <h2 style="color: #1e293b; margin-top: 30px;">Additional Message</h2>
           <div style="background: white; padding: 20px; border-radius: 8px; color: #374151; line-height: 1.6;">
-            ${data.contactInfo.message.replace(/\n/g, '<br>')}
+            ${escapeHtmlWithBreaks(data.contactInfo.message)}
           </div>
           ` : ''}
 
@@ -167,19 +168,19 @@ const createCustomerEmailContent = (data: CustomBuildWizardData): string => {
   return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #8B1538 0%, #a21650 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
-          <h1 style="margin: 0; font-size: 28px;">Thank You, ${data.contactInfo.firstName}!</h1>
+          <h1 style="margin: 0; font-size: 28px;">Thank You, ${escapeHtml(data.contactInfo.firstName)}!</h1>
           <p style="margin: 10px 0 0 0; opacity: 0.9;">Your custom home build request has been received</p>
         </div>
 
         <div style="background: #f8fafc; padding: 30px; border-radius: 0 0 10px 10px;">
           <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
             <h2 style="color: #1e293b; margin-top: 0;">Your Custom Home Details</h2>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Square Footage:</strong> ${data.homeSize.squareFootage}</p>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Bedrooms:</strong> ${data.homeSize.bedrooms}</p>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Bathrooms:</strong> ${data.homeSize.bathrooms}</p>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Architectural Style:</strong> ${data.architecturalStyle}</p>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Budget:</strong> ${data.budget}</p>
-            <p style="color: #374151; margin-bottom: 15px;"><strong>Timeline:</strong> ${data.timeline}</p>
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Square Footage:</strong> ${escapeHtml(data.homeSize.squareFootage)}</p>
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Bedrooms:</strong> ${escapeHtml(String(data.homeSize.bedrooms))}</p>
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Bathrooms:</strong> ${escapeHtml(String(data.homeSize.bathrooms))}</p>
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Architectural Style:</strong> ${escapeHtml(data.architecturalStyle)}</p>
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Budget:</strong> ${escapeHtml(data.budget)}</p>
+            <p style="color: #374151; margin-bottom: 15px;"><strong>Timeline:</strong> ${escapeHtml(data.timeline)}</p>
           </div>
 
           <div style="background: #ecfdf5; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 25px;">
