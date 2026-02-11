@@ -17,6 +17,8 @@ import {
 interface SummaryStepProps extends StepProps {
   wizardType: 'remodeling' | 'custom-build';
   onRequestConsultation?: () => void;
+  turnstileWidget?: React.ReactNode;
+  isTurnstileVerified?: boolean;
 }
 
 export default function SummaryStep({ 
@@ -26,7 +28,9 @@ export default function SummaryStep({
   onBack, 
   errors,
   wizardType,
-  onRequestConsultation 
+  onRequestConsultation,
+  turnstileWidget,
+  isTurnstileVerified = false
 }: SummaryStepProps) {
 
   const getOptionTitle = (options: any[], id: string) => {
@@ -240,9 +244,16 @@ export default function SummaryStep({
                 {errors.spamValidation}
               </div>
             )}
-            <button 
+            {turnstileWidget && (
+              <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
+                {turnstileWidget}
+              </div>
+            )}
+            <button
               onClick={onRequestConsultation}
               className="summary-cta-button"
+              disabled={!isTurnstileVerified}
+              style={{ opacity: isTurnstileVerified ? 1 : 0.5, cursor: isTurnstileVerified ? 'pointer' : 'not-allowed' }}
             >
               Request Consultation
             </button>

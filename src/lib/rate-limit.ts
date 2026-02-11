@@ -1,116 +1,96 @@
 /**
- * Rate Limiting Utility using Redis
+ * In-Memory Rate Limiting Utility
  *
- * Protects API endpoints from abuse with serverless-friendly rate limiting.
- * Uses Redis (via Vercel) for persistence across deployments and serverless instances.
+ * Lightweight rate limiter using a Map with automatic cleanup.
+ * Per-instance on serverless (not persistent across cold starts),
+ * but sufficient as a secondary defense alongside Cloudflare Turnstile.
  */
 
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+interface RateLimitEntry {
+  timestamps: number[];
+}
 
-/**
- * Initialize Redis client using Vercel KV
- * Vercel KV automatically provides these environment variables:
- * - KV_REST_API_URL
- * - KV_REST_API_TOKEN
- */
-const redis = Redis.fromEnv();
+interface RateLimitConfig {
+  maxRequests: number;
+  windowMs: number;
+  prefix: string;
+}
+
+// In-memory store shared across requests within the same serverless instance
+const store = new Map<string, RateLimitEntry>();
+
+// Periodic cleanup to prevent memory leaks
+let lastCleanup = Date.now();
+const CLEANUP_INTERVAL = 60_000; // 1 minute
+
+function cleanupExpiredEntries(maxWindowMs: number) {
+  const now = Date.now();
+  if (now - lastCleanup < CLEANUP_INTERVAL) return;
+  lastCleanup = now;
+
+  for (const [key, entry] of store) {
+    entry.timestamps = entry.timestamps.filter((t) => now - t < maxWindowMs);
+    if (entry.timestamps.length === 0) {
+      store.delete(key);
+    }
+  }
+}
 
 /**
  * Rate limit configurations for different endpoint types
  */
 export const RATE_LIMITS = {
-  // Contact form - 3 submissions per hour per IP
-  CONTACT_FORM: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(3, '1 h'),
-    analytics: true,
-    prefix: 'ratelimit:contact',
-  }),
+  CONTACT_FORM: {
+    maxRequests: 3,
+    windowMs: 60 * 60 * 1000, // 1 hour
+    prefix: 'contact',
+  } satisfies RateLimitConfig,
 
-  // Consultation requests - 2 per hour per IP
-  CONSULTATION: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(2, '1 h'),
-    analytics: true,
-    prefix: 'ratelimit:consultation',
-  }),
+  CONSULTATION: {
+    maxRequests: 2,
+    windowMs: 60 * 60 * 1000,
+    prefix: 'consultation',
+  } satisfies RateLimitConfig,
 
-  // Wizard submissions - 2 per hour per IP
-  WIZARD: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(2, '1 h'),
-    analytics: true,
-    prefix: 'ratelimit:wizard',
-  }),
+  WIZARD: {
+    maxRequests: 2,
+    windowMs: 60 * 60 * 1000,
+    prefix: 'wizard',
+  } satisfies RateLimitConfig,
 
-  // Schedule showing - 3 per hour per IP
-  SCHEDULE_SHOWING: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(3, '1 h'),
-    analytics: true,
-    prefix: 'ratelimit:showing',
-  }),
-
-  // General API - 30 requests per minute per IP (for future endpoints)
-  GENERAL: new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(30, '1 m'),
-    analytics: true,
-    prefix: 'ratelimit:general',
-  }),
+  SCHEDULE_SHOWING: {
+    maxRequests: 3,
+    windowMs: 60 * 60 * 1000,
+    prefix: 'showing',
+  } satisfies RateLimitConfig,
 };
 
 /**
- * Get client identifier from request headers
- * Tries multiple headers to get the real IP address
+ * Get client identifier from request headers.
+ * Tries multiple headers to get the real IP address.
  */
 export function getClientIdentifier(request: Request): string {
-  // Try to get real IP from various headers
   const forwardedFor = request.headers.get('x-forwarded-for');
   if (forwardedFor) {
     return forwardedFor.split(',')[0].trim();
   }
 
   const realIp = request.headers.get('x-real-ip');
-  if (realIp) {
-    return realIp;
-  }
+  if (realIp) return realIp;
 
   const cfConnectingIp = request.headers.get('cf-connecting-ip');
-  if (cfConnectingIp) {
-    return cfConnectingIp;
-  }
+  if (cfConnectingIp) return cfConnectingIp;
 
-  // Fallback for development or when IP can't be determined
   return 'anonymous';
 }
 
 /**
- * Apply rate limiting to an API endpoint
- *
- * @example
- * ```ts
- * export async function POST(request: NextRequest) {
- *   const rateLimitResult = await applyRateLimit(request, RATE_LIMITS.CONTACT_FORM);
- *
- *   if (!rateLimitResult.success) {
- *     return NextResponse.json(
- *       { error: 'Too many requests. Please try again later.' },
- *       {
- *         status: 429,
- *         headers: rateLimitResult.headers
- *       }
- *     );
- *   }
- *
- *   // Process request...
- * }
- * ```
+ * Apply rate limiting to an API endpoint.
+ * Returns the same shape as before so API routes don't need changes.
  */
 export async function applyRateLimit(
   request: Request,
-  limiter: Ratelimit
+  config: RateLimitConfig
 ): Promise<{
   success: boolean;
   limit: number;
@@ -118,91 +98,54 @@ export async function applyRateLimit(
   reset: number;
   headers: Record<string, string>;
 }> {
+  cleanupExpiredEntries(config.windowMs);
+
   const identifier = getClientIdentifier(request);
-  const result = await limiter.limit(identifier);
+  const key = `${config.prefix}:${identifier}`;
+  const now = Date.now();
 
-  // Standard rate limit headers
-  const headers: Record<string, string> = {
-    'X-RateLimit-Limit': result.limit.toString(),
-    'X-RateLimit-Remaining': result.remaining.toString(),
-    'X-RateLimit-Reset': new Date(result.reset).toISOString(),
-  };
-
-  if (!result.success) {
-    // Add Retry-After header when rate limited
-    const retryAfter = Math.ceil((result.reset - Date.now()) / 1000);
-    headers['Retry-After'] = retryAfter.toString();
+  let entry = store.get(key);
+  if (!entry) {
+    entry = { timestamps: [] };
+    store.set(key, entry);
   }
 
+  // Remove timestamps outside the window
+  entry.timestamps = entry.timestamps.filter((t) => now - t < config.windowMs);
+
+  const remaining = Math.max(0, config.maxRequests - entry.timestamps.length);
+  const reset = entry.timestamps.length > 0
+    ? entry.timestamps[0] + config.windowMs
+    : now + config.windowMs;
+
+  if (entry.timestamps.length >= config.maxRequests) {
+    const retryAfter = Math.ceil((reset - now) / 1000);
+    return {
+      success: false,
+      limit: config.maxRequests,
+      remaining: 0,
+      reset,
+      headers: {
+        'X-RateLimit-Limit': config.maxRequests.toString(),
+        'X-RateLimit-Remaining': '0',
+        'X-RateLimit-Reset': new Date(reset).toISOString(),
+        'Retry-After': retryAfter.toString(),
+      },
+    };
+  }
+
+  // Record this request
+  entry.timestamps.push(now);
+
   return {
-    success: result.success,
-    limit: result.limit,
-    remaining: result.remaining,
-    reset: result.reset,
-    headers,
-  };
-}
-
-/**
- * Higher-order function to wrap API handlers with rate limiting
- *
- * @example
- * ```ts
- * export const POST = withRateLimit(
- *   RATE_LIMITS.CONTACT_FORM,
- *   async (request: NextRequest) => {
- *     // Your handler logic
- *     return NextResponse.json({ success: true });
- *   }
- * );
- * ```
- */
-export function withRateLimit(
-  limiter: Ratelimit,
-  handler: (request: Request) => Promise<Response>,
-  options: {
-    errorMessage?: string;
-    onRateLimitExceeded?: (identifier: string) => void;
-  } = {}
-) {
-  return async (request: Request): Promise<Response> => {
-    const rateLimitResult = await applyRateLimit(request, limiter);
-
-    if (!rateLimitResult.success) {
-      // Optional callback for monitoring/logging
-      if (options.onRateLimitExceeded) {
-        const identifier = getClientIdentifier(request);
-        options.onRateLimitExceeded(identifier);
-      }
-
-      return new Response(
-        JSON.stringify({
-          error: options.errorMessage || 'Too many requests. Please try again later.',
-          retryAfter: rateLimitResult.headers['Retry-After'],
-        }),
-        {
-          status: 429,
-          headers: {
-            'Content-Type': 'application/json',
-            ...rateLimitResult.headers,
-          },
-        }
-      );
-    }
-
-    // Call the original handler
-    const response = await handler(request);
-
-    // Add rate limit headers to response
-    const newHeaders = new Headers(response.headers);
-    Object.entries(rateLimitResult.headers).forEach(([key, value]) => {
-      newHeaders.set(key, value);
-    });
-
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: newHeaders,
-    });
+    success: true,
+    limit: config.maxRequests,
+    remaining: remaining - 1,
+    reset,
+    headers: {
+      'X-RateLimit-Limit': config.maxRequests.toString(),
+      'X-RateLimit-Remaining': (remaining - 1).toString(),
+      'X-RateLimit-Reset': new Date(reset).toISOString(),
+    },
   };
 }

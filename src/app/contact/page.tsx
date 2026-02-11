@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Clock, ArrowRight, Home, Wrench, Calendar } from 'lucide-react';
+import TurnstileWidget from '@/components/ui/TurnstileWidget';
 
 export default function ContactPage() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -16,6 +17,8 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -48,7 +51,7 @@ export default function ContactPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const result = await response.json();
@@ -63,6 +66,8 @@ export default function ContactPage() {
           subject: '',
           message: ''
         });
+        setTurnstileToken('');
+        setTurnstileResetKey(prev => prev + 1);
       } else {
         setSubmitError(result.error || 'An error occurred while sending your message.');
       }
@@ -524,9 +529,17 @@ export default function ContactPage() {
                     </div>
                   )}
 
+                  <div style={{ marginTop: '24px' }}>
+                    <TurnstileWidget
+                      onSuccess={(token) => setTurnstileToken(token)}
+                      onExpire={() => setTurnstileToken('')}
+                      resetKey={turnstileResetKey}
+                    />
+                  </div>
+
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !turnstileToken}
                     style={{
                       width: '100%',
                       marginTop: '32px',
@@ -540,8 +553,8 @@ export default function ContactPage() {
                       justifyContent: 'center',
                       gap: '8px',
                       border: 'none',
-                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                      backgroundColor: isSubmitting ? '#94a3b8' : '#8B1538',
+                      cursor: (isSubmitting || !turnstileToken) ? 'not-allowed' : 'pointer',
+                      backgroundColor: (isSubmitting || !turnstileToken) ? '#94a3b8' : '#8B1538',
                       fontSize: '16px'
                     }}
                     onMouseEnter={(e) => {

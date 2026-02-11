@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
-import { applyRateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { applyRateLimit, RATE_LIMITS, getClientIdentifier } from '@/lib/rate-limit';
+import { verifyTurnstileToken } from '@/lib/turnstile';
+import { analyzeContentQuality, validateNameQuality } from '@/lib/content-quality';
 
 interface ShowingFormData {
   name: string;
@@ -10,6 +12,7 @@ interface ShowingFormData {
   preferredDate: string;
   preferredTime: string;
   message: string;
+  turnstileToken?: string;
 }
 
 // Email configuration is handled by Microsoft Graph service
@@ -135,6 +138,37 @@ export async function POST(request: NextRequest) {
     }
 
     const data: ShowingFormData = await request.json();
+
+    // Verify Turnstile token
+    const turnstileResult = await verifyTurnstileToken(
+      data.turnstileToken,
+      getClientIdentifier(request)
+    );
+    if (!turnstileResult.success) {
+      return NextResponse.json(
+        { error: turnstileResult.error },
+        { status: 403 }
+      );
+    }
+
+    // Content quality checks
+    const nameQuality = validateNameQuality(data.name);
+    if (!nameQuality.isAcceptable) {
+      return NextResponse.json(
+        { error: 'Please provide a valid name.' },
+        { status: 400 }
+      );
+    }
+
+    if (data.message) {
+      const messageQuality = analyzeContentQuality(data.message);
+      if (!messageQuality.isAcceptable) {
+        return NextResponse.json(
+          { error: 'Your message could not be processed. Please revise and try again.' },
+          { status: 400 }
+        );
+      }
+    }
 
     // Basic validation
     if (!data.name || !data.email || !data.phone) {

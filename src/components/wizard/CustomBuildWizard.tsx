@@ -16,7 +16,7 @@ import ContactStep from './steps/ContactStep';
 import SummaryStep from './steps/SummaryStep';
 import SuccessDisplay from './SuccessDisplay';
 import SpamProtection from './SpamProtection';
-import VerificationChallenge from './VerificationChallenge';
+import TurnstileWidget from '@/components/ui/TurnstileWidget';
 
 const initialData: CustomBuildWizardData = {
   landStatus: '',
@@ -58,9 +58,10 @@ interface CustomBuildWizardProps {
 
 export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps) {
   const [showSuccess, setShowSuccess] = useState(false);
-  const [showVerification, setShowVerification] = useState(false);
   const [spamValidationError, setSpamValidationError] = useState<string>('');
   const [isClient, setIsClient] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const router = useRouter();
   const wizard = useWizardState(initialData, wizardSteps.length, 'custom-build-wizard');
 
@@ -167,15 +168,16 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
     try {
       const result = await validateAndSubmit(formData);
 
-      if (result.isValid) {
-        // Passed validation, now submit to API
+      if (result.isValid || (result.requiresAdditionalVerification && turnstileToken)) {
+        // Passed validation (Turnstile already verified server-side, so additional
+        // client-side verification is unnecessary)
         try {
           const response = await fetch('/api/custom-build-wizard', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(wizard.data),
+            body: JSON.stringify({ ...wizard.data, turnstileToken }),
           });
 
           if (!response.ok) {
@@ -185,14 +187,13 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
 
           // Success - show success screen
           setShowSuccess(true);
+          setTurnstileToken('');
+          setTurnstileResetKey(prev => prev + 1);
           onComplete?.(wizard.data);
         } catch (apiError) {
           console.error('API submission error:', apiError);
           setSpamValidationError(apiError instanceof Error ? apiError.message : 'Failed to submit your request. Please try again.');
         }
-      } else if (result.requiresAdditionalVerification) {
-        // Show verification challenge
-        setShowVerification(true);
       } else {
         // Show validation errors
         const errorMessage = result.errors.length > 0 ? result.errors[0] : 'Please complete all required fields correctly.';
@@ -202,43 +203,12 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
       console.error('Spam validation error:', error);
       setSpamValidationError('There was an error processing your request. Please try again.');
     }
-  }, [wizard.data, onComplete]);
+  }, [wizard.data, onComplete, turnstileToken]);
 
   const handleSuccessComplete = useCallback(() => {
     wizard.resetWizard();
     router.push('/portfolio');
   }, [wizard, router]);
-
-  const handleVerificationComplete = useCallback(async () => {
-    setShowVerification(false);
-
-    // Submit to API after verification
-    try {
-      const response = await fetch('/api/custom-build-wizard', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(wizard.data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(errorData.error || 'Failed to submit request');
-      }
-
-      setShowSuccess(true);
-      onComplete?.(wizard.data);
-    } catch (apiError) {
-      console.error('API submission error after verification:', apiError);
-      setSpamValidationError(apiError instanceof Error ? apiError.message : 'Failed to submit your request. Please try again.');
-    }
-  }, [wizard.data, onComplete]);
-
-  const handleVerificationCancel = useCallback(() => {
-    setShowVerification(false);
-    setSpamValidationError('Verification was cancelled. Please try again.');
-  }, []);
 
   const CurrentStepComponent = wizardSteps[wizard.currentStep].component;
 
@@ -276,6 +246,16 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
               errors={{...wizard.errors, spamValidation: spamValidationError}}
               wizardType="custom-build"
               onRequestConsultation={() => handleRequestConsultation(validateAndSubmit)}
+              turnstileWidget={
+                wizardSteps[wizard.currentStep].id === 'summary' ? (
+                  <TurnstileWidget
+                    onSuccess={(token) => setTurnstileToken(token)}
+                    onExpire={() => setTurnstileToken('')}
+                    resetKey={turnstileResetKey}
+                  />
+                ) : undefined
+              }
+              isTurnstileVerified={!!turnstileToken}
             />
             
             {/* Development Debug Info - Only render after hydration */}
@@ -299,13 +279,6 @@ export default function CustomBuildWizard({ onComplete }: CustomBuildWizardProps
               </div>
             )}
           </WizardContainer>
-
-          {showVerification && (
-            <VerificationChallenge
-              onVerified={handleVerificationComplete}
-              onCancel={handleVerificationCancel}
-            />
-          )}
         </>
       )}
     </SpamProtection>

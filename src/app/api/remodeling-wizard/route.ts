@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail, validateGraphConnection } from '@/lib/microsoft-graph';
-import { applyRateLimit, RATE_LIMITS } from '@/lib/rate-limit';
+import { applyRateLimit, RATE_LIMITS, getClientIdentifier } from '@/lib/rate-limit';
+import { verifyTurnstileToken } from '@/lib/turnstile';
+import { analyzeContentQuality, validateNameQuality } from '@/lib/content-quality';
 
 interface RemodelingWizardData {
   projectTypes: string[];
@@ -208,7 +210,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const data: RemodelingWizardData = await request.json();
+    const data: RemodelingWizardData & { turnstileToken?: string } = await request.json();
+
+    // Verify Turnstile token
+    const turnstileResult = await verifyTurnstileToken(
+      data.turnstileToken,
+      getClientIdentifier(request)
+    );
+    if (!turnstileResult.success) {
+      return NextResponse.json(
+        { error: turnstileResult.error },
+        { status: 403 }
+      );
+    }
+
+    // Content quality checks
+    const nameQuality = validateNameQuality(
+      `${data.contactInfo?.firstName || ''} ${data.contactInfo?.lastName || ''}`
+    );
+    if (!nameQuality.isAcceptable) {
+      return NextResponse.json(
+        { error: 'Please provide a valid name.' },
+        { status: 400 }
+      );
+    }
+
+    if (data.contactInfo?.message) {
+      const messageQuality = analyzeContentQuality(data.contactInfo.message);
+      if (!messageQuality.isAcceptable) {
+        return NextResponse.json(
+          { error: 'Your message could not be processed. Please revise and try again.' },
+          { status: 400 }
+        );
+      }
+    }
 
     // Basic validation
     if (!data.contactInfo?.firstName || !data.contactInfo?.lastName || !data.contactInfo?.email || !data.contactInfo?.phone) {

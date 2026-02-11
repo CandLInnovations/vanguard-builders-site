@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import TurnstileWidget from '@/components/ui/TurnstileWidget';
 
 function ScheduleShowingContent() {
   const searchParams = useSearchParams();
@@ -20,6 +21,8 @@ function ScheduleShowingContent() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -38,7 +41,7 @@ function ScheduleShowingContent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const result = await response.json();
@@ -498,14 +501,22 @@ function ScheduleShowingContent() {
                 ></textarea>
               </div>
 
-              <div style={{ marginTop: '40px' }}>
+              <div style={{ marginTop: '32px' }}>
+                <TurnstileWidget
+                  onSuccess={(token) => setTurnstileToken(token)}
+                  onExpire={() => setTurnstileToken('')}
+                  resetKey={turnstileResetKey}
+                />
+              </div>
+
+              <div style={{ marginTop: '24px' }}>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !turnstileToken}
                   style={{
                     width: '100%',
-                    background: isSubmitting 
-                      ? 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)' 
+                    background: (isSubmitting || !turnstileToken)
+                      ? 'linear-gradient(135deg, #94a3b8 0%, #64748b 100%)'
                       : 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
                     color: 'white',
                     padding: '20px 32px',
@@ -513,7 +524,7 @@ function ScheduleShowingContent() {
                     fontWeight: 'bold',
                     fontSize: '18px',
                     border: 'none',
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    cursor: (isSubmitting || !turnstileToken) ? 'not-allowed' : 'pointer',
                     transition: 'all 0.3s ease',
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
                     display: 'flex',

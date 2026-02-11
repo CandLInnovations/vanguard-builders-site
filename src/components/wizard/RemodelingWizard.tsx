@@ -14,7 +14,7 @@ import ContactStep from './steps/ContactStep';
 import SummaryStep from './steps/SummaryStep';
 import SuccessDisplay from './SuccessDisplay';
 import SpamProtection from './SpamProtection';
-import VerificationChallenge from './VerificationChallenge';
+import TurnstileWidget from '@/components/ui/TurnstileWidget';
 
 const initialData: RemodelingWizardData = {
   projectTypes: [],
@@ -47,9 +47,10 @@ interface RemodelingWizardProps {
 
 export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) {
   const [showSuccess, setShowSuccess] = useState(false);
-  const [showVerification, setShowVerification] = useState(false);
   const [spamValidationError, setSpamValidationError] = useState<string>('');
   const [isClient, setIsClient] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const router = useRouter();
   const wizard = useWizardState(initialData, wizardSteps.length, 'remodeling-wizard');
 
@@ -146,15 +147,16 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
     try {
       const result = await validateAndSubmit(formData);
 
-      if (result.isValid) {
-        // Passed validation, now submit to API
+      if (result.isValid || (result.requiresAdditionalVerification && turnstileToken)) {
+        // Passed validation (Turnstile already verified server-side, so additional
+        // client-side verification is unnecessary)
         try {
           const response = await fetch('/api/remodeling-wizard', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(wizard.data),
+            body: JSON.stringify({ ...wizard.data, turnstileToken }),
           });
 
           if (!response.ok) {
@@ -164,14 +166,13 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
 
           // Success - show success screen
           setShowSuccess(true);
+          setTurnstileToken('');
+          setTurnstileResetKey(prev => prev + 1);
           onComplete?.(wizard.data);
         } catch (apiError) {
           console.error('API submission error:', apiError);
           setSpamValidationError(apiError instanceof Error ? apiError.message : 'Failed to submit your request. Please try again.');
         }
-      } else if (result.requiresAdditionalVerification) {
-        // Show verification challenge
-        setShowVerification(true);
       } else {
         // Show validation errors
         const errorMessage = result.errors.length > 0 ? result.errors[0] : 'Please complete all required fields correctly.';
@@ -181,43 +182,12 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
       console.error('Spam validation error:', error);
       setSpamValidationError('There was an error processing your request. Please try again.');
     }
-  }, [wizard.data, onComplete]);
+  }, [wizard.data, onComplete, turnstileToken]);
 
   const handleSuccessComplete = useCallback(() => {
     wizard.resetWizard();
     router.push('/portfolio');
   }, [wizard, router]);
-
-  const handleVerificationComplete = useCallback(async () => {
-    setShowVerification(false);
-
-    // Submit to API after verification
-    try {
-      const response = await fetch('/api/remodeling-wizard', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(wizard.data),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
-        throw new Error(errorData.error || 'Failed to submit request');
-      }
-
-      setShowSuccess(true);
-      onComplete?.(wizard.data);
-    } catch (apiError) {
-      console.error('API submission error after verification:', apiError);
-      setSpamValidationError(apiError instanceof Error ? apiError.message : 'Failed to submit your request. Please try again.');
-    }
-  }, [wizard.data, onComplete]);
-
-  const handleVerificationCancel = useCallback(() => {
-    setShowVerification(false);
-    setSpamValidationError('Verification was cancelled. Please try again.');
-  }, []);
 
   const CurrentStepComponent = wizardSteps[wizard.currentStep].component;
 
@@ -255,17 +225,27 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
               errors={{...wizard.errors, spamValidation: spamValidationError}}
               wizardType="remodeling"
               onRequestConsultation={() => handleRequestConsultation(validateAndSubmit)}
+              turnstileWidget={
+                wizardSteps[wizard.currentStep].id === 'summary' ? (
+                  <TurnstileWidget
+                    onSuccess={(token) => setTurnstileToken(token)}
+                    onExpire={() => setTurnstileToken('')}
+                    resetKey={turnstileResetKey}
+                  />
+                ) : undefined
+              }
+              isTurnstileVerified={!!turnstileToken}
             />
-            
+
             {/* Development Debug Info - Only render after hydration */}
             {isClient && debugInfo && process.env.NODE_ENV === 'development' && (
-              <div style={{ 
-                position: 'fixed', 
-                top: 10, 
-                right: 10, 
-                background: 'rgba(0,0,0,0.8)', 
-                color: 'white', 
-                padding: '10px', 
+              <div style={{
+                position: 'fixed',
+                top: 10,
+                right: 10,
+                background: 'rgba(0,0,0,0.8)',
+                color: 'white',
+                padding: '10px',
                 fontSize: '12px',
                 borderRadius: '4px',
                 maxWidth: '300px',
@@ -278,13 +258,6 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
               </div>
             )}
           </WizardContainer>
-
-          {showVerification && (
-            <VerificationChallenge
-              onVerified={handleVerificationComplete}
-              onCancel={handleVerificationCancel}
-            />
-          )}
         </>
       )}
     </SpamProtection>

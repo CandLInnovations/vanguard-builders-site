@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ArrowRight, Phone, Mail, MapPin, Clock, MessageSquare, Home, Wrench } from 'lucide-react';
+import TurnstileWidget from '@/components/ui/TurnstileWidget';
 
 export default function ConsultationPage() {
   const [formData, setFormData] = useState({
@@ -18,6 +19,8 @@ export default function ConsultationPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -39,7 +42,7 @@ export default function ConsultationPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const result = await response.json();
@@ -56,6 +59,8 @@ export default function ConsultationPage() {
           budget: '',
           message: ''
         });
+        setTurnstileToken('');
+        setTurnstileResetKey(prev => prev + 1);
       } else {
         setSubmitError(result.error || 'An error occurred while submitting your request.');
       }
@@ -544,13 +549,21 @@ export default function ConsultationPage() {
                   </div>
                 )}
 
+                <div style={{ marginTop: '24px' }}>
+                  <TurnstileWidget
+                    onSuccess={(token) => setTurnstileToken(token)}
+                    onExpire={() => setTurnstileToken('')}
+                    resetKey={turnstileResetKey}
+                  />
+                </div>
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !turnstileToken}
                   style={{
                     width: '100%',
                     marginTop: '32px',
-                    background: isSubmitting 
+                    background: (isSubmitting || !turnstileToken)
                       ? 'linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%)'
                       : 'linear-gradient(135deg, #8B1538 0%, #a21650 100%)',
                     color: 'white',
@@ -559,14 +572,14 @@ export default function ConsultationPage() {
                     borderRadius: '12px',
                     fontSize: '18px',
                     border: 'none',
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    cursor: (isSubmitting || !turnstileToken) ? 'not-allowed' : 'pointer',
                     transition: 'all 0.3s ease',
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '8px',
-                    opacity: isSubmitting ? 0.7 : 1
+                    opacity: (isSubmitting || !turnstileToken) ? 0.7 : 1
                   }}
                   onMouseEnter={(e) => {
                     if (!isSubmitting) {
