@@ -1,0 +1,50 @@
+version: 2
+updates:
+  # Next.js + npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "CandLInnovations"
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    # Group minor/patch updates together to reduce PR noise
+    groups:
+      next-ecosystem:
+        patterns:
+          - "next*"
+          - "react*"
+          - "eslint*"
+      sanity-ecosystem:
+        patterns:
+          - "@sanity/*"
+          - "sanity"
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    # Ignore problematic updates
+    ignore:
+      # Only get major version updates for these
+      - dependency-name: "next"
+        update-types: ["version-update:semver-minor"]
+
+  # GitHub Actions (if you add workflows later)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
