@@ -27,7 +27,7 @@
     "nodemailer": "^7.0.6",
     "react": "19.1.2",
     "react-dom": "19.1.2",
-    "sanity": "^4.4.1"
+    "sanity": "^4.22.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
