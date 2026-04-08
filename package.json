@@ -24,7 +24,7 @@
     "lucide-react": "^0.537.0",
     "next": "^15.5.9",
     "next-sanity": "^10.0.10",
-    "nodemailer": "^7.0.6",
+    "nodemailer": "^8.0.5",
     "react": "19.1.2",
     "react-dom": "19.1.2",
     "sanity": "^4.4.1"
