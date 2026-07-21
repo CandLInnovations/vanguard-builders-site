@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from 'react';
 
 export interface BehaviorMetrics {
   mouseMovements: number;
@@ -11,7 +11,26 @@ export interface BehaviorMetrics {
   humanScore: number;
 }
 
+function subscribeStartTime() {
+  return () => {};
+}
+
+function getServerStartTime() {
+  return 0;
+}
+
 export function useBehaviorTracking() {
+  // Reads once on the client (cached in the ref) instead of setting state in
+  // a mount effect, avoiding an SSR/hydration mismatch without an extra render.
+  const startTimeRef = useRef<number | null>(null);
+  const getClientStartTime = useCallback(() => {
+    if (startTimeRef.current === null) {
+      startTimeRef.current = Date.now();
+    }
+    return startTimeRef.current;
+  }, []);
+  const startTime = useSyncExternalStore(subscribeStartTime, getClientStartTime, getServerStartTime);
+
   const [metrics, setMetrics] = useState<BehaviorMetrics>({
     mouseMovements: 0,
     scrollEvents: 0,
@@ -19,17 +38,9 @@ export function useBehaviorTracking() {
     keyboardEvents: 0,
     focusEvents: 0,
     timeSpent: 0,
-    startTime: 0, // Will be set in useEffect to avoid hydration issues
+    startTime: 0,
     humanScore: 0
   });
-  
-  // Initialize start time after hydration to avoid SSR mismatch
-  useEffect(() => {
-    setMetrics(prev => ({
-      ...prev,
-      startTime: Date.now()
-    }));
-  }, []);
 
   const metricsRef = useRef(metrics);
   const lastMousePosRef = useRef({ x: 0, y: 0 });
@@ -37,53 +48,53 @@ export function useBehaviorTracking() {
   const scoreIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    metricsRef.current = metrics;
-  }, [metrics]);
+    metricsRef.current = { ...metrics, startTime };
+  }, [metrics, startTime]);
 
   const updateMetrics = useCallback((updates: Partial<BehaviorMetrics>) => {
     setMetrics(prev => {
-      const newMetrics = { ...prev, ...updates };
-      newMetrics.timeSpent = Date.now() - newMetrics.startTime;
+      const newMetrics = { ...prev, ...updates, startTime };
+      newMetrics.timeSpent = Date.now() - startTime;
       return newMetrics;
     });
-  }, []);
+  }, [startTime]);
 
   const calculateHumanScore = useCallback(() => {
     const current = metricsRef.current;
     const timeInSeconds = current.timeSpent / 1000;
-    
+
     if (timeInSeconds < 5) return 0; // Not enough time to calculate
-    
+
     let score = 0;
-    
+
     // Mouse movement patterns (30 points max)
     const mouseMovementRate = current.mouseMovements / timeInSeconds;
     if (mouseMovementRate > 0.5 && mouseMovementRate < 50) {
       score += Math.min(30, mouseMovementRate * 2);
     }
-    
+
     // Scroll behavior (25 points max)
     const scrollRate = current.scrollEvents / timeInSeconds;
     if (scrollRate > 0.1 && scrollRate < 10) {
       score += Math.min(25, scrollRate * 5);
     }
-    
+
     // Click patterns (20 points max)
     const clickRate = current.clickEvents / timeInSeconds;
     if (clickRate > 0.01 && clickRate < 5) {
       score += Math.min(20, clickRate * 10);
     }
-    
-    // Keyboard events (15 points max) 
+
+    // Keyboard events (15 points max)
     if (current.keyboardEvents > 0) {
       score += Math.min(15, current.keyboardEvents * 2);
     }
-    
+
     // Focus events (10 points max)
     if (current.focusEvents > 0) {
       score += Math.min(10, current.focusEvents * 3);
     }
-    
+
     return Math.min(100, Math.max(0, score));
   }, []);
 
@@ -93,11 +104,11 @@ export function useBehaviorTracking() {
         Math.pow(e.clientX - lastMousePosRef.current.x, 2) +
         Math.pow(e.clientY - lastMousePosRef.current.y, 2)
       );
-      
+
       if (distance > 5) { // Only count significant movements
         lastMousePosRef.current = { x: e.clientX, y: e.clientY };
-        updateMetrics({ 
-          mouseMovements: metricsRef.current.mouseMovements + 1 
+        updateMetrics({
+          mouseMovements: metricsRef.current.mouseMovements + 1
         });
       }
     };
@@ -106,30 +117,30 @@ export function useBehaviorTracking() {
       const scrollDistance = Math.abs(window.scrollY - lastScrollPosRef.current);
       if (scrollDistance > 10) { // Only count significant scrolls
         lastScrollPosRef.current = window.scrollY;
-        updateMetrics({ 
-          scrollEvents: metricsRef.current.scrollEvents + 1 
+        updateMetrics({
+          scrollEvents: metricsRef.current.scrollEvents + 1
         });
       }
     };
 
     const handleClick = () => {
-      updateMetrics({ 
-        clickEvents: metricsRef.current.clickEvents + 1 
+      updateMetrics({
+        clickEvents: metricsRef.current.clickEvents + 1
       });
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Only count actual key presses, not programmatic events
       if (e.isTrusted) {
-        updateMetrics({ 
-          keyboardEvents: metricsRef.current.keyboardEvents + 1 
+        updateMetrics({
+          keyboardEvents: metricsRef.current.keyboardEvents + 1
         });
       }
     };
 
     const handleFocus = () => {
-      updateMetrics({ 
-        focusEvents: metricsRef.current.focusEvents + 1 
+      updateMetrics({
+        focusEvents: metricsRef.current.focusEvents + 1
       });
     };
 
@@ -159,7 +170,7 @@ export function useBehaviorTracking() {
   }, [updateMetrics, calculateHumanScore]);
 
   return {
-    metrics,
+    metrics: { ...metrics, startTime },
     isHuman: metrics.humanScore > 30,
     isHighlyTrusted: metrics.humanScore > 70
   };

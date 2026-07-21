@@ -1,8 +1,8 @@
-import imageUrlBuilder from '@sanity/image-url'
+import { createImageUrlBuilder } from '@sanity/image-url'
 import { client } from './sanity'
 import type { SanityImageAsset } from '@/types/sanity'
 
-const builder = imageUrlBuilder(client)
+const builder = createImageUrlBuilder(client)
 
 export function urlFor(source: SanityImageAsset | string) {
   // Handle nested asset structure from Sanity

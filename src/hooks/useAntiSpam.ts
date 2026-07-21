@@ -345,6 +345,8 @@ export function useAntiSpam(config: SpamProtectionConfig, wizardType: 'remodelin
     isReady: metrics.timeSpent > 5000, // 5 seconds minimum
     debugInfo: isDev ? {
       startTime,
+      // Dev-only debug telemetry; recomputing elapsed time on each render is intended.
+      // eslint-disable-next-line react-hooks/purity
       timeSpent: Date.now() - startTime,
       submissionCount,
       hasTestingBypass: hasTestingBypass(),

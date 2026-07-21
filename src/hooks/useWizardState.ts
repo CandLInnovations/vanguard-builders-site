@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useCallback, useState, useSyncExternalStore } from 'react';
 
 export interface WizardState<T> {
   currentStep: number;
@@ -7,67 +7,100 @@ export interface WizardState<T> {
   isValid: boolean;
 }
 
+interface WizardStore<T> {
+  subscribe: (listener: () => void) => () => void;
+  getSnapshot: () => WizardState<T>;
+  getServerSnapshot: () => WizardState<T>;
+  setState: (updater: (prev: WizardState<T>) => WizardState<T>) => void;
+}
+
+// Backs the wizard's state with an external store instead of useState, so the
+// localStorage-restored value can be read synchronously during the client's
+// first render (matching what useSyncExternalStore expects) without an SSR
+// mismatch or an extra setState-in-effect render pass.
+function createWizardStore<T>(initialData: T, storageKey: string): WizardStore<T> {
+  const serverState: WizardState<T> = {
+    currentStep: 0,
+    data: initialData,
+    errors: {},
+    isValid: false
+  };
+
+  let state: WizardState<T> = serverState;
+
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        state = {
+          currentStep: parsed.currentStep || 0,
+          data: { ...initialData, ...parsed.data },
+          errors: {},
+          isValid: false
+        };
+      } catch (e) {
+        console.warn('Failed to parse saved wizard data:', e);
+      }
+    }
+  }
+
+  const listeners = new Set<() => void>();
+
+  function persist() {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(storageKey, JSON.stringify({
+      currentStep: state.currentStep,
+      data: state.data
+    }));
+  }
+
+  return {
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    getSnapshot() {
+      return state;
+    },
+    getServerSnapshot() {
+      return serverState;
+    },
+    setState(updater) {
+      state = updater(state);
+      persist();
+      listeners.forEach((listener) => listener());
+    }
+  };
+}
+
 export function useWizardState<T>(
   initialData: T,
   totalSteps: number,
   storageKey: string
 ) {
-  // Always start with initial state for SSR compatibility
-  const [state, setState] = useState<WizardState<T>>({
-    currentStep: 0,
-    data: initialData,
-    errors: {},
-    isValid: false
-  });
+  const [store] = useState<WizardStore<T>>(() => createWizardStore(initialData, storageKey));
 
-  // Load saved data from localStorage after hydration
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(storageKey);
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          setState({
-            currentStep: parsed.currentStep || 0,
-            data: { ...initialData, ...parsed.data },
-            errors: {},
-            isValid: false
-          });
-        } catch (e) {
-          console.warn('Failed to parse saved wizard data:', e);
-        }
-      }
-    }
-  }, [initialData, storageKey]);
-
-  // Save to localStorage whenever data changes
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(storageKey, JSON.stringify({
-        currentStep: state.currentStep,
-        data: state.data
-      }));
-    }
-  }, [state.currentStep, state.data, storageKey]);
+  const state = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot);
 
   const updateData = useCallback((updates: Partial<T>) => {
-    setState(prev => ({
+    store.setState(prev => ({
       ...prev,
       data: { ...prev.data, ...updates },
       errors: {}
     }));
-  }, []);
+  }, [store]);
 
   const setErrors = useCallback((errors: Record<string, string>) => {
-    setState(prev => ({
+    store.setState(prev => ({
       ...prev,
       errors,
       isValid: Object.keys(errors).length === 0
     }));
-  }, []);
+  }, [store]);
 
   const nextStep = useCallback(() => {
-    setState(prev => ({
+    store.setState(prev => ({
       ...prev,
       currentStep: Math.min(prev.currentStep + 1, totalSteps - 1)
     }));
@@ -75,10 +108,10 @@ export function useWizardState<T>(
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, [totalSteps]);
+  }, [store, totalSteps]);
 
   const prevStep = useCallback(() => {
-    setState(prev => ({
+    store.setState(prev => ({
       ...prev,
       currentStep: Math.max(prev.currentStep - 1, 0),
       errors: {}
@@ -87,27 +120,27 @@ export function useWizardState<T>(
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }, []);
+  }, [store]);
 
   const goToStep = useCallback((step: number) => {
-    setState(prev => ({
+    store.setState(prev => ({
       ...prev,
       currentStep: Math.max(0, Math.min(step, totalSteps - 1)),
       errors: {}
     }));
-  }, [totalSteps]);
+  }, [store, totalSteps]);
 
   const resetWizard = useCallback(() => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(storageKey);
     }
-    setState({
+    store.setState(() => ({
       currentStep: 0,
       data: initialData,
       errors: {},
       isValid: false
-    });
-  }, [initialData, storageKey]);
+    }));
+  }, [store, initialData, storageKey]);
 
   const canGoNext = useCallback(() => {
     return state.currentStep < totalSteps - 1 && Object.keys(state.errors).length === 0;

@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { RemodelingWizardData } from '@/types/wizard';
 import { useWizardState } from '@/hooks/useWizardState';
+import { useIsClient } from '@/hooks/useIsClient';
 import { ContactFormData, ValidationResult } from '@/hooks/useAntiSpam';
 import WizardContainer from './WizardContainer';
 import ProjectTypeStep from './steps/remodeling/ProjectTypeStep';
@@ -48,15 +49,11 @@ interface RemodelingWizardProps {
 export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [spamValidationError, setSpamValidationError] = useState<string>('');
-  const [isClient, setIsClient] = useState(false);
+  const isClient = useIsClient();
   const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileResetKey, setTurnstileResetKey] = useState(0);
   const router = useRouter();
   const wizard = useWizardState(initialData, wizardSteps.length, 'remodeling-wizard');
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const validateCurrentStep = useCallback(() => {
     const errors: Record<string, string> = {};
