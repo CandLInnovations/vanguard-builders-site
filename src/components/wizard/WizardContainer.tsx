@@ -7,7 +7,6 @@ import StepIndicator from './StepIndicator';
 interface WizardStep {
   id: string;
   title: string;
-  component: React.ComponentType<any>;
 }
 
 interface WizardContainerProps {

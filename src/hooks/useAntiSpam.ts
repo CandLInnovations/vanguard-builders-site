@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useBehaviorTracking } from './useBehaviorTracking';
+import { useBehaviorTracking, BehaviorMetrics } from './useBehaviorTracking';
 
 export interface SpamProtectionConfig {
   minCompletionTime: number; // in seconds
@@ -16,7 +16,7 @@ export interface ValidationResult {
   errors: string[];
   requiresAdditionalVerification: boolean;
   trustScore: number;
-  debugInfo?: any;
+  debugInfo?: Record<string, unknown>;
 }
 
 export interface ContactFormData {
@@ -31,11 +31,19 @@ export interface ContactFormData {
   referral_source?: string;
 }
 
-interface SubmissionCount {
+export interface SubmissionCount {
   hourly: number;
   daily: number;
   lastHour: number;
   lastDay: number;
+}
+
+export interface AntiSpamDebugInfo {
+  startTime: number;
+  timeSpent: number;
+  submissionCount: SubmissionCount;
+  hasTestingBypass: boolean;
+  behaviorMetrics: BehaviorMetrics;
 }
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -51,7 +59,7 @@ const hasTestingBypass = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const hasUrlBypass = urlParams.get('testing') === 'true' || urlParams.get('noSpamCheck') === 'true';
   const hasStorageBypass = localStorage.getItem('spamProtectionDisabled') === 'true';
-  const hasGlobalBypass = (window as any).bypassSpamProtection === true;
+  const hasGlobalBypass = (window as unknown as { bypassSpamProtection?: boolean }).bypassSpamProtection === true;
   
   return isDev && (hasUrlBypass || hasStorageBypass || hasGlobalBypass || isLocalhost);
 };

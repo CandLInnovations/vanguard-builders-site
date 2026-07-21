@@ -10,6 +10,10 @@ export interface BaseWizardData {
     phone: string;
     preferredContact: 'email' | 'phone';
     message: string;
+    // Honeypot fields for spam protection (should remain empty)
+    website?: string;
+    company?: string;
+    referral_source?: string;
   };
 }
 
@@ -32,6 +36,22 @@ export interface CustomBuildWizardData extends BaseWizardData {
   architecturalStyle: string;
 }
 
+// Combined shape used by shared step components, which are rendered by both
+// wizards and read/write whichever fields apply to the active wizard type.
+export interface WizardData extends BaseWizardData {
+  projectTypes?: string[];
+  scopes?: Record<string, string>;
+  landStatus?: string;
+  homeSize?: {
+    squareFootage: string;
+    bedrooms: number;
+    bathrooms: number;
+    stories: string;
+  };
+  features?: string[];
+  architecturalStyle?: string;
+}
+
 // Step definitions
 export interface WizardStep {
   id: string;
@@ -41,8 +61,8 @@ export interface WizardStep {
 }
 
 export interface StepProps {
-  data: any;
-  updateData: (updates: any) => void;
+  data: WizardData;
+  updateData: (updates: Partial<WizardData>) => void;
   onNext: () => void;
   onBack: () => void;
   isValid: boolean;

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { StepProps } from '@/types/wizard';
+import { StepProps, OptionCard } from '@/types/wizard';
 import { 
   REMODELING_PROJECT_TYPES, 
   STYLE_PREFERENCES, 
@@ -33,7 +33,7 @@ export default function SummaryStep({
   isTurnstileVerified = false
 }: SummaryStepProps) {
 
-  const getOptionTitle = (options: any[], id: string) => {
+  const getOptionTitle = (options: OptionCard[], id: string) => {
     return options.find(option => option.id === id)?.title || id;
   };
 
@@ -111,7 +111,7 @@ export default function SummaryStep({
               {data.scopes && Object.keys(data.scopes).length > 0 && (
                 <div className="summary-subsection">
                   <h4 className="summary-subsection-title">Scope Selections</h4>
-                  {Object.entries(data.scopes).map(([projectType, scope]: [string, any]) => (
+                  {Object.entries(data.scopes).map(([projectType, scope]: [string, string]) => (
                     <div key={projectType} className="summary-detail">
                       <span className="summary-label">
                         {getOptionTitle(REMODELING_PROJECT_TYPES, projectType)}:

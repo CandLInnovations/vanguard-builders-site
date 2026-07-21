@@ -14,6 +14,9 @@ interface ContactData {
     phone: string;
     preferredContact: 'email' | 'phone';
     message: string;
+    website?: string;
+    company?: string;
+    referral_source?: string;
   };
 }
 
@@ -228,7 +231,7 @@ export default function ContactStep({
                 name="website"
                 tabIndex={-1}
                 autoComplete="off"
-                value={(currentData.contactInfo as any)?.website || ''}
+                value={currentData.contactInfo?.website || ''}
                 onChange={(e) => handleContactInfoUpdate('website', e.target.value)}
               />
             </div>
@@ -243,7 +246,7 @@ export default function ContactStep({
                 name="company"
                 tabIndex={-1}
                 autoComplete="off"
-                value={(currentData.contactInfo as any)?.company || ''}
+                value={currentData.contactInfo?.company || ''}
                 onChange={(e) => handleContactInfoUpdate('company', e.target.value)}
               />
             </div>
@@ -258,7 +261,7 @@ export default function ContactStep({
                 name="referral_source"
                 tabIndex={-1}
                 autoComplete="off"
-                value={(currentData.contactInfo as any)?.referral_source || ''}
+                value={currentData.contactInfo?.referral_source || ''}
                 onChange={(e) => handleContactInfoUpdate('referral_source', e.target.value)}
               />
             </div>

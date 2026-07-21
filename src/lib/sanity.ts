@@ -1,5 +1,6 @@
 import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder',
@@ -11,10 +12,10 @@ export const client = createClient({
 
 const builder = imageUrlBuilder(client)
 
-export const urlFor = (source: any) => builder.image(source)
+export const urlFor = (source: SanityImageSource) => builder.image(source)
 
 // Helper function to get optimized image URLs
-export const getImageUrl = (source: any, width?: number, height?: number) => {
+export const getImageUrl = (source: SanityImageSource, width?: number, height?: number) => {
   let imageUrl = urlFor(source)
   
   if (width) {

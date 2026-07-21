@@ -139,9 +139,9 @@ export default function RemodelingWizard({ onComplete }: RemodelingWizardProps) 
       phone: wizard.data.contactInfo?.phone || '',
       message: wizard.data.contactInfo?.message || '',
       // Include honeypot fields if they exist
-      website: (wizard.data.contactInfo as any)?.website,
-      company: (wizard.data.contactInfo as any)?.company,
-      referral_source: (wizard.data.contactInfo as any)?.referral_source
+      website: wizard.data.contactInfo?.website,
+      company: wizard.data.contactInfo?.company,
+      referral_source: wizard.data.contactInfo?.referral_source
     };
 
     try {

@@ -128,17 +128,7 @@ export function generateProductSchema(home: LuxuryHome, slug: string) {
   const url = `${COMPANY_INFO.url}/inventory/${slug}`;
 
   // Generate image URL if available
-  let imageUrl = COMPANY_INFO.logo; // Fallback to logo
-  if (home.mainImage?.asset) {
-    // Use a simple sanity image URL pattern
-    const imageId = typeof home.mainImage.asset === 'string'
-      ? home.mainImage.asset
-      : (home.mainImage.asset as any)._ref || '';
-    if (imageId) {
-      const cleanId = imageId.replace('image-', '').replace(/-(\w+)$/, '.$1');
-      imageUrl = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${cleanId}`;
-    }
-  }
+  const imageUrl = home.mainImage?.asset?.url || COMPANY_INFO.logo;
 
   return {
     '@context': 'https://schema.org',
@@ -206,16 +196,7 @@ export function generateResidenceSchema(home: LuxuryHome, slug: string) {
   const url = `${COMPANY_INFO.url}/inventory/${slug}`;
 
   // Generate image URL if available
-  let imageUrl = COMPANY_INFO.logo; // Fallback to logo
-  if (home.mainImage?.asset) {
-    const imageId = typeof home.mainImage.asset === 'string'
-      ? home.mainImage.asset
-      : (home.mainImage.asset as any)._ref || '';
-    if (imageId) {
-      const cleanId = imageId.replace('image-', '').replace(/-(\w+)$/, '.$1');
-      imageUrl = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${cleanId}`;
-    }
-  }
+  const imageUrl = home.mainImage?.asset?.url || COMPANY_INFO.logo;
 
   return {
     '@context': 'https://schema.org',

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { useAntiSpam, SpamProtectionConfig, ContactFormData, ValidationResult } from '@/hooks/useAntiSpam';
+import { useAntiSpam, SpamProtectionConfig, ContactFormData, ValidationResult, AntiSpamDebugInfo } from '@/hooks/useAntiSpam';
 
 interface SpamProtectionProps {
   children: (props: {
@@ -9,7 +9,7 @@ interface SpamProtectionProps {
     isProtectionReady: boolean;
     trustScore: number;
     showHoneypot: boolean;
-    debugInfo?: any;
+    debugInfo?: AntiSpamDebugInfo;
   }) => React.ReactNode;
   wizardType: 'remodeling' | 'custom-build';
   config?: Partial<SpamProtectionConfig>;
